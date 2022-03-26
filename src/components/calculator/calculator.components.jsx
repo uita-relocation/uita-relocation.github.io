@@ -4,8 +4,7 @@ import "./calculator.styles.scss"
 
 function Calculator() {
     return (
-        <div className="calculator">
-        </div>
+        <div className="calculator"></div>
     );
 }
 
