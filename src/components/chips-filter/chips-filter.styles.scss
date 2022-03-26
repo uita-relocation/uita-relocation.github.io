@@ -1,0 +1,20 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+
+  .subtitle {
+    font-family: Open Sans, sans-serif;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 40px;
+    letter-spacing: 0.25px;
+    margin-bottom: 24px;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start
+}
