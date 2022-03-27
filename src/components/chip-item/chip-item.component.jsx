@@ -4,11 +4,15 @@ import {makeStyles} from "@material-ui/core/styles"
 
 import "./chip-item.styles.scss"
 
-const useStyles = makeStyles(({
+const useStyles = makeStyles((theme)=>({
     label: {
         fontSize: "16px",
         fontFamily: "Open Sans",
-        fontWeight: 500
+        fontWeight: 500,
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: "14px"
+        },
     }
 }))
 
