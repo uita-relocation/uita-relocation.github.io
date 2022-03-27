@@ -4,10 +4,13 @@ import ChipItem from "../chip-item/chip-item.component";
 
 import "./chips-filter.styles.scss"
 
-function ChipsFilter() {
+function ChipsFilter({ chipHandleClick }) {
     const [selectedIdx, setSelectedIdx] = useState(null)
 
-    const handleClick = index => setSelectedIdx(index)
+    const handleClick = ( index ) => {
+      setSelectedIdx(index);
+      chipHandleClick(index);
+    };
 
     return (
         <div className="filter">
