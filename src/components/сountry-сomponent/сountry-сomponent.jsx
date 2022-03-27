@@ -10,7 +10,7 @@ import json from "../../mocks/data.json";
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     country_name: {
         fontSize: '48px',
         fontFamily: 'Open Sans',
@@ -19,16 +19,20 @@ const useStyles = makeStyles({
     accordion_container: {
         width: '100%',
         marginBottom: '20px',
+
+        [theme.breakpoints.down(768)]: {
+            marginTop: "-15px"
+        },
     },
-    aсcordion_name: {
+    accordion_name: {
         margin: '0 !important',
     },
-    aсcordion_summary: {
+    accordion_summary: {
         fontSize: '20px !important',
         fontFamily: 'Open Sans !important',
         fontWeight: '500 !important',
     },
-});
+}));
 
 export const CountryComponent = ({selectedCountryId}) => {
     const [country, setCountry] = useState(null);
@@ -53,12 +57,12 @@ export const CountryComponent = ({selectedCountryId}) => {
                  }
 
                  return (
-                     <Accordion key={key} className={classes.aсcordion_name}>
+                     <Accordion key={key} className={classes.accordion_name}>
                          <AccordionSummary
                              expandIcon={<ExpandMoreIcon />}
                              aria-controls={`${key}-content`}
                              id={`${value}-header`}
-                             className={classes.aсcordion_summary}
+                             className={classes.accordion_summary}
                          >
                              <Typography>{QUESTIONS[key]}</Typography>
                          </AccordionSummary>

@@ -18,6 +18,7 @@
 
       .logo {
         cursor: pointer;
+        width: min(30vw, 200px)
       }
     }
 
@@ -36,9 +37,17 @@
         color: #fff;
         margin: 0;
 
+        @media (max-width: 768px) {
+          font-size: 0.9em;
+        }
+
         &:first-child {
           padding-right: 25px;
           position: relative;
+
+          @media (max-width: 768px) {
+            padding-right: 15px;
+          }
 
           &::after{
             content: "";
