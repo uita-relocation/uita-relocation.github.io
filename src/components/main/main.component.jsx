@@ -1,24 +1,32 @@
-import React, {useState} from "react";
-import {Container} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Container, Typography} from "@mui/material";
 import ChipsFilter from "../chips-filter/chips-filter.component";
 import Calculator from "../calculator/calculator.components";
 import CountryComponent from "../сountry-сomponent";
+import data from "../../mocks/data.json";
 
 import "./main.styles.scss"
 
 function Main() {
     const [selectedCountryId, setSelectedCountryId] = useState(null);
+    const [country, setCountry] = useState(null);
+
+    const getSelectedCountry = (countries) => countries.find(c => c.country_id === selectedCountryId);
+
+    useEffect(() => {
+        setCountry(getSelectedCountry(data));
+    },[selectedCountryId]);
 
     return (
         <Container className='container'>
-            <h1 className="title">
-                Рекомендації щодо тимчасового переміщення IT фахівців
-            </h1>
+            <Typography variant="h1" className="title"> Рекомендації щодо тимчасового переміщення IT фахівців</Typography>
+
             <div className="content">
                 <ChipsFilter selectedCountryId={selectedCountryId} setSelectedCountryId={setSelectedCountryId} />
-                <Calculator/>
-                {selectedCountryId !== null && (
-                    <CountryComponent selectedCountryId={selectedCountryId} />
+
+                <Calculator country={country}/>
+                {country && (
+                    <CountryComponent country={country} />
                 )}
             </div>
         </Container>
