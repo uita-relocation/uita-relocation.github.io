@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme)=>({
     }
 }))
 
-function ChipItem({label, onClick, clicked}) {
+function ChipItem({label, onClick, icon, clicked}) {
     const classes = useStyles();
 
     return (
@@ -25,6 +25,7 @@ function ChipItem({label, onClick, clicked}) {
                   className={clicked ? "clickable" : "root"}
                   classes={{label: classes.label}}
                   onClick={onClick}
+                  icon={icon}
             />
         </div>
     );

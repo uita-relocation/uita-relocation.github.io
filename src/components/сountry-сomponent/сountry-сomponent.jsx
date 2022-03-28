@@ -4,6 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
 import {QUESTIONS} from "../../constants/questions.constants";
 import json from "../../mocks/data.json";
@@ -15,6 +16,22 @@ const useStyles = makeStyles(theme => ({
         fontSize: '48px',
         fontFamily: 'Open Sans',
         fontWeight: 500,
+
+        [theme.breakpoints.down(1280)]: {
+            margin: "15px 0",
+            fontSize: '40px',
+        },
+
+        [theme.breakpoints.down(768)]: {
+            margin: "10px 0"
+        },
+    },
+    country_flag: {
+        marginRight: '16px',
+
+        [theme.breakpoints.down(768)]: {
+            marginRight: "8px"
+        },
     },
     accordion_container: {
         width: '100%',
@@ -31,6 +48,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: '20px !important',
         fontFamily: 'Open Sans !important',
         fontWeight: '500 !important',
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '16px !important',
+        },
     },
 }));
 
@@ -46,32 +67,30 @@ export const CountryComponent = ({selectedCountryId}) => {
     },[selectedCountryId]);
 
     if(!selectedCountryId || !country) return <></>;
+    const currentCountryFlag = country?.country_abbreviation ? getUnicodeFlagIcon(country.country_abbreviation) : '';
+
+    const filteredFields = Object.entries(country).filter(entry => {
+        return (entry[0] !== "country_id") && (entry[0] !== "country_abbreviation") && (entry[0] !== "country_name")
+    });
 
     return (
          <div className={classes.accordion_container}>
-             {Object.entries(country).filter(entry => entry[0] !== "country_id").map(([key, value]) => {
-                 if(key === "country_name") {
-                     return (
-                         <h2 className={classes.country_name} key={key}>{value}</h2>
-                     )
-                 }
+             <h2 className={classes.country_name}><span className={classes.country_flag}>{currentCountryFlag}</span>{country.country_name}</h2>
 
-                 return (
-                     <Accordion key={key} className={classes.accordion_name}>
-                         <AccordionSummary
-                             expandIcon={<ExpandMoreIcon />}
-                             aria-controls={`${key}-content`}
-                             id={`${value}-header`}
-                             className={classes.accordion_summary}
-                         >
-                             <Typography>{QUESTIONS[key]}</Typography>
-                         </AccordionSummary>
-                         <AccordionDetails>
-                             <Typography>{value}</Typography>
-                         </AccordionDetails>
-                     </Accordion>
-                 )
-             })}
+             {filteredFields.map(([key, value]) => (
+                 <Accordion key={key} className={classes.accordion_name}>
+                     <AccordionSummary
+                         expandIcon={<ExpandMoreIcon />}
+                         aria-controls={`${key}-content`}
+                         id={`${value}-header`}
+                     >
+                         <Typography className={classes.accordion_summary}>{QUESTIONS[key]}</Typography>
+                     </AccordionSummary>
+                     <AccordionDetails>
+                         <Typography>{value}</Typography>
+                     </AccordionDetails>
+                 </Accordion>
+             ))}
          </div>
     )
 }
