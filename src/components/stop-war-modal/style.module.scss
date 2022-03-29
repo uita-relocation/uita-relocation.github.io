@@ -1,0 +1,28 @@
+.stopWarLogo {
+    position: fixed;
+    top: 100px;
+    right: -12px;
+    z-index: 1000;
+    width: 100px;
+    height: 80px;
+    cursor: pointer;
+}
+.closeButton {
+    position: relative;
+    top: -20px;
+    left: 98%;
+}
+.text {
+    font-size: 14px;
+    font-family: Garamond, Sans-serif;
+    font-weight: 400;
+    line-height: 1.58;
+    color : #768190;
+}
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+.doneIcon {
+    fill: green;
+}
