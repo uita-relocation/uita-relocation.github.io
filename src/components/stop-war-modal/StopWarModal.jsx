@@ -2,9 +2,41 @@ import * as React from 'react';
 import { Box, Modal, IconButton } from '@mui/material';
 import DoneIcon from '@mui/icons-material/Done';
 import Close from '@mui/icons-material/Close';
+import { makeStyles } from '@material-ui/core/styles';
 
 import StopWarLogo from '../../assets/stop_war-logo.svg';
-import s from './style.module.scss';
+
+const useStyles = makeStyles((theme) => ({
+  stopWarLogo: {
+    position: 'fixed',
+    top: '100px',
+    right: '-12px',
+    zIndex: 1000,
+    width: '100px',
+    height: '80px',
+    cursor: 'pointer',
+  },
+  closeButton: {
+    position: 'relative',
+    top: '-20px',
+    left: '98%',
+  },
+  text: {
+    fontSize: '14px',
+    fontFamily: 'Garamond, Sans-serif',
+    fontWeight: 400,
+    lineHeight: 1.58,
+    color: '#768190',
+    listStyle: 'none',
+  },
+  ul: {
+    listStyle: 'none',
+    paddingLeft: 0,
+  },
+  doneIcon: {
+    fill: 'green',
+  },
+}));
 
 const style = {
   position: 'absolute',
@@ -18,30 +50,31 @@ const style = {
   p: 4,
 };
 
-export default function StopWarModal() {
+export const StopWarModal = () => {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const classes = useStyles();
+
+  const modalToggler = () => setOpen(!open);
 
   return (
     <div>
       <img
         src={StopWarLogo}
-        onClick={handleOpen}
+        onClick={modalToggler}
         alt='StopWarLogo'
-        className={s.stopWarLogo}
+        className={classes.stopWarLogo}
       />
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={modalToggler}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style} className={s.text}>
+        <Box sx={style} className={classes.text}>
           <IconButton
             aria-label='close'
-            onClick={handleClose}
-            className={s.closeButton}
+            onClick={modalToggler}
+            className={classes.closeButton}
           >
             <Close />
           </IconButton>
@@ -51,13 +84,13 @@ export default function StopWarModal() {
             are under fire, civilians are suffering.
           </p>
           <p>Please, Stand with Ukraine!</p>
-          <ul>
-            <DoneIcon className={s.doneIcon} />
+          <ul className={classes.ul}>
+            <DoneIcon className={classes.doneIcon} />
             HOW CAN YOU HELP? The most important thing you can do for Ukraine
             now is to READ and SHARE verified information about Russia’s attack
             on Ukraine.
             <li>
-              <ul>
+              <ul className={classes.ul}>
                 🔹 President of Ukraine
                 <li>
                   Web:&nbsp;
@@ -92,7 +125,7 @@ export default function StopWarModal() {
               </ul>
             </li>
             <li>
-              <ul>
+              <ul className={classes.ul}>
                 🔹 Ukraine’s official social media accounts
                 <li>
                   Facebook:&nbsp;
@@ -116,14 +149,14 @@ export default function StopWarModal() {
                 </li>
               </ul>
             </li>
-            <ul>
+            <ul className={classes.ul}>
               <li>
                 🔹 Embassy of Ukraine in your country (Web, Facebook & Twitter)
               </li>
             </ul>
           </ul>
           <p>
-            <DoneIcon className={s.doneIcon} />
+            <DoneIcon className={classes.doneIcon} />
             Help to defend Ukraine -&nbsp;
             <a
               href='https://savelife.in.ua/en/donate/'
@@ -134,14 +167,14 @@ export default function StopWarModal() {
             </a>
           </p>
           <p>
-            <DoneIcon className={s.doneIcon} />
+            <DoneIcon className={classes.doneIcon} />
             Help to defend Ukraine -&nbsp;
             <a href='http://surl.li/blnsy' target='_blank' rel='noreferrer'>
               donate to the fund of the National Bank of Ukraine
             </a>
           </p>
           <p>
-            <DoneIcon className={s.doneIcon} />
+            <DoneIcon className={classes.doneIcon} />
             Help Ukraine by placing this widget on your website &nbsp;
             <a
               href='https://github.com/ukraine-not-war/stop-war'
@@ -156,4 +189,4 @@ export default function StopWarModal() {
       </Modal>
     </div>
   );
-}
+};
