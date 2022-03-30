@@ -63,7 +63,7 @@ export const CountryComponent = ({country}) => {
     const currentCountryFlag = country?.country_abbreviation ? getUnicodeFlagIcon(country.country_abbreviation) : '';
 
     const filteredFields = Object.entries(country).filter(entry => {
-        return (entry[0] !== "country_id") && (entry[0] !== "country_abbreviation") && (entry[0] !== "country_name")
+        return (entry[0] !== "country_id") && (entry[0] !== "country_abbreviation") && (entry[0] !== "country_name") && (entry[0] !== "tax")
     });
 
     return (

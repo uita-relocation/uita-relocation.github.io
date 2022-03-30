@@ -1,9 +1,9 @@
-import React, {useCallback} from "react";
+import React, {useEffect, useState, useRef} from "react";
+import NumberFormat from 'react-number-format'
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
-import {InputBase, TextField, MenuItem, InputLabel, InputAdornment, FormControl, Box, Divider} from "@mui/material";
+import {TextField, MenuItem, InputLabel, FormControl, Box, Divider, Typography} from "@mui/material";
 import {LABELS} from "../../constants/textSheet";
-import Typography from "@mui/material/Typography";
 
 const useStyles = makeStyles(theme => ({
     calculator: {
@@ -17,6 +17,39 @@ const useStyles = makeStyles(theme => ({
             marginTop: '30px',
         },
     },
+    amount_input_wrapper: {
+        outline: 'none',
+        padding: '6px 16px',
+        border: '1px solid #DADDE0',
+        borderRadius: '4px',
+        display: 'flex',
+        alignItems: 'center',
+        transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+    },
+    amount_input: {
+        outline: 'none',
+        width: '100%',
+        fontSize: '26px',
+        marginTop: 0,
+        border: 0,
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '16px',
+        },
+    },
+    amount_label: {
+        top: 'auto',
+        bottom: '100%',
+        fontSize: '14px',
+    },
+    currency_sign: {
+        margin: '0 5px',
+        fontSize: '26px',
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '16px',
+        },
+    },
     income_field: {
         width: '100%',
         display: 'flex',
@@ -25,18 +58,17 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
     },
     income_label: {
+        minWidth: '190px',
         position: 'relative',
         lineHeight: 'inherit',
     },
     income_value: {
+        overflow: 'scroll',
         fontSize: '26px',
 
         [theme.breakpoints.down(768)]: {
             fontSize: '16px',
         },
-    },
-    income_currency: {
-      margin: '0 5px'
     },
     helper_text: {
         fontSize: '12px',
@@ -50,39 +82,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const AmountInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-        marginTop: theme.spacing(3),
-        border: '1px solid black',
-        borderRadius: '4px',
-
-        '&:focus': {
-            borderWidth: '2px',
-        },
-    },
-    '& .MuiInputAdornment-root': {
-        margin: '0 5px',
-
-        '& > p': {
-            fontSize: '26px',
-
-            [theme.breakpoints.down(768)]: {
-                fontSize: '16px',
-            },
-        },
-    },
-    '& .MuiInputBase-input': {
-        position: 'relative',
-        width: '100%',
-        padding: '10px 0',
-        fontSize: '26px',
-
-        [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
-        },
-    },
-}));
-
 const CurrencyInput = styled(TextField)(({ theme }) => ({
     '& label': {
         bottom: '85%',
@@ -93,7 +92,7 @@ const CurrencyInput = styled(TextField)(({ theme }) => ({
         display: 'none'
     },
     '#select-currency': {
-        padding: '8px',
+        padding: '6px',
         fontSize: '26px',
 
         [theme.breakpoints.down(768)]: {
@@ -102,26 +101,54 @@ const CurrencyInput = styled(TextField)(({ theme }) => ({
     },
 }));
 
-const Calculator = () => {
+const Calculator = ({country}) => {
     const classes = useStyles();
-    const [amount, setAmount] = React.useState(0);
-    const [currency, setCurrency] = React.useState('EUR');
-    const [yearIncome, setYearIncome] = React.useState(0);
-    const [monthIncome, setMonthIncome] = React.useState(0);
+    const [amount, setAmount] = useState(0);
+    const [currency, setCurrency] = useState('EUR');
+    const [yearIncome, setYearIncome] = useState(0);
+    const [monthIncome, setMonthIncome] = useState(0);
+    const [taxPercentage, setTaxPercentage] = useState(0);
+    const amountInputRef = useRef();
+    const amountInputWrapper = useRef();
 
-    const handleChangeAmount = (event) => {
-        setAmount(event.target.value);
-        changeIncome(event.target.value)
+    const handleChangeAmount = (values) => {
+        const {floatValue} = values;
+        setAmount(floatValue);
     };
     const handleChangeCurrency = (event) => {
-        console.log(event.target)
         setCurrency(event.target.value);
     };
-    const changeIncome = useCallback((income) => {
-        console.log(income)
-        setYearIncome(income - 100);
-        setMonthIncome(income - 100);
-    }, [amount]);
+    const changeIncome = () => {
+        if(!amount) {
+            setYearIncome(0);
+            setMonthIncome(0);
+        } else {
+            const tax = (amount * taxPercentage) / 100
+            setYearIncome((amount - tax) * 12);
+            setMonthIncome(amount - tax);
+        }
+    };
+    const onAmountInputFocus = () => {
+        if(String(amount)[0] === '0') {
+            setAmount('');
+        }
+        amountInputRef.current.style.outline = 'none';
+        amountInputWrapper.current.style.outline = '1px solid #0197E3';
+        amountInputWrapper.current.style.borderColor = '#0197E3';
+    }
+    const onAmountInputBlur = () => {
+        amountInputWrapper.current.style.borderColor = '#DADDE0';
+        amountInputWrapper.current.style.outline = 'none';
+    }
+
+    useEffect(() => {
+        if(country?.tax) {
+            setTaxPercentage(country?.tax)
+        }
+    }, [country]);
+    useEffect(() => {
+        changeIncome();
+    }, [taxPercentage, amount]);
 
     const currencies = new Map([
         ['USD', '$'],
@@ -131,21 +158,23 @@ const Calculator = () => {
 
     return (
         <div className={classes.calculator}>
-            <Box sx={{ display: 'flex', alignContent: 'stretch', padding: '40px', flexWrap: 'wrap',}}>
+            <Box sx={{ display: 'flex', alignContent: 'stretch', padding: '40px', flexWrap: 'wrap'}}>
+                <FormControl variant="standard" sx={{justifyContent: 'flex-end', marginRight: '5%', width: '65%'}}>
+                    <InputLabel className={classes.amount_label}>{LABELS.AMOUNT}</InputLabel>
+                        <Typography component="div" className={classes.amount_input_wrapper} ref={amountInputWrapper}>
+                            <span className={classes.currency_sign}>{currencies.get(currency)}</span>
 
-                <FormControl variant="standard" sx={{marginRight: '5%', width: '65%' }}>
-                    <InputLabel shrink htmlFor="amount-input">{LABELS.AMOUNT}</InputLabel>
-                    <AmountInput
-                        defaultValue={amount}
-                        id="amount-input"
-                        onChange={handleChangeAmount}
-                        startAdornment={
-                            <InputAdornment position="start">{currencies.get(currency)}</InputAdornment>
-                        }
-                    />
-                    <p className={classes.helper_text}>
-                        {LABELS.WITHOUT_TAXES}
-                    </p>
+                            <NumberFormat
+                                className={classes.amount_input}
+                                thousandSeparator
+                                value={amount}
+                                allowNegative={false}
+                                getInputRef={amountInputRef}
+                                onBlur={onAmountInputBlur}
+                                onFocus={onAmountInputFocus}
+                                onValueChange={handleChangeAmount}
+                            />
+                        </Typography>
                 </FormControl>
 
                 <FormControl variant="standard" sx={{width: '30%',
@@ -173,8 +202,13 @@ const Calculator = () => {
                     </Typography>
 
                     <Typography component="span" className={classes.income_value}>
-                        <span className={classes.income_currency}>{currencies.get(currency)}</span>
-                        {yearIncome}
+                        <span className={classes.currency_sign}>{currencies.get(currency)}</span>
+
+                        <NumberFormat
+                            displayType={'text'}
+                            thousandSeparator
+                            value={yearIncome}
+                        />
                     </Typography>
                 </div>
 
@@ -186,13 +220,17 @@ const Calculator = () => {
                     </Typography>
 
                     <Typography component="span" className={classes.income_value}>
-                        <span className={classes.income_currency}>{currencies.get(currency)}</span>
-                        {monthIncome}
+                        <span className={classes.currency_sign}>{currencies.get(currency)}</span>
+
+                        <NumberFormat
+                            displayType={'text'}
+                            thousandSeparator
+                            value={monthIncome}
+                        />
                     </Typography>
                 </div>
 
                 <Divider className={classes.divider_line} />
-
             </Box>
         </div>
     );

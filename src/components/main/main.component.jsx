@@ -11,11 +11,11 @@ function Main() {
     const [selectedCountryId, setSelectedCountryId] = useState(null);
     const [country, setCountry] = useState(null);
 
-    const getSelectedCountry = (countries) => countries.find(c => c.country_id === selectedCountryId);
+    const getSelectedCountry = (countries) => countries.find(c => c.country_id === selectedCountryId) || null;
 
     useEffect(() => {
         setCountry(getSelectedCountry(data));
-    },[selectedCountryId]);
+    }, [selectedCountryId]);
 
     return (
         <Container className='container'>
