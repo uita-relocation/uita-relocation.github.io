@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -9,7 +9,6 @@ import Linkify from 'react-linkify';
 
 
 import {QUESTIONS} from "../../constants/questions.constants";
-import json from "../../mocks/data.json";
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,9 +17,10 @@ const useStyles = makeStyles(theme => ({
         fontSize: '48px',
         fontFamily: 'Open Sans',
         fontWeight: 500,
+        marginBottom: '24px',
 
         [theme.breakpoints.down(1280)]: {
-            margin: "15px 0",
+            marginBottom: '15px',
             fontSize: '40px',
         },
 
@@ -37,10 +37,10 @@ const useStyles = makeStyles(theme => ({
     },
     accordion_container: {
         width: '100%',
-        marginBottom: '20px',
+        margin: '24px 0',
 
         [theme.breakpoints.down(768)]: {
-            marginTop: "-15px"
+            margin: '15px 0',
         },
     },
     accordion_name: {
@@ -57,27 +57,19 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const CountryComponent = ({selectedCountryId}) => {
-    const [country, setCountry] = useState(null);
-
+export const CountryComponent = ({country}) => {
     const classes = useStyles();
 
-    const getSelectedCountry = (countries) => countries.find(c => c.country_id === selectedCountryId);
-
-    useEffect(() => {
-        setCountry(getSelectedCountry(json));
-    },[selectedCountryId]);
-
-    if(!selectedCountryId || !country) return <></>;
+    if(!country) return <></>;
     const currentCountryFlag = country?.country_abbreviation ? getUnicodeFlagIcon(country.country_abbreviation) : '';
 
     const filteredFields = Object.entries(country).filter(entry => {
-        return (entry[0] !== "country_id") && (entry[0] !== "country_abbreviation") && (entry[0] !== "country_name")
+        return (entry[0] !== "country_id") && (entry[0] !== "country_abbreviation") && (entry[0] !== "country_name") && (entry[0] !== "tax")
     });
 
     return (
          <div className={classes.accordion_container}>
-             <h2 className={classes.country_name}><span className={classes.country_flag}>{currentCountryFlag}</span>{country.country_name}</h2>
+             <Typography variant="h2" className={classes.country_name}><span className={classes.country_flag}>{currentCountryFlag}</span>{country.country_name}</Typography>
 
              {filteredFields.map(([key, value]) => (
                  <Accordion key={key} className={classes.accordion_name}>

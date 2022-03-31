@@ -1,12 +1,11 @@
 .container {
   max-width: 1500px;
   .title {
-    font-family: Open Sans, sans-serif;
     font-weight: 300;
     font-size: 60px;
     line-height: 72px;
     margin-top: 40px;
-    margin-bottom: 56px;
+    margin-bottom: 48px;
 
     @media (max-width: 1280px) {
       font-size: 40px;

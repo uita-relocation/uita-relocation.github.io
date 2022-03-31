@@ -1,15 +1,16 @@
 import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import Typography from "@mui/material/Typography";
 import data from "../../mocks/data.json"
 import ChipItem from "../chip-item/chip-item.component";
 
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
-import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
     filter: {
         display: 'flex',
         flexDirection: 'column',
-        width: '48%',
+        width: '40%',
 
         [theme.breakpoints.down(960)]: {
             width: '100%',
@@ -18,14 +19,14 @@ const useStyles = makeStyles(theme => ({
     subtitle: {
         fontFamily: 'Open Sans, sans-serif',
         fontWeight: 400,
-        fontSize: '34px',
+        fontSize: '24px',
         lineHeight: '40px',
         letterSpacing: '0.25px',
         marginBottom: '24px',
         marginTop: 0,
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '20px',
+            fontSize: '16px',
             lineHeight: '35px',
             marginTop: '10px',
             marginBottom: '20px',
@@ -59,9 +60,8 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
 
     return (
         <div className={classes.filter}>
-            <h3 className={classes.subtitle}>
-                Калькулятор податків для ФОП по країнах
-            </h3>
+            <Typography variant="h3" className={classes.subtitle}>Оберiть країну:</Typography>
+
             <div className={classes.chips}>
                 {data.map((chip) => {
                     const {country_id, country_name} = chip;
