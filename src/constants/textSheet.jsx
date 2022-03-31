@@ -1,7 +1,7 @@
 export const LABELS = {
-    AMOUNT: 'Ваш місячний дохід',
+    GROSS_MONTH_INCOME: 'Ваш місячний дохід',
     CURRENCY: 'Валюта',
     WITHOUT_TAXES: 'Без вирахування податків',
-    YEAR_INCOME: 'Чистий дохід на рік:',
-    MONTH_INCOME: 'Чистий дохід на місяць:',
+    NET_YEAR_INCOME: 'Чистий дохід на рік:',
+    NET_MONTH_INCOME: 'Чистий дохід на місяць:',
 }

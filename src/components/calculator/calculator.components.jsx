@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: '30px',
         },
     },
-    amount_input_wrapper: {
+    gross_month_income_input_wrapper: {
         outline: 'none',
         padding: '6px 16px',
         border: '1px solid #DADDE0',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
     },
-    amount_input: {
+    gross_month_income_input: {
         outline: 'none',
         width: '100%',
         fontSize: '26px',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
             fontSize: '16px',
         },
     },
-    amount_label: {
+    gross_month_income_label: {
         top: 'auto',
         bottom: '100%',
         fontSize: '14px',
@@ -50,19 +50,19 @@ const useStyles = makeStyles(theme => ({
             fontSize: '16px',
         },
     },
-    income_field: {
+    net_income_field: {
         width: '100%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    income_label: {
+    net_income_label: {
         minWidth: '190px',
         position: 'relative',
         lineHeight: 'inherit',
     },
-    income_value: {
+    net_income_value: {
         overflow: 'scroll',
         fontSize: '26px',
 
@@ -101,78 +101,83 @@ const CurrencyInput = styled(TextField)(({ theme }) => ({
     },
 }));
 
-const Calculator = ({country}) => {
-    const classes = useStyles();
-    const [amount, setAmount] = useState(0);
-    const [currency, setCurrency] = useState('EUR');
-    const [yearIncome, setYearIncome] = useState(0);
-    const [monthIncome, setMonthIncome] = useState(0);
-    const [taxPercentage, setTaxPercentage] = useState(0);
-    const amountInputRef = useRef();
-    const amountInputWrapper = useRef();
+// todo: move to constants
+const currencies = new Map([
+    ['USD', '$'],
+    ['EUR', '€'],
+]);
 
-    const handleChangeAmount = (values) => {
+const Calculator = ({country}) => {
+    const listOfCurrencies = Array.from(currencies.keys());
+
+    const classes = useStyles();
+    const [grossMonthIncome, setGrossMonthIncome] = useState(0);
+    const [currency, setCurrency] = useState(listOfCurrencies[0]);
+    const [netYearIncome, setNetYearIncome] = useState(0);
+    const [netMonthIncome, setNetMonthIncome] = useState(0);
+    const [taxPercentage, setTaxPercentage] = useState(0);
+    const grossInputRef = useRef();
+    const grossMonthIncomeInputWrapper = useRef();
+
+    const handleChangeGrossIncome = (values) => {
         const {floatValue} = values;
-        setAmount(floatValue);
+        setGrossMonthIncome(floatValue);
     };
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
     };
-    const changeIncome = () => {
-        if(!amount) {
-            setYearIncome(0);
-            setMonthIncome(0);
+    const changeNetIncome = () => {
+        if(!grossMonthIncome) {
+            setNetYearIncome(0);
+            setNetMonthIncome(0);
         } else {
-            const tax = (amount * taxPercentage) / 100
-            setYearIncome((amount - tax) * 12);
-            setMonthIncome(amount - tax);
+            const tax = grossMonthIncome * (taxPercentage / 100);
+            const netMonthIncome = grossMonthIncome - tax;
+            const netYearIncome = netMonthIncome * 12;
+
+            setNetYearIncome(netYearIncome?.toFixed(2).replace(/[.,]00$/, ''));
+            setNetMonthIncome(netMonthIncome?.toFixed(2).replace(/[.,]00$/, ''));
         }
     };
-    const onAmountInputFocus = () => {
-        if(String(amount)[0] === '0') {
-            setAmount('');
+    const onFocus = () => {
+        if(grossMonthIncome === 0) {
+            setGrossMonthIncome(''); // removed initial value 0 onFocus event
         }
-        amountInputRef.current.style.outline = 'none';
-        amountInputWrapper.current.style.outline = '1px solid #0197E3';
-        amountInputWrapper.current.style.borderColor = '#0197E3';
+        grossInputRef.current.style.outline = 'none';
+        grossMonthIncomeInputWrapper.current.style.outline = '1px solid #0197E3';
+        grossMonthIncomeInputWrapper.current.style.borderColor = '#0197E3';
     }
-    const onAmountInputBlur = () => {
-        amountInputWrapper.current.style.borderColor = '#DADDE0';
-        amountInputWrapper.current.style.outline = 'none';
+    const onBlur = () => {
+        grossMonthIncomeInputWrapper.current.style.borderColor = '#DADDE0';
+        grossMonthIncomeInputWrapper.current.style.outline = 'none';
     }
 
     useEffect(() => {
         if(country?.tax) {
-            setTaxPercentage(country?.tax)
+            setTaxPercentage(country.tax)
         }
     }, [country]);
     useEffect(() => {
-        changeIncome();
-    }, [taxPercentage, amount]);
-
-    const currencies = new Map([
-        ['USD', '$'],
-        ['EUR', '€'],
-    ]);
-    const listOfCurrencies = Array.from(currencies.keys());
+        changeNetIncome();
+    }, [taxPercentage, grossMonthIncome]);
 
     return (
         <div className={classes.calculator}>
             <Box sx={{ display: 'flex', alignContent: 'stretch', padding: '40px', flexWrap: 'wrap'}}>
                 <FormControl variant="standard" sx={{justifyContent: 'flex-end', marginRight: '5%', width: '65%'}}>
-                    <InputLabel className={classes.amount_label}>{LABELS.AMOUNT}</InputLabel>
-                        <Typography component="div" className={classes.amount_input_wrapper} ref={amountInputWrapper}>
+                    <InputLabel className={classes.gross_month_income_label}>{LABELS.GROSS_MONTH_INCOME}</InputLabel>
+                        <Typography component="div" className={classes.gross_month_income_input_wrapper} ref={grossMonthIncomeInputWrapper}>
                             <span className={classes.currency_sign}>{currencies.get(currency)}</span>
 
                             <NumberFormat
-                                className={classes.amount_input}
+                                className={classes.gross_month_income_input}
                                 thousandSeparator
-                                value={amount}
+                                value={grossMonthIncome}
                                 allowNegative={false}
-                                getInputRef={amountInputRef}
-                                onBlur={onAmountInputBlur}
-                                onFocus={onAmountInputFocus}
-                                onValueChange={handleChangeAmount}
+                                getInputRef={grossInputRef}
+                                onBlur={onBlur}
+                                onFocus={onFocus}
+                                onValueChange={handleChangeGrossIncome}
                             />
                         </Typography>
                 </FormControl>
@@ -196,36 +201,36 @@ const Calculator = ({country}) => {
 
                 <Divider className={classes.divider_line} />
 
-                <div className={classes.income_field}>
-                    <Typography component="span" className={classes.income_label}>
-                        {LABELS.YEAR_INCOME}
+                <div className={classes.net_income_field}>
+                    <Typography component="span" className={classes.net_income_label}>
+                        {LABELS.NET_YEAR_INCOME}
                     </Typography>
 
-                    <Typography component="span" className={classes.income_value}>
+                    <Typography component="span" className={classes.net_income_value}>
                         <span className={classes.currency_sign}>{currencies.get(currency)}</span>
 
                         <NumberFormat
                             displayType={'text'}
                             thousandSeparator
-                            value={yearIncome}
+                            value={netYearIncome}
                         />
                     </Typography>
                 </div>
 
                 <Divider className={classes.divider_line} />
 
-                <div className={classes.income_field}>
-                    <Typography component="span" className={classes.income_label}>
-                        {LABELS.MONTH_INCOME}
+                <div className={classes.net_income_field}>
+                    <Typography component="span" className={classes.net_income_label}>
+                        {LABELS.NET_MONTH_INCOME}
                     </Typography>
 
-                    <Typography component="span" className={classes.income_value}>
+                    <Typography component="span" className={classes.net_income_value}>
                         <span className={classes.currency_sign}>{currencies.get(currency)}</span>
 
                         <NumberFormat
                             displayType={'text'}
                             thousandSeparator
-                            value={monthIncome}
+                            value={netMonthIncome}
                         />
                     </Typography>
                 </div>

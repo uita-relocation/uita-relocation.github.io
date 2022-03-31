@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode'
 
 import {QUESTIONS} from "../../constants/questions.constants";
-import json from "../../mocks/data.json";
 
 import { makeStyles } from '@material-ui/core/styles';
 
