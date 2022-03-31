@@ -42,6 +42,9 @@ const useStyles = makeStyles(theme => ({
         bottom: '100%',
         fontSize: '14px',
     },
+    gross_description_label: {
+        fontSize: '14px',
+    },
     currency_sign: {
         margin: '0 5px',
         fontSize: '26px',
@@ -84,6 +87,7 @@ const useStyles = makeStyles(theme => ({
 
 const CurrencyInput = styled(TextField)(({ theme }) => ({
     '& label': {
+        fontSize: '14px',
         bottom: '85%',
         top: 'auto',
         left: '-10px',
@@ -198,6 +202,8 @@ const Calculator = ({country}) => {
                         ))}
                     </CurrencyInput>
                 </FormControl>
+
+                <Typography component='span' className={classes.gross_description_label}>{LABELS.GROSS_DESCRIPTION_LABEL}</Typography>
 
                 <Divider className={classes.divider_line} />
 
