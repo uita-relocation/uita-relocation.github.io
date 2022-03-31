@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@mui/material/Typography";
-import data from "../../mocks/data.json"
+import data from "../../mocks/csvjson.json"
 import ChipItem from "../chip-item/chip-item.component";
 
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
@@ -63,18 +63,21 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
             <Typography variant="h3" className={classes.subtitle}>Оберiть країну:</Typography>
 
             <div className={classes.chips}>
-                {data.map((chip) => {
+                {data.map(chip => {
                     const {country_id, country_name} = chip;
-                    const currentCountryFlag = chip?.country_abbreviation ? getUnicodeFlagIcon(chip.country_abbreviation) : '';
 
-                    return (
-                        <ChipItem key={country_id}
-                                  icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
-                                  label={country_name}
-                                  onClick={() => handleClick(chip)}
-                                  clicked={country_id === selectedCountryId}
-                        />
-                    )
+                    if(country_id) {
+                        const currentCountryFlag = chip?.country_abbreviation ? getUnicodeFlagIcon(chip.country_abbreviation) : '';
+
+                        return (
+                            <ChipItem key={country_id}
+                                      icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
+                                      label={country_name}
+                                      onClick={() => handleClick(chip)}
+                                      clicked={country_id === selectedCountryId}
+                            />
+                        )
+                    }
                 })}
             </div>
         </div>
