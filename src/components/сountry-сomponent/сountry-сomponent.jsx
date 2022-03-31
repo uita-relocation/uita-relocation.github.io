@@ -4,7 +4,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import getUnicodeFlagIcon from 'country-flag-icons/unicode'
+import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+import Linkify from 'react-linkify';
+
 
 import {QUESTIONS} from "../../constants/questions.constants";
 
@@ -79,7 +81,9 @@ export const CountryComponent = ({country}) => {
                          <Typography className={classes.accordion_summary}>{QUESTIONS[key]}</Typography>
                      </AccordionSummary>
                      <AccordionDetails>
-                         <Typography>{value}</Typography>
+                         <Typography>
+                             <Linkify>{value}</Linkify>
+                         </Typography>
                      </AccordionDetails>
                  </Accordion>
              ))}
