@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.47a086ef.css",
-    "main.js": "/static/js/main.85e9b969.js",
+    "main.css": "/static/css/main.12bcd755.css",
+    "main.js": "/static/js/main.7407b6ac.js",
     "static/media/logo.svg": "/static/media/logo.479cbec5fc18fc26ba842e1cc4acd1e2.svg",
     "static/media/stop_war-logo.svg": "/static/media/stop_war-logo.94c562a3fc8bcbb90c38ad758f2ca34c.svg",
     "index.html": "/index.html",
-    "main.47a086ef.css.map": "/static/css/main.47a086ef.css.map",
-    "main.85e9b969.js.map": "/static/js/main.85e9b969.js.map"
+    "main.12bcd755.css.map": "/static/css/main.12bcd755.css.map",
+    "main.7407b6ac.js.map": "/static/js/main.7407b6ac.js.map"
   },
   "entrypoints": [
-    "static/css/main.47a086ef.css",
-    "static/js/main.85e9b969.js"
+    "static/css/main.12bcd755.css",
+    "static/js/main.7407b6ac.js"
   ]
 }
