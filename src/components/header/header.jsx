@@ -161,12 +161,12 @@ export function Header() {
             <Box>
                 {headersData.map(({label, to, isAnchor}) =>
                     isAnchor
-                        ? <Typography>
+                        ? <Typography key={label}>
                             <MenuItem>
                                 <a href={to} target="_blank" rel="noreferrer">Блог</a>
                             </MenuItem>
                         </Typography>
-                        : <Link key={label} to={to}>
+                        : <Link to={to} key={label}>
                             <MenuItem>
                                 {label}
                             </MenuItem>

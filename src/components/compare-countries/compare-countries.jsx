@@ -1,8 +1,9 @@
 import React from "react";
+import {Box} from '@material-ui/core';
 
 function CompareCountries() {
     return (
-        <div/>
+        <Box height="100vh" display="flex" flexDirection="column"/>
     );
 }
 
