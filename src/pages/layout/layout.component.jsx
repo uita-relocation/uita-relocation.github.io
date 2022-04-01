@@ -1,17 +1,16 @@
-import React from "react";
-import Header from "../../components/header";
-import Main from "../../components/main/main.component";
-import Footer from "../../components/footer";
-import StopWarModal from "../../components/stop-war-modal";
+import React from 'react';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
+import StopWarModal from '../../components/stop-war-modal';
 
-import "./layout.styles.scss"
+import './layout.styles.scss'
 
-function Layout() {
+function Layout({children}) {
     return (
         <div className="layout">
             <Header/>
-            <Main/>
-            <Footer />
+            {children}
+            <Footer/>
             <StopWarModal/>
         </div>
     );
