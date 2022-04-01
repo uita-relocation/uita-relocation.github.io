@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/header/header.component";
+import Header from "../../components/header";
 import Main from "../../components/main/main.component";
 import Footer from "../../components/footer";
 import StopWarModal from "../../components/stop-war-modal";
