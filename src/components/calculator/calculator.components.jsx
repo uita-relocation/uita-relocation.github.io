@@ -1,9 +1,11 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState, useRef, memo} from "react";
 import NumberFormat from 'react-number-format'
+import Linkify from "react-linkify";
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
 import {TextField, MenuItem, InputLabel, FormControl, Box, Divider, Typography} from "@mui/material";
 import {LABELS} from "../../constants/textSheet";
+import {CURRENCIES} from "../../constants/currencies";
 
 const useStyles = makeStyles(theme => ({
     calculator: {
@@ -42,9 +44,6 @@ const useStyles = makeStyles(theme => ({
         bottom: '100%',
         fontSize: '14px',
     },
-    gross_description_label: {
-        fontSize: '14px',
-    },
     currency_sign: {
         margin: '0 5px',
         fontSize: '26px',
@@ -73,11 +72,18 @@ const useStyles = makeStyles(theme => ({
             fontSize: '16px',
         },
     },
+    tax_detailed_link: {
+        display: 'block',
+        color: theme.palette.primary.main,
+    },
+    tax_description: {
+        width: '100%',
+        fontSize: '14px'
+    },
     helper_text: {
         fontSize: '12px',
         color: '#727779',
-        marginTop: '4px',
-        marginBottom: 0,
+        margin: 0,
     },
     divider_line: {
         width: '100%',
@@ -105,14 +111,9 @@ const CurrencyInput = styled(TextField)(({ theme }) => ({
     },
 }));
 
-// todo: move to constants
-const currencies = new Map([
-    ['USD', '$'],
-    ['EUR', '€'],
-]);
-
 const Calculator = ({country}) => {
-    const listOfCurrencies = Array.from(currencies.keys());
+    const listOfCurrencies = Array.from(CURRENCIES.keys());
+    const initialIncome = 0;
 
     const classes = useStyles();
     const [grossMonthIncome, setGrossMonthIncome] = useState(0);
@@ -129,11 +130,12 @@ const Calculator = ({country}) => {
     };
     const handleChangeCurrency = (event) => {
         setCurrency(event.target.value);
+        setGrossMonthIncome(initialIncome);
     };
     const changeNetIncome = () => {
         if(!grossMonthIncome) {
-            setNetYearIncome(0);
-            setNetMonthIncome(0);
+            setNetYearIncome(initialIncome);
+            setNetMonthIncome(initialIncome);
         } else {
             const tax = grossMonthIncome * (taxPercentage / 100);
             const netMonthIncome = grossMonthIncome - tax;
@@ -152,18 +154,31 @@ const Calculator = ({country}) => {
         grossMonthIncomeInputWrapper.current.style.borderColor = '#0197E3';
     }
     const onBlur = () => {
+        if(!grossMonthIncome) {
+            setGrossMonthIncome(initialIncome);
+        }
         grossMonthIncomeInputWrapper.current.style.borderColor = '#DADDE0';
         grossMonthIncomeInputWrapper.current.style.outline = 'none';
     }
 
     useEffect(() => {
-        if(country?.tax) {
-            setTaxPercentage(country.tax)
+        if(country?.tax_percent) {
+            let taxPercent = country.tax_percent;
+            if(typeof country.tax_percent === 'string') {
+                taxPercent = Number(String(country.tax_percent).replace(/,/g, '.')); //e.g. Replace comma with dot if tax_percent=20,5
+            }
+            setTaxPercentage(taxPercent);
         }
     }, [country]);
     useEffect(() => {
         changeNetIncome();
     }, [taxPercentage, grossMonthIncome]);
+
+    const currencySign = CURRENCIES.get(currency);
+
+    if(!country){
+        return <></>
+    }
 
     return (
         <div className={classes.calculator}>
@@ -171,7 +186,7 @@ const Calculator = ({country}) => {
                 <FormControl variant="standard" sx={{justifyContent: 'flex-end', marginRight: '5%', width: '65%'}}>
                     <InputLabel className={classes.gross_month_income_label}>{LABELS.GROSS_MONTH_INCOME}</InputLabel>
                         <Typography component="div" className={classes.gross_month_income_input_wrapper} ref={grossMonthIncomeInputWrapper}>
-                            <span className={classes.currency_sign}>{currencies.get(currency)}</span>
+                            <span className={classes.currency_sign}>{currencySign}</span>
 
                             <NumberFormat
                                 className={classes.gross_month_income_input}
@@ -203,7 +218,9 @@ const Calculator = ({country}) => {
                     </CurrencyInput>
                 </FormControl>
 
-                <Typography component='span' className={classes.gross_description_label}>{LABELS.GROSS_DESCRIPTION_LABEL}</Typography>
+                <Typography className={classes.helper_text}>
+                    {LABELS.GROSS_DESCRIPTION_LABEL}
+                </Typography>
 
                 <Divider className={classes.divider_line} />
 
@@ -213,7 +230,7 @@ const Calculator = ({country}) => {
                     </Typography>
 
                     <Typography component="span" className={classes.net_income_value}>
-                        <span className={classes.currency_sign}>{currencies.get(currency)}</span>
+                        <span className={classes.currency_sign}>{currencySign}</span>
 
                         <NumberFormat
                             displayType={'text'}
@@ -231,7 +248,7 @@ const Calculator = ({country}) => {
                     </Typography>
 
                     <Typography component="span" className={classes.net_income_value}>
-                        <span className={classes.currency_sign}>{currencies.get(currency)}</span>
+                        <span className={classes.currency_sign}>{currencySign}</span>
 
                         <NumberFormat
                             displayType={'text'}
@@ -242,9 +259,33 @@ const Calculator = ({country}) => {
                 </div>
 
                 <Divider className={classes.divider_line} />
+
+                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_1}</Typography>
+                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_2 + taxPercentage + '%'}</Typography>
+                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_3}</Typography>
+
+                <Typography className={classes.tax_description}>
+                    <Linkify componentDecorator={
+                        (href, text, key) => {
+                            return (
+                                <a target="blank" href={href} key={key} className={classes.tax_detailed_link}>
+                                    {text}
+                                </a>
+                            )
+                        }
+                    }>
+                        {country.tax_detailed_link}
+                    </Linkify>
+                </Typography>
+
+                <Divider className={classes.divider_line} />
+
+                <Typography className={classes.helper_text}>
+                    {LABELS.TAX_DESCRIPTION_PART_4}
+                </Typography>
             </Box>
         </div>
     );
 }
 
-export default Calculator;
+export default memo(Calculator);
