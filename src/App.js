@@ -33,7 +33,7 @@ const App = () => {
             <div className="App">
                 <Layout>
                     <Routes>
-                        <Route path="/" element={<Main/>}/>
+                        <Route path="/" exact element={<Main/>}/>
                         <Route path="/compare-countries" element={<CompareCountries/>}/>
                     </Routes>
                 </Layout>
