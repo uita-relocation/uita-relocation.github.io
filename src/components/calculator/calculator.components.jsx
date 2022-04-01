@@ -78,11 +78,11 @@ const useStyles = makeStyles(theme => ({
     },
     tax_description: {
         width: '100%',
-        fontSize: '14px'
+        fontSize: '14px !important'
     },
     helper_text: {
-        fontSize: '12px',
-        color: '#727779',
+        fontSize: '12px !important',
+        color: '#727779 !important',
         margin: 0,
     },
     divider_line: {

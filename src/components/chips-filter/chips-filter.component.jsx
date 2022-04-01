@@ -1,10 +1,10 @@
-import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import Typography from "@mui/material/Typography";
-import data from "../../mocks/csvjson.json"
-import ChipItem from "../chip-item/chip-item.component";
+import React from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import data from '../../mocks/csvjson.json'
 
-import getUnicodeFlagIcon from "country-flag-icons/unicode";
+import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+import {ChipItem} from '../chip-item/chip-item';
 
 const useStyles = makeStyles(theme => ({
     filter: {
@@ -14,16 +14,20 @@ const useStyles = makeStyles(theme => ({
 
         [theme.breakpoints.down(960)]: {
             width: '100%',
+        },
+        [theme.breakpoints.down(768)]: {
+            marginTop: "25px",
         }
     },
     subtitle: {
         fontFamily: 'Open Sans, sans-serif',
         fontWeight: 400,
-        fontSize: '24px',
-        lineHeight: '40px',
+        fontSize: '24px !important',
+        lineHeight: '32px !important',
         letterSpacing: '0.25px',
-        marginBottom: '24px',
-        marginTop: 0,
+        marginBottom: '24px !important',
+        marginTop: '0 !important',
+        color: 'rgba(0, 0, 0, .2)',
 
         [theme.breakpoints.down(768)]: {
             fontSize: '16px',
@@ -46,7 +50,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: '16px',
 
         [theme.breakpoints.down(768)]: {
-            marginRight: "8px"
+            marginRight: '8px'
         },
     },
 }));
@@ -60,24 +64,26 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
 
     return (
         <div className={classes.filter}>
-            <Typography variant="h3" className={classes.subtitle}>Оберiть країну:</Typography>
+            <Typography variant="h3" classes={{root: classes.subtitle}}>
+                Оберiть країну:
+            </Typography>
 
             <div className={classes.chips}>
                 {data.map(chip => {
                     const {country_id, country_name} = chip;
 
-                    if(country_id) {
-                        const currentCountryFlag = chip?.country_abbreviation ? getUnicodeFlagIcon(chip.country_abbreviation) : '';
+                    if (!country_id) return null
 
-                        return (
-                            <ChipItem key={country_id}
-                                      icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
-                                      label={country_name}
-                                      onClick={() => handleClick(chip)}
-                                      clicked={country_id === selectedCountryId}
-                            />
-                        )
-                    }
+                    const currentCountryFlag = chip?.country_abbreviation ? getUnicodeFlagIcon(chip.country_abbreviation) : '';
+
+                    return (
+                        <ChipItem key={country_id}
+                                  icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
+                                  label={country_name}
+                                  onClick={() => handleClick(chip)}
+                                  clicked={country_id === selectedCountryId}
+                        />
+                    )
                 })}
             </div>
         </div>

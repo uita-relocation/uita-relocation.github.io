@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     width: '100px',
     height: '80px',
     cursor: 'pointer',
+
+    [theme.breakpoints.down(768)]: {
+      top: '70px'
+    }
   },
   closeButton: {
     position: 'relative',

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Linkify from 'react-linkify';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -6,22 +6,23 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     country_name: {
-        fontSize: '48px',
-        fontFamily: 'Open Sans',
-        fontWeight: 500,
-        marginBottom: '24px',
+        fontSize: '48px !important',
+        fontFamily: 'Open Sans !important',
+        fontWeight: '500 !important',
+        marginBottom: '24px !important',
 
         [theme.breakpoints.down(1280)]: {
-            marginBottom: '15px',
-            fontSize: '40px',
+            marginBottom: '15px !important',
+            fontSize: '40px !important',
         },
 
         [theme.breakpoints.down(768)]: {
-            margin: "10px 0"
+            margin: "10px 0 !important",
+            fontSize: '30px !important',
         },
     },
     country_flag: {
@@ -65,7 +66,7 @@ export const CountryComponent = ({country, countryHeadersMap}) => {
 
     return (
          <div className={classes.accordion_container}>
-             <Typography variant="h2" className={classes.country_name}>
+             <Typography variant="h2" classes={{root: classes.country_name}}>
                  <span className={classes.country_flag}>{currentCountryFlag}</span>
                  {country.country_name}
              </Typography>

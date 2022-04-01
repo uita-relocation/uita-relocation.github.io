@@ -93,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: "Lato, sans-serif",
         fontWeight: 700,
         fontStyle: "normal",
+        marginBottom: "20px",
+        [theme.breakpoints.down(768)]: {
+            marginBottom: "10px"
+        }
     },
     addressWrap: {
         display: "flex",
@@ -121,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         margin: 0,
         padding: "20px 0",
+        borderTop: "1px solid rgba(255,255,255,.2)"
     }
 }))
 
@@ -210,11 +215,10 @@ export function Footer() {
                             </address>
                         </Grid>
                     </Grid>
-
-                    <Box textAlign="center" pt={{xs: 5, sm: 10}} pb={{xs: 5, sm: 0}} className={classes.copyright}>
-                        Copyright © 2022. All rights reserved
-                    </Box>
                 </Container>
+            </Box>
+            <Box textAlign="center" pt={{xs: 5, sm: 10}} pb={{xs: 5, sm: 0}} className={classes.copyright}>
+                Copyright © 2022. All rights reserved
             </Box>
         </footer>
     );

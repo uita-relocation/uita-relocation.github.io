@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         background: '#fff',
+        boxShadow: "0px 1px 0px #E2E8EA"
     },
     headerContent: {
         width: '100%',
@@ -227,7 +228,7 @@ export function Header() {
 
     return (
         <header>
-            <AppBar className={classes.headerWrap}>
+            <AppBar className={classes.headerWrap} elevation={0}>
                 {mobileView ? displayMobile() : displayDesktop()}
             </AppBar>
         </header>
