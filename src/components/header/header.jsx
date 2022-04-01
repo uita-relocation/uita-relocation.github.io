@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
             height: '3px',
             background: '#0197E3',
         }
+    },
+    drawerLink: {
+        textDecoration: 'none'
     }
 }))
 
@@ -93,7 +96,7 @@ const headersData = [
 export function Header() {
     const classes = useStyles();
     const {pathname} = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
 
     const [{mobileView, drawerOpen}, setState] = useState({
@@ -163,10 +166,12 @@ export function Header() {
                     isAnchor
                         ? <Typography key={label}>
                             <MenuItem>
-                                <a href={to} target="_blank" rel="noreferrer">Блог</a>
+                                <a href={to} target="_blank" rel="noreferrer"
+                                    className={classes.drawerLink}
+                                >Блог</a>
                             </MenuItem>
                         </Typography>
-                        : <Link to={to} key={label}>
+                        : <Link to={to} key={label} className={classes.drawerLink}>
                             <MenuItem>
                                 {label}
                             </MenuItem>
