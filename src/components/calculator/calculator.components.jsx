@@ -66,29 +66,32 @@ const useStyles = makeStyles(theme => ({
     },
     net_income_value: {
         overflow: 'scroll',
-        fontSize: '26px',
+        fontSize: '26px !important',
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
+            fontSize: '16px !important',
         },
     },
     tax_detailed_link: {
         display: 'block',
         color: theme.palette.primary.main,
+        overflowWrap: 'break-word',
+        wordWrap: 'break-word',
+        hyphens: 'auto'
     },
     tax_description: {
         width: '100%',
-        fontSize: '14px'
+        fontSize: '14px !important'
     },
     helper_text: {
-        fontSize: '12px',
-        color: '#727779',
+        fontSize: '12px !important',
+        color: '#727779 !important',
         margin: 0,
     },
     divider_line: {
         width: '100%',
-        margin: '20px 0',
-    }
+        margin: '20px 0 !important',
+    },
 }));
 
 const CurrencyInput = styled(TextField)(({ theme }) => ({
