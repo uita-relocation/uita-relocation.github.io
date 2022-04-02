@@ -75,6 +75,9 @@ const useStyles = makeStyles(theme => ({
     tax_detailed_link: {
         display: 'block',
         color: theme.palette.primary.main,
+        overflowWrap: 'break-word',
+        wordWrap: 'break-word',
+        hyphens: 'auto'
     },
     tax_description: {
         width: '100%',
