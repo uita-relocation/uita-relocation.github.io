@@ -1,3 +1,3 @@
-import { StopWarModal } from './StopWarModal';
+import StopWarModal from './stop-war-modal';
 
 export default StopWarModal;

@@ -1,40 +1,21 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
-import data from '../../mocks/csvjson.json'
-
 import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-import {ChipItem} from '../chip-item/chip-item';
+
+import ChipItem from '../chip-item';
+import {LABELS} from "../../constants/textSheet";
+import data from '../../mocks/csvjson.json'
 
 const useStyles = makeStyles(theme => ({
     filter: {
         display: 'flex',
         flexDirection: 'column',
-        width: '40%',
+        width: '47%',
 
-        [theme.breakpoints.down(960)]: {
+        [theme.breakpoints.down(992)]: {
             width: '100%',
         },
-        [theme.breakpoints.down(768)]: {
-            marginTop: "25px",
-        }
-    },
-    subtitle: {
-        fontFamily: 'Open Sans, sans-serif',
-        fontWeight: 400,
-        fontSize: '24px !important',
-        lineHeight: '32px !important',
-        letterSpacing: '0.25px',
-        marginBottom: '24px !important',
-        marginTop: '0 !important',
-        color: 'rgba(0, 0, 0, .2)',
-
-        [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
-            lineHeight: '35px',
-            marginTop: '10px',
-            marginBottom: '20px',
-        }
     },
     chips: {
         display: 'flex',
@@ -43,15 +24,11 @@ const useStyles = makeStyles(theme => ({
     },
     country_name: {
         fontSize: '48px',
-        fontFamily: 'Open Sans',
         fontWeight: 500,
     },
     country_flag: {
-        marginRight: '16px',
-
-        [theme.breakpoints.down(768)]: {
-            marginRight: '8px'
-        },
+        marginRight: '8px !important',
+        fontSize: '21px'
     },
 }));
 
@@ -64,8 +41,8 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
 
     return (
         <div className={classes.filter}>
-            <Typography variant="h3" classes={{root: classes.subtitle}}>
-                Оберiть країну:
+            <Typography variant="h3">
+                {LABELS.SUBTITLE}
             </Typography>
 
             <div className={classes.chips}>

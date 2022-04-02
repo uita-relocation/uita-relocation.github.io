@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         height: "100%",
         backgroundColor: "#303339",
-        marginTop: "6.938rem",
     },
     logos: {
         display: "flex",
@@ -94,6 +93,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700,
         fontStyle: "normal",
         marginBottom: "20px",
+
         [theme.breakpoints.down(768)]: {
             marginBottom: "10px"
         }
@@ -116,7 +116,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     copyright: {
-        fontFamily: "Open Sans",
         fontWeight: 400,
         fontSize: ".75em",
         lineHeight: "1.83",

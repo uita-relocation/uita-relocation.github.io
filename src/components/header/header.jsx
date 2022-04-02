@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import {AppBar, Box, Drawer, IconButton, MenuItem, Toolbar, Typography} from '@material-ui/core';
+import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg';
 
 const useStyles = makeStyles((theme) => ({
     headerWrap: {
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     option: {
         cursor: 'pointer',
         fontSize: '1.125em',
-        fontFamily: '\'Open Sans\', sans-serif',
         fontWeight: 400,
         color: '#0197E3',
         margin: 0,
@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         cursor: 'pointer',
         fontSize: '1.125em',
-        fontFamily: '\'Open Sans\', sans-serif',
         fontWeight: 500,
         color: '#0197E3',
         margin: 0,
@@ -144,6 +143,7 @@ export function Header() {
                                onClick={resetActive}
                             >
                                 {label}
+                                <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
                             </a>
                         </Typography>
                         :
@@ -154,6 +154,7 @@ export function Header() {
                             >
                                 {label}
                             </Link>
+
                         </Typography>
                 )}
             </Box>

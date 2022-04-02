@@ -3,7 +3,7 @@ import NumberFormat from 'react-number-format'
 import Linkify from "react-linkify";
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
-import {TextField, MenuItem, InputLabel, FormControl, Box, Divider, Typography} from "@mui/material";
+import {TextField, MenuItem, FormControl, Box, Divider, Typography, Card} from "@mui/material";
 import {LABELS} from "../../constants/textSheet";
 import {CURRENCIES} from "../../constants/currencies";
 
@@ -12,44 +12,53 @@ const useStyles = makeStyles(theme => ({
         border: '1px solid #DADDE0',
         borderRadius: '6px',
         width: '48%',
-        background: '#fff',
 
-        [theme.breakpoints.down(960)]: {
+        [theme.breakpoints.down(992)]: {
             width: '100%',
             marginTop: '30px',
         },
     },
+    calculator_inner: {
+        padding: '40px',
+
+        [theme.breakpoints.down(992)]: {
+            padding: '15px',
+        },
+    },
     gross_month_income_input_wrapper: {
         outline: 'none',
-        padding: '6px 16px',
+        padding: '8px 16px',
         border: '1px solid #DADDE0',
         borderRadius: '4px',
         display: 'flex',
         alignItems: 'center',
-        transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+        transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '16px',
+            padding: '9px 8px',
+        },
     },
     gross_month_income_input: {
         outline: 'none',
         width: '100%',
-        fontSize: '26px',
+        fontSize: '28px',
         marginTop: 0,
         border: 0,
+        fontWeight: '600 !important',
+        fontFamily: 'Open Sans, sans-serif',
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
+            fontSize: '18px',
         },
-    },
-    gross_month_income_label: {
-        top: 'auto',
-        bottom: '100%',
-        fontSize: '14px',
     },
     currency_sign: {
         margin: '0 5px',
-        fontSize: '26px',
+        fontSize: '28px',
+        fontWeight: '600 !important',
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
+            fontSize: '18px',
         },
     },
     net_income_field: {
@@ -62,14 +71,19 @@ const useStyles = makeStyles(theme => ({
     net_income_label: {
         minWidth: '190px',
         position: 'relative',
-        lineHeight: 'inherit',
+        fontSize: '24px !important',
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '18px !important',
+        },
     },
     net_income_value: {
         overflow: 'scroll',
+        fontWeight: '600 !important',
         fontSize: '26px !important',
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '16px !important',
+            fontSize: '18px !important',
         },
     },
     tax_detailed_link: {
@@ -83,33 +97,40 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         fontSize: '14px !important'
     },
+    label: {
+        fontSize: '14px !important',
+        marginBottom: '4px !important'
+    },
     helper_text: {
-        fontSize: '12px !important',
-        color: '#727779 !important',
+        fontSize: '12px',
+        color: '#727779',
         margin: 0,
     },
     divider_line: {
         width: '100%',
         margin: '20px 0 !important',
+
+        [theme.breakpoints.down(768)]: {
+            margin: '10px 0 !important',
+        },
     },
 }));
 
-const CurrencyInput = styled(TextField)(({ theme }) => ({
-    '& label': {
-        fontSize: '14px',
-        bottom: '85%',
-        top: 'auto',
-        left: '-10px',
-    },
+const CurrencyInput = styled(TextField)(({theme}) => ({
     '& legend': {
         display: 'none'
     },
+    '& fieldset': {
+        borderColor: '#DADDE0',
+    },
     '#select-currency': {
-        padding: '6px',
-        fontSize: '26px',
+        padding: '8px 16px',
+        fontSize: '28px',
+        fontWeight: 600,
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
+            fontSize: '18px',
+            padding: '0 8px 8px 8px',
         },
     },
 }));
@@ -136,7 +157,7 @@ const Calculator = ({country}) => {
         setGrossMonthIncome(initialIncome);
     };
     const changeNetIncome = () => {
-        if(!grossMonthIncome) {
+        if (!grossMonthIncome) {
             setNetYearIncome(initialIncome);
             setNetMonthIncome(initialIncome);
         } else {
@@ -149,7 +170,7 @@ const Calculator = ({country}) => {
         }
     };
     const onFocus = () => {
-        if(grossMonthIncome === 0) {
+        if (grossMonthIncome === 0) {
             setGrossMonthIncome(''); // removed initial value 0 onFocus event
         }
         grossInputRef.current.style.outline = 'none';
@@ -157,7 +178,7 @@ const Calculator = ({country}) => {
         grossMonthIncomeInputWrapper.current.style.borderColor = '#0197E3';
     }
     const onBlur = () => {
-        if(!grossMonthIncome) {
+        if (!grossMonthIncome) {
             setGrossMonthIncome(initialIncome);
         }
         grossMonthIncomeInputWrapper.current.style.borderColor = '#DADDE0';
@@ -165,9 +186,9 @@ const Calculator = ({country}) => {
     }
 
     useEffect(() => {
-        if(country?.tax_percent) {
+        if (country?.tax_percent) {
             let taxPercent = country.tax_percent;
-            if(typeof country.tax_percent === 'string') {
+            if (typeof country.tax_percent === 'string') {
                 taxPercent = Number(String(country.tax_percent).replace(/,/g, '.')); //e.g. Replace comma with dot if tax_percent=20,5
             }
             setTaxPercentage(taxPercent);
@@ -179,37 +200,63 @@ const Calculator = ({country}) => {
 
     const currencySign = CURRENCIES.get(currency);
 
-    if(!country){
+    if (!country) {
         return <></>
     }
 
     return (
-        <div className={classes.calculator}>
-            <Box sx={{ display: 'flex', alignContent: 'stretch', padding: '40px', flexWrap: 'wrap'}}>
-                <FormControl variant="standard" sx={{justifyContent: 'flex-end', marginRight: '5%', width: '65%'}}>
-                    <InputLabel className={classes.gross_month_income_label}>{LABELS.GROSS_MONTH_INCOME}</InputLabel>
-                        <Typography component="div" className={classes.gross_month_income_input_wrapper} ref={grossMonthIncomeInputWrapper}>
-                            <span className={classes.currency_sign}>{currencySign}</span>
+        <Box className={classes.calculator}>
+            <Card sx={{display: 'flex', alignContent: 'stretch', flexWrap: 'wrap', alignItems: 'flex-end'}}
+                  className={classes.calculator_inner}>
+                <FormControl
+                    className='customTEST'
+                    variant="standard"
+                    sx={{marginRight: '5%', width: '65%'}}
+                >
+                    <Typography
+                        className={classes.label}
+                        component='label'
+                        htmlFor="input-income"
+                    >
+                        {LABELS.GROSS_MONTH_INCOME}
+                    </Typography>
+                    <Typography
+                        component='div'
+                        className={classes.gross_month_income_input_wrapper}
+                        ref={grossMonthIncomeInputWrapper}
+                    >
+                        <span className={classes.currency_sign}>
+                            {currencySign}
+                        </span>
 
-                            <NumberFormat
-                                className={classes.gross_month_income_input}
-                                thousandSeparator
-                                value={grossMonthIncome}
-                                allowNegative={false}
-                                getInputRef={grossInputRef}
-                                onBlur={onBlur}
-                                onFocus={onFocus}
-                                onValueChange={handleChangeGrossIncome}
-                            />
-                        </Typography>
+                        <NumberFormat
+                            id="input-income"
+                            className={classes.gross_month_income_input}
+                            thousandSeparator
+                            value={grossMonthIncome}
+                            allowNegative={false}
+                            getInputRef={grossInputRef}
+                            onBlur={onBlur}
+                            onFocus={onFocus}
+                            onValueChange={handleChangeGrossIncome}
+                        />
+                    </Typography>
                 </FormControl>
 
-                <FormControl variant="standard" sx={{width: '30%',
-                    marginTop: '30px'}}>
+                <FormControl
+                    variant="standard"
+                    sx={{width: '30%'}}
+                >
+                    <Typography
+                        className={classes.label}
+                        component='label'
+                        htmlFor="select-currency"
+                    >
+                        {LABELS.CURRENCY}
+                    </Typography>
                     <CurrencyInput
                         id="select-currency"
                         select
-                        label={LABELS.CURRENCY}
                         value={currency}
                         onChange={handleChangeCurrency}
                     >
@@ -221,18 +268,18 @@ const Calculator = ({country}) => {
                     </CurrencyInput>
                 </FormControl>
 
-                <Typography className={classes.helper_text}>
+                <Typography variant='body2' className={classes.helper_text}>
                     {LABELS.GROSS_DESCRIPTION_LABEL}
                 </Typography>
 
-                <Divider className={classes.divider_line} />
+                <Divider className={classes.divider_line}/>
 
                 <div className={classes.net_income_field}>
-                    <Typography component="span" className={classes.net_income_label}>
+                    <Typography className={classes.net_income_label}>
                         {LABELS.NET_YEAR_INCOME}
                     </Typography>
 
-                    <Typography component="span" className={classes.net_income_value}>
+                    <Typography className={classes.net_income_value}>
                         <span className={classes.currency_sign}>{currencySign}</span>
 
                         <NumberFormat
@@ -243,15 +290,17 @@ const Calculator = ({country}) => {
                     </Typography>
                 </div>
 
-                <Divider className={classes.divider_line} />
+                <Divider className={classes.divider_line}/>
 
                 <div className={classes.net_income_field}>
-                    <Typography component="span" className={classes.net_income_label}>
+                    <Typography className={classes.net_income_label}>
                         {LABELS.NET_MONTH_INCOME}
                     </Typography>
 
-                    <Typography component="span" className={classes.net_income_value}>
-                        <span className={classes.currency_sign}>{currencySign}</span>
+                    <Typography className={classes.net_income_value}>
+                        <span className={classes.currency_sign}>
+                            {currencySign}
+                        </span>
 
                         <NumberFormat
                             displayType={'text'}
@@ -261,11 +310,17 @@ const Calculator = ({country}) => {
                     </Typography>
                 </div>
 
-                <Divider className={classes.divider_line} />
+                <Divider className={classes.divider_line}/>
 
-                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_1}</Typography>
-                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_2 + taxPercentage + '%'}</Typography>
-                <Typography className={classes.tax_description}>{LABELS.TAX_DESCRIPTION_PART_3}</Typography>
+                <Typography className={classes.tax_description}>
+                    {LABELS.TAX_DESCRIPTION_PART_1}
+                </Typography>
+                <Typography className={classes.tax_description}>
+                    {LABELS.TAX_DESCRIPTION_PART_2 + taxPercentage + '%'}
+                </Typography>
+                <Typography className={classes.tax_description}>
+                    {LABELS.TAX_DESCRIPTION_PART_3}
+                </Typography>
 
                 <Typography className={classes.tax_description}>
                     <Linkify componentDecorator={
@@ -281,13 +336,13 @@ const Calculator = ({country}) => {
                     </Linkify>
                 </Typography>
 
-                <Divider className={classes.divider_line} />
+                <Divider className={classes.divider_line}/>
 
-                <Typography className={classes.helper_text}>
+                <Typography variant='body2' className={classes.helper_text}>
                     {LABELS.TAX_DESCRIPTION_PART_4}
                 </Typography>
-            </Box>
-        </div>
+            </Card>
+        </Box>
     );
 }
 

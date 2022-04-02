@@ -1,13 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {Container, Typography} from "@mui/material";
-import ChipsFilter from "../chips-filter/chips-filter.component";
-import Calculator from "../calculator/calculator.components";
-import CountryComponent from "../сountry-сomponent";
+import {makeStyles} from "@material-ui/core/styles";
+import ChipsFilter from "../chips-filter";
+import Calculator from "../calculator";
+import CountryAccordion from "../сountry-accordion";
+import {LABELS} from "../../constants/textSheet";
 import data from "../../mocks/csvjson.json";
 
-import "./main.styles.scss"
+const useStyles = makeStyles(theme => ({
+    container: {
+        paddingTop: '104px',
+        minHeight: 'calc(100vh - 322px - 64px)',
 
-function Main() {
+        [theme.breakpoints.down(1280)]: {
+            paddingTop: '70px',
+        },
+    },
+    content: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+
+        [theme.breakpoints.down(992)]: {
+            flexDirection: 'column',
+        },
+    }
+}))
+
+const Main = () => {
+    const classes = useStyles();
     const [selectedCountryId, setSelectedCountryId] = useState('france');
     const [country, setCountry] = useState(null);
     const [countryHeadersMap, setCountryHeadersMap] = useState(null);
@@ -24,17 +46,19 @@ function Main() {
     }, [data]);
 
     return (
-        <Container className='container'>
-            <Typography variant="h1" className="title"> Рекомендації щодо тимчасового переміщення IT фахівців</Typography>
+        <Container className={classes.container}>
+            <Typography variant="h1">
+                {LABELS.TITLE}
+            </Typography>
 
-            <div className="content">
+            <div className={classes.content}>
                 <ChipsFilter
                     selectedCountryId={selectedCountryId}
                     setSelectedCountryId={setSelectedCountryId}
                 />
                 <Calculator country={country}/>
                 {country && (
-                    <CountryComponent
+                    <CountryAccordion
                         country={country}
                         countryHeadersMap={countryHeadersMap}
                     />
