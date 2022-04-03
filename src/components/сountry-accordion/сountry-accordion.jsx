@@ -88,7 +88,13 @@ const CountryAccordion = ({country, countryHeadersMap}) => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography className={classes.accordion_answer}>
-                            <Linkify>{value}</Linkify>
+                            <Linkify componentDecorator={
+                                (href, text, key) =>
+                                    <a target="blank" href={href} key={key}>
+                                        {text}
+                                    </a>
+                            }
+                            >{value}</Linkify>
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
