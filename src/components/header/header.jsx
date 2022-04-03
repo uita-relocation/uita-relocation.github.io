@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
-import {AppBar, Box, Drawer, IconButton, MenuItem, Toolbar, Typography} from '@material-ui/core';
+import {AppBar, Box, Drawer, IconButton, MenuItem, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
 import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg';
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         background: '#fff',
-        boxShadow: "0px 1px 0px #E2E8EA"
+        boxShadow: '0px 1px 0px #E2E8EA'
     },
     headerContent: {
         width: '100%',
@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
         color: '#0197E3',
         margin: 0,
         textDecoration: 'none',
+        textTransform: 'none',
+        opacity: 1,
     },
     icon: {
         position: 'fixed',
@@ -72,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerLink: {
         textDecoration: 'none'
+    },
+    linkLabel: {
+        margin: 'auto 12px'
     }
 }))
 
@@ -98,6 +103,7 @@ export function Header() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
+    const [value, setValue] = React.useState(0);
 
     const [{mobileView, drawerOpen}, setState] = useState({
         mobileView: false,
@@ -131,32 +137,40 @@ export function Header() {
         </Box>
     )
 
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     const getMenuOptions = () => {
         return (
             <Box className={classes.options}>
-                {headersData.map(({label, to, isAnchor}) =>
-                    isAnchor
-                        ?
-                        <Typography key={label}>
-                            <a href={to} target="_blank" rel="noreferrer"
-                               className={active === label ? classes.active : classes.option}
-                               onClick={resetActive}
-                            >
-                                {label}
-                                <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
-                            </a>
-                        </Typography>
-                        :
-                        <Typography key={label}>
-                            <Link to={to}
-                                  className={active === label ? classes.active : classes.option}
-                                  onClick={() => setActive(label)}
-                            >
-                                {label}
-                            </Link>
-
-                        </Typography>
-                )}
+                <Tabs value={value} onChange={handleChange}
+                      TabIndicatorProps={{style: {background: '#0197E3'}}}
+                      aria-label="tabs"
+                >
+                    {headersData.map(({label, to, isAnchor}, index) =>
+                        isAnchor
+                            ? <Typography key={label} classes={{root: classes.linkLabel}}>
+                                <a href={to} target="_blank" rel="noreferrer"
+                                   className={active === label ? classes.active : classes.option}
+                                   onClick={resetActive}
+                                >
+                                    {label}
+                                    <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
+                                </a>
+                            </Typography>
+                            : <Tab
+                                className={classes.option}
+                                component={Link}
+                                to={to}
+                                label={label}
+                                id={`tabs-${index}`}
+                                key={label}
+                                ariaControls={`tabs-${index}`}
+                            />
+                    )}
+                </Tabs>
             </Box>
         )
     }
@@ -169,7 +183,7 @@ export function Header() {
                         ? <Typography key={label}>
                             <MenuItem>
                                 <a href={to} target="_blank" rel="noreferrer"
-                                    className={classes.drawerLink}
+                                   className={classes.drawerLink}
                                 >Блог</a>
                             </MenuItem>
                         </Typography>

@@ -5,8 +5,8 @@ import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     label: {
         fontSize: '16px',
+        fontFamily: 'Open Sans !important',
         fontWeight: 500,
-        padding: '0 !important',
 
         [theme.breakpoints.down(768)]: {
             fontSize: '14px !important'
@@ -14,28 +14,28 @@ const useStyles = makeStyles((theme) => ({
     },
 
     chip: {
-        padding: '6px',
+        padding: '5px',
         fontSize: '20px !important',
+
     },
 
     root: {
-        padding: '6px 12px 6px 8px !important',
+        padding: '5px !important',
         fontSize: '20px !important',
         color: 'black !important',
-        border: '1px solid #DADDE0 !important',
-        borderRadius: '4px !important',
+        border: '1px solid rgba(169, 169, 169, 0.4) !important',
+        borderRadius: '5px !important',
         background: '#fafafa !important',
     },
-    
     clickable: {
         backgroundColor: '#fafafa !important',
-        color: '#0197E3 !important',
-        border: '2px solid #0197E3 !important',
+        color: 'black !important',
+        border: '2px solid #3482E5 !important',
         borderRadius: '5px !important',
     },
 }))
 
-const ChipItem = ({label, onClick, icon, clicked}) => {
+export function ChipItem({label, onClick, icon, clicked}) {
     const classes = useStyles();
 
     return (
@@ -50,5 +50,3 @@ const ChipItem = ({label, onClick, icon, clicked}) => {
         </div>
     );
 }
-
-export default ChipItem;
