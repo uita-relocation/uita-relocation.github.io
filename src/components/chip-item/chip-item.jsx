@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export function ChipItem({label, onClick, icon, clicked}) {
+const ChipItem = ({label, onClick, icon, clicked}) => {
     const classes = useStyles();
 
     return (
@@ -50,3 +50,5 @@ export function ChipItem({label, onClick, icon, clicked}) {
         </div>
     );
 }
+
+export default ChipItem;

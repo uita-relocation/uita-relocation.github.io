@@ -1,3 +1,3 @@
-import {ChipItem} from './chip-item';
+import ChipItem from './chip-item';
 
 export default ChipItem;
