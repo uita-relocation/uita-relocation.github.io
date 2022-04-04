@@ -169,20 +169,25 @@ const Calculator = ({country}) => {
             setNetMonthIncome(netMonthIncome?.toFixed(2).replace(/[.,]00$/, ''));
         }
     };
-    const onFocus = () => {
+    const onFocus = (e) => {
         if (grossMonthIncome === 0) {
             setGrossMonthIncome(''); // removed initial value 0 onFocus event
         }
-        grossInputRef.current.style.outline = 'none';
-        grossMonthIncomeInputWrapper.current.style.outline = '1px solid #0197E3';
-        grossMonthIncomeInputWrapper.current.style.borderColor = '#0197E3';
+
+        if (grossMonthIncomeInputWrapper.current && grossMonthIncomeInputWrapper.current.contains(e.target)) {
+            grossMonthIncomeInputWrapper.current.style.boxShadow = '0 0 0 1px #0197E3';
+            grossMonthIncomeInputWrapper.current.style.borderColor = '#0197E3';
+        }
     }
-    const onBlur = () => {
+    const onBlur = (e) => {
         if (!grossMonthIncome) {
             setGrossMonthIncome(initialIncome);
         }
-        grossMonthIncomeInputWrapper.current.style.borderColor = '#DADDE0';
-        grossMonthIncomeInputWrapper.current.style.outline = 'none';
+
+        if (grossMonthIncomeInputWrapper.current && grossMonthIncomeInputWrapper.current.contains(e.target)) {
+            grossMonthIncomeInputWrapper.current.style.borderColor = '#DADDE0';
+            grossMonthIncomeInputWrapper.current.style.boxShadow = 'none';
+        }
     }
 
     useEffect(() => {

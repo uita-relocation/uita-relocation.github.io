@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Box, Modal, IconButton, Typography} from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {makeStyles} from '@material-ui/core/styles';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StopWarModal = () => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const classes = useStyles();
 
     const modalToggler = () => setOpen((prev) => !prev);

@@ -98,12 +98,12 @@ const headersData = [
     },
 ];
 
-export function Header() {
+const Header = () => {
     const classes = useStyles();
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
 
     const [{mobileView, drawerOpen}, setState] = useState({
         mobileView: false,
@@ -136,7 +136,6 @@ export function Header() {
             <MainLogo className={classes.logo} onClick={resetActive}/>
         </Box>
     )
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -213,15 +212,12 @@ export function Header() {
         return (
             <Toolbar>
                 <IconButton className={classes.icon}
-                            {...{
-                                edge: 'start',
-                                'aria-label': 'menu',
-                                'aria-haspopup': 'true',
-                                onClick: handleDrawerOpen,
-                            }}
+                            onClick={handleDrawerOpen}
+                            edge='start'
+                            aria-label='menu'
+                            aria-haspopup
                 >
                     <MenuIcon/>
-
                 </IconButton>
 
                 <Box margin="auto">
@@ -229,11 +225,9 @@ export function Header() {
                 </Box>
 
                 <Drawer
-                    {...{
-                        anchor: 'left',
-                        open: drawerOpen,
-                        onClose: handleDrawerClose,
-                    }}
+                    anchor='left'
+                    open={drawerOpen}
+                    onClose={handleDrawerClose}
                 >
                     {getDrawerOptions()}
                 </Drawer>
@@ -249,3 +243,5 @@ export function Header() {
         </header>
     );
 }
+
+export default Header;
