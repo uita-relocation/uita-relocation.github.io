@@ -171,7 +171,7 @@ export function Header() {
                                     label={label}
                                     id={`tabs-${index}`}
                                     aria-controls={`tabs-${index}`}
-                                    onClick={() => navigate(to)}
+                                    onClick={() => setActive(label)}
                                 />
                             )
                         })}
