@@ -24,14 +24,13 @@ const useStyles = makeStyles((theme) => ({
         padding: '20px 0',
     },
     logoContainer: {
-        width: '25%',
+        width: '35%',
     },
     logo: {
         cursor: 'pointer',
         width: 'min(30vw, 200px)',
     },
     options: {
-        width: '55%',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -55,29 +54,28 @@ const useStyles = makeStyles((theme) => ({
     },
     active: {
         position: 'relative',
-        textDecoration: 'none',
         cursor: 'pointer',
         fontSize: '1.125em',
         fontWeight: 500,
         color: '#0197E3',
         margin: 0,
-
-        '&:after': {
-            content: '\'\'',
-            display: 'block',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: '-20px',
-            height: '3px',
-            background: '#0197E3',
-        }
+        textTransform: 'none',
     },
     drawerLink: {
         textDecoration: 'none'
     },
     linkLabel: {
-        margin: 'auto 12px'
+        margin: 'auto 12px',
+        '& a': {
+            margin: 0,
+            color: '#0197E3',
+            textDecoration: 'none',
+        }
+    },
+    tabs: {
+        '& .MuiTab-textColorInherit': {
+            opacity: 1
+        }
     }
 }))
 
@@ -130,7 +128,7 @@ const Header = () => {
 
     const resetActive = () => {
         navigate('/')
-        setActive(headersData[0].label)
+        setValue(0)
     }
 
     const getLogo = () => (
@@ -146,32 +144,37 @@ const Header = () => {
     const getMenuOptions = () => {
         return (
             <Box className={classes.options}>
-                <Tabs value={value} onChange={handleChange}
+                <Tabs value={value} onChange={handleChange} className={classes.tabs}
                       TabIndicatorProps={{style: {background: '#0197E3'}}}
                       aria-label="tabs"
                 >
-                    {headersData.map(({label, to, isAnchor}, index) =>
-                        isAnchor
-                            ? <Typography key={label} classes={{root: classes.linkLabel}}>
-                                <a href={to} target="_blank" rel="noreferrer"
-                                   className={active === label ? classes.active : classes.option}
-                                   onClick={resetActive}
-                                >
-                                    {label}
-                                    <LaunchTwoToneIcon style={{marginLeft: '6px', verticalAlign: 'top'}}/>
-                                </a>
-                            </Typography>
-                            : <Tab
-                                className={classes.option}
-                                component={Link}
-                                to={to}
-                                label={label}
-                                id={`tabs-${index}`}
-                                key={label}
-                                aria-controls={`tabs-${index}`}
-                            />
-                    )}
+                    {headersData
+                        .filter(el => !el.isAnchor)
+                        .map(({label, to, isAnchor}, index) => {
+                            return (
+                                <Tab
+                                    classes={{root: classes.linkLabel}}
+                                    key={label}
+                                    className={active === label ? classes.active : classes.option}
+                                    component={Link}
+                                    to={to}
+                                    label={label}
+                                    id={`tabs-${index}`}
+                                    aria-controls={`tabs-${index}`}
+                                    onClick={() => setActive(label)}
+                                />
+                            )
+                        })}
                 </Tabs>
+                <Typography classes={{root: classes.linkLabel}} className={classes.option}>
+                    <a href={headersData.find(el => el.isAnchor).to} target="_blank" rel="noreferrer"
+                       className={classes.linkLabel}
+                       onClick={resetActive}
+                    >
+                        {headersData.find(el => el.isAnchor).label}
+                        <LaunchTwoToneIcon style={{marginLeft: '6px', verticalAlign: 'top'}}/>
+                    </a>
+                </Typography>
             </Box>
         )
     }
