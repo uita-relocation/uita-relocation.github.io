@@ -167,7 +167,7 @@ export function Header() {
                                 label={label}
                                 id={`tabs-${index}`}
                                 key={label}
-                                ariaControls={`tabs-${index}`}
+                                aria-controls={`tabs-${index}`}
                             />
                     )}
                 </Tabs>
