@@ -3,15 +3,16 @@ import NumberFormat from 'react-number-format'
 import Linkify from "react-linkify";
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
-import {TextField, MenuItem, FormControl, Box, Divider, Typography, Card} from "@mui/material";
+import {TextField, MenuItem, FormControl, Box, Divider, Typography} from "@mui/material";
 import {LABELS} from "../../constants/textSheet";
 import {CURRENCIES} from "../../constants/currencies";
 
 const useStyles = makeStyles(theme => ({
     calculator: {
+        background: '#fff',
         border: '1px solid #DADDE0',
         borderRadius: '6px',
-        width: '48%',
+        width: '49%',
 
         [theme.breakpoints.down(992)]: {
             width: '100%',
@@ -108,7 +109,7 @@ const useStyles = makeStyles(theme => ({
     },
     divider_line: {
         width: '100%',
-        margin: '20px 0 !important',
+        margin: '12px 0 !important',
 
         [theme.breakpoints.down(768)]: {
             margin: '10px 0 !important',
@@ -211,12 +212,13 @@ const Calculator = ({country}) => {
 
     return (
         <Box className={classes.calculator}>
-            <Card sx={{display: 'flex', alignContent: 'stretch', flexWrap: 'wrap', alignItems: 'flex-end'}}
-                  className={classes.calculator_inner}>
+            <Box className={classes.calculator_inner}
+                 sx={{display: 'flex', alignContent: 'stretch', flexWrap: 'wrap', alignItems: 'flex-end'}}
+            >
                 <FormControl
                     className='customTEST'
                     variant="standard"
-                    sx={{marginRight: '5%', width: '65%'}}
+                    sx={{marginRight: '5%', width: '60%'}}
                 >
                     <Typography
                         className={classes.label}
@@ -250,7 +252,7 @@ const Calculator = ({country}) => {
 
                 <FormControl
                     variant="standard"
-                    sx={{width: '30%'}}
+                    sx={{width: '35%'}}
                 >
                     <Typography
                         className={classes.label}
@@ -346,7 +348,7 @@ const Calculator = ({country}) => {
                 <Typography variant='body2' className={classes.helper_text}>
                     {LABELS.TAX_DESCRIPTION_PART_4}
                 </Typography>
-            </Card>
+            </Box>
         </Box>
     );
 }

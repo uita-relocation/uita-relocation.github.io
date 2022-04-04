@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     },
     logos: {
         display: "flex",
-        flexDirection: "row",
         width: "100%",
         position: "relative",
         minHeight: "1px",
@@ -38,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
     },
     text: {
-        fontFamily: "'PT Sans', sans-serif",
-        color: "white",
+        color: "#fff",
         zIndex: 10,
         position: "relative",
         lineHeight: 1.43,
@@ -47,12 +45,8 @@ const useStyles = makeStyles((theme) => ({
         fontSize: ".875em",
     },
     addressText: {
-        fontFamily: "'PT Sans', sans-serif",
         fontStyle: "normal",
-        lineHeight: 1.43,
-        marginTop: 0,
-        marginBottom: "0.625rem",
-        fontSize: "0.875em",
+        fontSize: "16px",
         color: "#768190",
     },
     ulSocial: {
@@ -62,25 +56,23 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        paddingTop: "0.1875rem",
-        marginBottom: "2.5rem",
     },
-    list: {
-        fontFamily: "'PT Sans', sans-serif",
+    list: () => ({
         width: "100%",
         display: "flex",
         alignItems: "center",
-        marginBottom: "0.625rem",
-    },
+        marginBottom: "24px",
+        "&:last-child": {
+            marginBottom: 0,
+        },
+    }),
     link: {
         textDecoration: "none",
-        fontFamily: "'PT Sans', sans-serif",
         fontStyle: "normal",
         transition: "all .2s ease",
         display: "flex",
         alignItems: "center",
         color: "#fff",
-        fontSize: ".875em",
     },
     bottomSmLogo: {
         marginRight: "0.75rem"
@@ -89,14 +81,21 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
     },
     contactsLabel: {
-        fontFamily: "Lato, sans-serif",
-        fontWeight: 700,
+        fontSize: '24px',
+        fontWeight: 600,
         fontStyle: "normal",
-        marginBottom: "20px",
+        marginBottom: '8px',
 
         [theme.breakpoints.down(768)]: {
             marginBottom: "10px"
         }
+    },
+    contactsInner: {
+        [theme.breakpoints.down("md")]: {
+            gridTemplateColumns: '1fr',
+            justifyItems: 'start',
+            gridRowGap: '15px'
+        },
     },
     addressWrap: {
         display: "flex",
@@ -134,13 +133,13 @@ export function Footer() {
     return (
         <footer className={classes.footer}>
             <Box
-                px={{xs: 3, sm: 10}}
-                py={{xs: 5, sm: 10}}
+                px={{xs: 3, m: 15}}
+                py={{xs: 5, m: 8}}
                 color="white"
             >
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <Box className={classes.footerTopLeft}>
                                 <Box className={classes.logos}>
                                     <LeftLogo className={classes.leftLogo}/>
@@ -153,18 +152,25 @@ export function Footer() {
                                 </Box>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={7}>
                             <address className={classes.contacts}>
 
-                                <Typography variant="h6" className={classes.contactsLabel}>Contacts</Typography>
-                                <Box className={classes.addressWrap}>
-                                    <Box className={classes.addressCol}>
+                                <Box display="grid"
+                                     gridColumnGap={10}
+                                     gridTemplateColumns="fit-content(230px) fit-content(100px) 1fr"
+                                     justifyItems='center'
+                                     alignItems='end'
+                                     className={classes.contactsInner}
+                                >
+                                    <Box>
+                                        <Typography className={classes.contactsLabel}>Contacts</Typography>
+
                                         <Typography className={classes.addressText}>
                                             Address: 04071, Kyiv, str. Yaroslavska, 58 (Astarta Organic Business Centre)
                                         </Typography>
                                     </Box>
 
-                                    <Box className={classes.addressCol}>
+                                    <Box>
                                         <Typography className={classes.addressText}>
                                             Phone:
                                             <Link
@@ -185,7 +191,7 @@ export function Footer() {
                                         </Typography>
                                     </Box>
 
-                                    <Box className={classes.addressCol}>
+                                    <Box>
                                         <ul className={classes.ulSocial}>
                                             <li className={classes.list}>
                                                 <Link
@@ -199,14 +205,14 @@ export function Footer() {
                                                 </Link>
                                             </li>
                                             <li className={classes.list}>
-                                                <Link
+                                                <Typography
                                                     className={classes.link}
                                                     href="https://www.linkedin.com/company/27234175/"
                                                     title="LinkedIn"
                                                     target="_blank">
                                                     <LinkedInLogo className={classes.bottomSmLogo}/>
                                                     LinkedIn
-                                                </Link>
+                                                </Typography>
                                             </li>
                                         </ul>
                                     </Box>

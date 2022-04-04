@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     },
     country_flag: {
         marginRight: '8px !important',
-        fontSize: '21px'
+        fontSize: '25px'
     },
 }));
 

@@ -7,6 +7,9 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     country_name: {
+        display: 'flex',
+        alignItems: 'center',
+
         [theme.breakpoints.down(1280)]: {
             fontSize: '40px !important',
         },
@@ -22,9 +25,14 @@ const useStyles = makeStyles(theme => ({
     },
     country_flag: {
         marginRight: '16px',
+        fontSize: '72px',
 
         [theme.breakpoints.down(768)]: {
-            marginRight: "8px"
+            marginRight: "8px",
+            fontSize: '42px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '32px',
         },
     },
     accordion_container: {
@@ -39,7 +47,8 @@ const useStyles = makeStyles(theme => ({
         },
     },
     accordion_name: {
-        margin: '0 !important',
+        margin: '1px 0 !important',
+        boxShadow: '0 0 0 1px #DADDE0 !important',
     },
     accordion_summary: {
         fontSize: '20px !important',

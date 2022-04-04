@@ -46,7 +46,7 @@ const Main = () => {
     }, [data]);
 
     return (
-        <Container className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
             <Typography variant="h1">
                 {LABELS.TITLE}
             </Typography>

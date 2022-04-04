@@ -84,6 +84,12 @@ const themeOptions = createTheme({
 
         fontFamily: 'Open Sans, sans-serif',
     },
+
+    breakpoints: {
+        values: {
+            lg: 1190,
+        },
+    },
 });
 
 const App = () => {

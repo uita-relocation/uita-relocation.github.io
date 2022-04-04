@@ -12,13 +12,11 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '14px !important'
         },
     },
-
     chip: {
         padding: '5px',
         fontSize: '20px !important',
 
     },
-
     root: {
         padding: '5px !important',
         fontSize: '20px !important',

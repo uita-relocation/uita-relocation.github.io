@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         textTransform: 'none',
         opacity: 1,
+        padding: '17px 24px',
     },
     icon: {
         position: 'fixed',
@@ -86,14 +87,15 @@ const headersData = [
         to: '/',
         isAnchor: false
     },
-    {
-        label: 'Порівняти країни',
-        to: '/compare-countries',
-        isAnchor: false
-    },
+    // todo: will be in the next version
+    // {
+    //     label: 'Порівняти країни',
+    //     to: '/compare-countries',
+    //     isAnchor: false
+    // },
     {
         label: 'Блог',
-        to: 'https://itukraine.org.ua/en/blogs/',
+        to: 'https://itukraine.org.ua/news-associates/',
         isAnchor: true
     },
 ];
@@ -156,7 +158,7 @@ const Header = () => {
                                    onClick={resetActive}
                                 >
                                     {label}
-                                    <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
+                                    <LaunchTwoToneIcon style={{marginLeft: '6px', verticalAlign: 'top'}}/>
                                 </a>
                             </Typography>
                             : <Tab
@@ -236,11 +238,9 @@ const Header = () => {
     };
 
     return (
-        <header>
-            <AppBar className={classes.headerWrap} elevation={0}>
-                {mobileView ? displayMobile() : displayDesktop()}
-            </AppBar>
-        </header>
+        <AppBar className={classes.headerWrap} elevation={0}>
+            {mobileView ? displayMobile() : displayDesktop()}
+        </AppBar>
     );
 }
 
