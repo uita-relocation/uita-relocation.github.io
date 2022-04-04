@@ -59,17 +59,6 @@ const useStyles = makeStyles((theme) => ({
         color: '#0197E3',
         margin: 0,
         textTransform: 'none',
-
-        '&:after': {
-            content: '\'\'',
-            display: 'block',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: '-20px',
-            height: '3px',
-            background: '#0197E3',
-        }
     },
     drawerLink: {
         textDecoration: 'none'
