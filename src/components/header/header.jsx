@@ -126,7 +126,7 @@ export function Header() {
 
     const resetActive = () => {
         navigate('/')
-        setActive(headersData[0].label)
+        setValue(0)
     }
 
     const getLogo = () => (
