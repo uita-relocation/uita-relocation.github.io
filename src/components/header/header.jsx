@@ -24,14 +24,13 @@ const useStyles = makeStyles((theme) => ({
         padding: '20px 0',
     },
     logoContainer: {
-        width: '25%',
+        width: '35%',
     },
     logo: {
         cursor: 'pointer',
         width: 'min(30vw, 200px)',
     },
     options: {
-        width: '55%',
         height: '100%',
         display: 'flex',
         alignItems: 'center',
@@ -54,12 +53,12 @@ const useStyles = makeStyles((theme) => ({
     },
     active: {
         position: 'relative',
-        textDecoration: 'none',
         cursor: 'pointer',
         fontSize: '1.125em',
         fontWeight: 500,
         color: '#0197E3',
         margin: 0,
+        textTransform: 'none',
 
         '&:after': {
             content: '\'\'',
@@ -76,7 +75,17 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none'
     },
     linkLabel: {
-        margin: 'auto 12px'
+        margin: 'auto 12px',
+        '& a': {
+            margin: 0,
+            color: '#0197E3',
+            textDecoration: 'none',
+        }
+    },
+    tabs: {
+        '& .MuiTab-textColorInherit': {
+            opacity: 1
+        }
     }
 }))
 
@@ -145,32 +154,37 @@ export function Header() {
     const getMenuOptions = () => {
         return (
             <Box className={classes.options}>
-                <Tabs value={value} onChange={handleChange}
+                <Tabs value={value} onChange={handleChange} className={classes.tabs}
                       TabIndicatorProps={{style: {background: '#0197E3'}}}
                       aria-label="tabs"
                 >
-                    {headersData.map(({label, to, isAnchor}, index) =>
-                        isAnchor
-                            ? <Typography key={label} classes={{root: classes.linkLabel}}>
-                                <a href={to} target="_blank" rel="noreferrer"
-                                   className={active === label ? classes.active : classes.option}
-                                   onClick={resetActive}
-                                >
-                                    {label}
-                                    <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
-                                </a>
-                            </Typography>
-                            : <Tab
-                                className={classes.option}
-                                component={Link}
-                                to={to}
-                                label={label}
-                                id={`tabs-${index}`}
-                                key={label}
-                                ariaControls={`tabs-${index}`}
-                            />
-                    )}
+                    {headersData
+                        .filter(el => !el.isAnchor)
+                        .map(({label, to, isAnchor}, index) => {
+                            return (
+                                <Tab
+                                    classes={{root: classes.linkLabel}}
+                                    key={label}
+                                    className={active === label ? classes.active : classes.option}
+                                    component={Link}
+                                    to={to}
+                                    label={label}
+                                    id={`tabs-${index}`}
+                                    aria-controls={`tabs-${index}`}
+                                    onClick={() => navigate(to)}
+                                />
+                            )
+                        })}
                 </Tabs>
+                <Typography classes={{root: classes.linkLabel}} className={classes.option}>
+                    <a href={headersData.find(el => el.isAnchor).to} target="_blank" rel="noreferrer"
+                       className={classes.linkLabel}
+                       onClick={resetActive}
+                    >
+                        {headersData.find(el => el.isAnchor).label}
+                        <LaunchTwoToneIcon style={{'verticalAlign': 'top'}}/>
+                    </a>
+                </Typography>
             </Box>
         )
     }
