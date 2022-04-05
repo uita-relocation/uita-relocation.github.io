@@ -33,8 +33,8 @@ const Main = ({countries}) => {
     const [country, setCountry] = useState(null);
     const [countryHeadersMap, setCountryHeadersMap] = useState(null);
 
-    const getSelectedCountry = (countries) => countries.find(c => c.country_id === selectedCountryId) || null;
-    const getCountryHeadersMap = (countries) => new Map(Object.entries(countries[0]));
+    const getSelectedCountry = (countries) => countries?.find(c => c.country_id === selectedCountryId) || null;
+    const getCountryHeadersMap = (countries) => countries && new Map(Object.entries(countries[0]));
 
     useEffect(() => {
         setCountry(getSelectedCountry(countries));

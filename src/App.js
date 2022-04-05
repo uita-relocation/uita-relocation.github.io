@@ -3,7 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Layout from './pages/layout';
 import Main from './components/main';
-import CompareCountries from './components/compare-countries';
 
 const themeOptions = createTheme({
     palette: {
@@ -99,7 +98,7 @@ const App = () => {
             .then(response => response.json())
             .then(data => setCountries(data))
     }, []);
-
+    console.log(countries)
     return (
         <ThemeProvider theme={themeOptions}>
             <div className="App">
