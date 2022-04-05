@@ -5,7 +5,6 @@ import ChipsFilter from "../chips-filter";
 import Calculator from "../calculator";
 import CountryAccordion from "../сountry-accordion";
 import {LABELS} from "../../constants/textSheet";
-import data from "../../mocks/csvjson.json";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Main = () => {
+const Main = ({countries}) => {
     const classes = useStyles();
     const [selectedCountryId, setSelectedCountryId] = useState('france');
     const [country, setCountry] = useState(null);
@@ -38,12 +37,12 @@ const Main = () => {
     const getCountryHeadersMap = (countries) => new Map(Object.entries(countries[0]));
 
     useEffect(() => {
-        setCountry(getSelectedCountry(data));
-    }, [data, selectedCountryId]);
+        setCountry(getSelectedCountry(countries));
+    }, [countries, selectedCountryId]);
 
     useEffect(() => {
-        setCountryHeadersMap(getCountryHeadersMap(data));
-    }, [data]);
+        setCountryHeadersMap(getCountryHeadersMap(countries));
+    }, [countries]);
 
     return (
         <Container maxWidth='lg' className={classes.container}>
@@ -55,6 +54,7 @@ const Main = () => {
                 <ChipsFilter
                     selectedCountryId={selectedCountryId}
                     setSelectedCountryId={setSelectedCountryId}
+                    countries={countries}
                 />
                 <Calculator country={country}/>
                 {country && (
