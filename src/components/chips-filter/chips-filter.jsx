@@ -5,7 +5,6 @@ import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 
 import ChipItem from '../chip-item';
 import {LABELS} from "../../constants/textSheet";
-import data from '../../mocks/csvjson.json'
 
 const useStyles = makeStyles(theme => ({
     filter: {
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
+function ChipsFilter({selectedCountryId, setSelectedCountryId, countries}) {
     const classes = useStyles();
 
     const handleClick = ({country_id}) => {
@@ -46,7 +45,7 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
             </Typography>
 
             <div className={classes.chips}>
-                {data.map(chip => {
+                {countries && countries.map(chip => {
                     const {country_id, country_name} = chip;
 
                     if (!country_id) return null

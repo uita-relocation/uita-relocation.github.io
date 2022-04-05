@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Layout from './pages/layout';
 import Main from './components/main';
-import CompareCountries from './components/compare-countries';
 
 const themeOptions = createTheme({
     palette: {
@@ -91,15 +90,21 @@ const themeOptions = createTheme({
         },
     },
 });
-
 const App = () => {
+    const [countries, setCountries] = useState(null);
+
+    useEffect(() => {
+        fetch('/csvjson.json')
+            .then(response => response.json())
+            .then(data => setCountries(data))
+    }, []);
+    console.log(countries)
     return (
         <ThemeProvider theme={themeOptions}>
             <div className="App">
                 <Layout>
                     <Routes>
-                        <Route path="/" exact element={<Main/>}/>
-                        <Route path="/compare-countries" element={<CompareCountries/>}/>
+                        <Route path="/" exact element={<Main countries={countries} />}/>
                     </Routes>
                 </Layout>
             </div>

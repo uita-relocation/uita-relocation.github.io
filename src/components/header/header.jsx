@@ -73,9 +73,13 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     tabs: {
+        minHeight: "64px",
         '& .MuiTab-textColorInherit': {
             opacity: 1
         }
+    },
+    flexContainer: {
+        height: '100%'
     }
 }))
 
@@ -143,8 +147,11 @@ const Header = () => {
     const getMenuOptions = () => {
         return (
             <Box className={classes.options}>
-                <Tabs value={value} onChange={handleChange} className={classes.tabs}
-                      TabIndicatorProps={{style: {background: '#0197E3'}}}
+                <Tabs value={value}
+                      onChange={handleChange}
+                      className={classes.tabs}
+                      classes={{flexContainer: classes.flexContainer}}
+                      TabIndicatorProps={{style: {background: '#0197E3', height: '3px'}}}
                       aria-label="tabs"
                 >
                     {headersData
