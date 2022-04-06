@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/static/js/main.0df01dcf.js",
+    "main.js": "/static/js/main.9e44d365.js",
     "static/media/top-main-logo.svg": "/static/media/top-main-logo.479cbec5fc18fc26ba842e1cc4acd1e2.svg",
     "static/media/bottom-right-logo.svg": "/static/media/bottom-right-logo.e1825d52d7e89759cc272e9d1bce8de7.svg",
     "static/media/stop_war-logo.svg": "/static/media/stop_war-logo.94c562a3fc8bcbb90c38ad758f2ca34c.svg",
@@ -8,9 +8,9 @@
     "static/media/linkedin-logo.svg": "/static/media/linkedin-logo.8cb23029d006a3c485e21c1dad06730f.svg",
     "static/media/facebook-logo.svg": "/static/media/facebook-logo.acf335b496ed76dab5dae4636a935064.svg",
     "index.html": "/index.html",
-    "main.0df01dcf.js.map": "/static/js/main.0df01dcf.js.map"
+    "main.9e44d365.js.map": "/static/js/main.9e44d365.js.map"
   },
   "entrypoints": [
-    "static/js/main.0df01dcf.js"
+    "static/js/main.9e44d365.js"
   ]
 }
