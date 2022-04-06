@@ -96,7 +96,7 @@ const headersData = [
     //     isAnchor: false
     // },
     {
-        label: 'Блог',
+        label: 'Новини',
         to: 'https://itukraine.org.ua/news-associates/',
         isAnchor: true
     },

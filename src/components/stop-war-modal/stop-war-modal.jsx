@@ -23,9 +23,12 @@ const useStyles = makeStyles((theme) => ({
         right: '5px',
         top: '5px',
     },
+    close_button_icon: {
+        fill: '#aaaaaa !important',
+    },
     text: {
-        fontSize: '14px',
-        fontFamily: 'Garamond, Sans-serif',
+        fontSize: '14px !important',
+        fontFamily: 'Garamond, Sans-serif !important',
         fontWeight: 400,
         lineHeight: 1.58,
         color: '#768190',
@@ -89,19 +92,19 @@ const StopWarModal = () => {
                         onClick={modalToggler}
                         className={classes.close_button}
                     >
-                        <CloseRoundedIcon/>
+                        <CloseRoundedIcon className={classes.close_button_icon}/>
                     </IconButton>
 
                     <div className={classes.modal_inner}>
-                        <Typography paragraph>Russia has started a full-scale war with Ukraine.</Typography>
-                        <Typography>They have already began their attack on Ukraine, all major cities are under fire,
+                        <Typography paragraph className={classes.text}>Russia has started a full-scale war with Ukraine.</Typography>
+                        <Typography className={classes.text}>They have already began their attack on Ukraine, all major cities are under fire,
                             civilians are suffering.</Typography>
-                        <Typography paragraph>Please, Stand with Ukraine!</Typography>
-                        <Typography component='ul' className={classes.ul}>
+                        <Typography paragraph    className={classes.text}>Please, Stand with Ukraine!</Typography>
+                        <Typography component='ul' className={`${classes.ul} ${classes.text}`}>
                             ✅ HOW CAN YOU HELP? The most important thing you can do for Ukraine
                             now is to READ and SHARE verified information about Russia’s attack
                             on Ukraine.
-                            <Typography component='li'>
+                            <Typography component='li' className={classes.text}>
                                 <ul className={classes.ul}>
                                     🔹 President of Ukraine
                                     <li>
@@ -136,7 +139,7 @@ const StopWarModal = () => {
                                     </li>
                                 </ul>
                             </Typography>
-                            <Typography component='li'>
+                            <Typography component='li' className={classes.text}>
                                 <ul className={classes.ul}>
                                     🔹 Ukraine’s official social media accounts
                                     <li>
@@ -162,14 +165,14 @@ const StopWarModal = () => {
                                 </ul>
                             </Typography>
 
-                            <Typography component='ul' className={classes.ul}>
+                            <Typography component='ul' className={`${classes.ul} ${classes.text}`}>
                                 <li>
                                     🔹 Embassy of Ukraine in your country (Web, Facebook & Twitter)
                                 </li>
                             </Typography>
                         </Typography>
 
-                        <Typography paragraph>
+                        <Typography paragraph    className={classes.text}>
                             ✅ Help to defend Ukraine -&nbsp;
                             <a
                                 href='https://savelife.in.ua/en/donate/'
@@ -180,14 +183,14 @@ const StopWarModal = () => {
                             </a>
                         </Typography>
 
-                        <Typography paragraph>
+                        <Typography paragraph   className={classes.text}>
                             ✅ Help to defend Ukraine -&nbsp;
                             <a href='http://surl.li/blnsy' target='_blank' rel='noreferrer'>
                                 donate to the fund of the National Bank of Ukraine
                             </a>
                         </Typography>
 
-                        <Typography paragraph>
+                        <Typography paragraph  className={classes.text}>
                             ✅ Help Ukraine by placing this widget on your website &nbsp;
                             <a
                                 href='https://github.com/ukraine-not-war/stop-war'
@@ -198,7 +201,7 @@ const StopWarModal = () => {
                             </a>
                         </Typography>
 
-                        <Typography paragraph>
+                        <Typography paragraph className={classes.text}>
                             Stand With Ukraine!
                         </Typography>
                     </div>

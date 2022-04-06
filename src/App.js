@@ -98,7 +98,6 @@ const App = () => {
             .then(response => response.json())
             .then(data => setCountries(data))
     }, []);
-    console.log(countries)
     return (
         <ThemeProvider theme={themeOptions}>
             <div className="App">
