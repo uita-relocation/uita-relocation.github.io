@@ -95,7 +95,7 @@ const headersData = [
         isAnchor: false
     },
     {
-        label: 'Блог',
+        label: 'Новини',
         to: 'https://itukraine.org.ua/news-associates/',
         isAnchor: true
     },
@@ -106,7 +106,7 @@ const Header = () => {
     const {pathname} = useLocation();
     const navigate = useNavigate();
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(headersData.indexOf(headersData.find(path => path.to === pathname)));
 
     const [{mobileView, drawerOpen}, setState] = useState({
         mobileView: false,
