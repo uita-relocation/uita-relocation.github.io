@@ -194,24 +194,25 @@ export function Footer() {
                                     <Box>
                                         <ul className={classes.ulSocial}>
                                             <li className={classes.list}>
-                                                <Link
-                                                    className={classes.link}
-                                                    component="button"
-                                                    href="https://www.facebook.com/itukraineassociation"
-                                                    title="Facebook"
-                                                    target="_blank">
-                                                    <FacebookLogo className={classes.bottomSmLogo}/>
-                                                    Facebook
-                                                </Link>
+                                                <Typography className={classes.addressText}>
+                                                    <Link className={classes.link}
+                                                          href="https://www.facebook.com/itukraineassociation"
+                                                          title="Facebook"
+                                                          target="_blank">
+                                                        <FacebookLogo className={classes.bottomSmLogo}/>
+                                                        Facebook
+                                                    </Link>
+                                                </Typography>
                                             </li>
                                             <li className={classes.list}>
-                                                <Typography
-                                                    className={classes.link}
-                                                    href="https://www.linkedin.com/company/27234175/"
-                                                    title="LinkedIn"
-                                                    target="_blank">
-                                                    <LinkedInLogo className={classes.bottomSmLogo}/>
-                                                    LinkedIn
+                                                <Typography className={classes.addressText}>
+                                                    <Link className={classes.link}
+                                                          href="https://www.linkedin.com/company/27234175/"
+                                                          title="LinkedIn"
+                                                          target="_blank">
+                                                        <LinkedInLogo className={classes.bottomSmLogo}/>
+                                                        LinkedIn
+                                                    </Link>
                                                 </Typography>
                                             </li>
                                         </ul>
@@ -221,9 +222,6 @@ export function Footer() {
                         </Grid>
                     </Grid>
                 </Container>
-            </Box>
-            <Box textAlign="center" pt={{xs: 5, sm: 10}} pb={{xs: 5, sm: 0}} className={classes.copyright}>
-                Copyright © 2022. All rights reserved
             </Box>
         </footer>
     );
