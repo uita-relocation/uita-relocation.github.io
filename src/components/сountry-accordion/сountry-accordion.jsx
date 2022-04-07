@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {memo, useContext} from 'react';
 import Linkify from 'react-linkify';
 import {Accordion, AccordionSummary, AccordionDetails, Typography} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import getUnicodeFlagIcon from 'country-flag-icons/unicode';
 import {makeStyles} from '@material-ui/core/styles';
+import {getFilteredFields, getUnicodeFlag} from "../../utils/common";
+import {TitlesContext} from "../../context";
 
 const useStyles = makeStyles(theme => ({
     country_name: {
@@ -67,15 +68,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const CountryAccordion = ({country, countryHeadersMap}) => {
+const CountryAccordion = ({country}) => {
+    console.log('CountryAccordion');
     const classes = useStyles();
+    const titles = useContext(TitlesContext);
 
+    const filteredFields = getFilteredFields(country);
     if (!country) return <></>;
-    const currentCountryFlag = country.country_abbreviation ? getUnicodeFlagIcon(country.country_abbreviation) : '';
-
-    const hiddenFields = ["country_id", "country_abbreviation", "country_name", "tax_percent", "tax_detailed_link"];
-
-    const filteredFields = Object.entries(country).filter(([key]) => !hiddenFields.includes(key));
+    const currentCountryFlag = getUnicodeFlag(country);
 
     return (
         <div className={classes.accordion_container}>
@@ -92,7 +92,7 @@ const CountryAccordion = ({country, countryHeadersMap}) => {
                         id={`${value}-header`}
                     >
                         <Typography className={classes.accordion_summary}>
-                            {countryHeadersMap.get(key)}
+                            {titles.get(key)}
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -112,4 +112,4 @@ const CountryAccordion = ({country, countryHeadersMap}) => {
     )
 }
 
-export default CountryAccordion;
+export default memo(CountryAccordion);

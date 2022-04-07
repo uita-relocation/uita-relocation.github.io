@@ -1,18 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Container, Typography} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
 import ChipsFilter from "../chips-filter";
 import Calculator from "../calculator";
 import CountryAccordion from "../сountry-accordion";
 import {LABELS} from "../../constants/textSheet";
+import {getCountry} from "../../utils/common";
+import {CountriesContext} from "../../context";
 
 const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: '104px',
-        minHeight: 'calc(100vh - 322px - 64px)',
+        minHeight: 'calc(100vh - 210.66px)',
 
         [theme.breakpoints.down(1280)]: {
+            minHeight: 'calc(100vh - 365px)',
             paddingTop: '70px',
+        },
+        [theme.breakpoints.down('xs')]: {
+            minHeight: 'calc(100vh - 537.66px)',
         },
     },
     content: {
@@ -27,22 +33,17 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const Main = ({countries}) => {
+const Main = () => {
+    console.log('---------------')
+    console.log('Main');
     const classes = useStyles();
+    const countries = useContext(CountriesContext);
     const [selectedCountryId, setSelectedCountryId] = useState('france');
     const [country, setCountry] = useState(null);
-    const [countryHeadersMap, setCountryHeadersMap] = useState(null);
-
-    const getSelectedCountry = (countries) => countries?.find(c => c.country_id === selectedCountryId) || null;
-    const getCountryHeadersMap = (countries) => countries && new Map(Object.entries(countries[0]));
 
     useEffect(() => {
-        setCountry(getSelectedCountry(countries));
+        setCountry(getCountry(countries, selectedCountryId));
     }, [countries, selectedCountryId]);
-
-    useEffect(() => {
-        setCountryHeadersMap(getCountryHeadersMap(countries));
-    }, [countries]);
 
     return (
         <Container maxWidth='lg' className={classes.container}>
@@ -54,14 +55,10 @@ const Main = ({countries}) => {
                 <ChipsFilter
                     selectedCountryId={selectedCountryId}
                     setSelectedCountryId={setSelectedCountryId}
-                    countries={countries}
                 />
                 <Calculator country={country}/>
                 {country && (
-                    <CountryAccordion
-                        country={country}
-                        countryHeadersMap={countryHeadersMap}
-                    />
+                    <CountryAccordion country={country}/>
                 )}
             </div>
         </Container>

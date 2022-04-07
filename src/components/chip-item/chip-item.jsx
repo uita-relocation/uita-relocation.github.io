@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ChipItem = ({label, onClick, icon, clicked}) => {
+    console.log('ChipItem');
     const classes = useStyles();
 
     return (

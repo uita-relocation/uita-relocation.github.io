@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
-import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-
 import ChipItem from '../chip-item';
 import {LABELS} from "../../constants/textSheet";
+import {getUnicodeFlag} from "../../utils/common";
+import {CountriesContext} from "../../context";
 
 const useStyles = makeStyles(theme => ({
     filter: {
@@ -31,8 +31,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ChipsFilter({selectedCountryId, setSelectedCountryId, countries}) {
+function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
     const classes = useStyles();
+    const countries = useContext(CountriesContext);
 
     const handleClick = ({country_id}) => {
         setSelectedCountryId(country_id);
@@ -45,18 +46,16 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId, countries}) {
             </Typography>
 
             <div className={classes.chips}>
-                {countries && countries.map(chip => {
-                    const {country_id, country_name} = chip;
+                {countries && Array.from(countries.entries()).map(([key, country]) => {
+                    const {country_id, country_name} = country;
 
-                    if (!country_id) return null
-
-                    const currentCountryFlag = chip?.country_abbreviation ? getUnicodeFlagIcon(chip.country_abbreviation) : '';
+                    const currentCountryFlag = getUnicodeFlag(country);
 
                     return (
-                        <ChipItem key={country_id}
+                        <ChipItem key={key}
                                   icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
                                   label={country_name}
-                                  onClick={() => handleClick(chip)}
+                                  onClick={() => handleClick(country)}
                                   clicked={country_id === selectedCountryId}
                         />
                     )

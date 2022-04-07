@@ -5,12 +5,12 @@ import StopWarModal from '../../components/stop-war-modal';
 
 const Layout = ({children}) => {
     return (
-        <div className="layout">
+        <>
             <Header/>
             {children}
             <Footer/>
             <StopWarModal/>
-        </div>
+        </>
     );
 }
 
