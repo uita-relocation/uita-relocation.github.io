@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Layout from './pages/layout';
 import Main from './components/main';
+import CompareCountries from './components/compare-countries';
+import {CountriesContext, TitlesContext} from "./context";
+import {getCountriesMap, getTitlesMap} from "./utils/common";
 
 const themeOptions = createTheme({
     palette: {
@@ -60,7 +63,6 @@ const themeOptions = createTheme({
             fontSize: '24px',
             lineHeight: '32px',
             fontWeight: 400,
-            color: '#cccccc',
 
             marginBottom: '24px',
 
@@ -68,6 +70,18 @@ const themeOptions = createTheme({
                 fontSize: '16px',
                 lineHeight: '35px',
                 marginBottom: '10px',
+            },
+        },
+        h4: {
+            fontSize: '24px',
+            fontWeight: 400,
+            textAlign: 'center',
+
+            marginTop: '32px',
+            marginBottom: '8px',
+
+            '@media (max-width: 768px)': {
+                fontSize: '20px',
             },
         },
         body1: {
@@ -90,25 +104,47 @@ const themeOptions = createTheme({
         },
     },
 });
+
 const App = () => {
-    const [countries, setCountries] = useState(null);
+    const [state, setState] = useState({
+        countries: null,
+        titles: null
+    });
 
     useEffect(() => {
         fetch('/csvjson.json')
             .then(response => response.json())
-            .then(data => setCountries(data))
+            .then(data => {
+                setState({
+                    countries: getCountriesMap(data),
+                    titles: getTitlesMap(data),
+                })
+            });
     }, []);
+
     return (
         <ThemeProvider theme={themeOptions}>
-            <div className="App">
-                <Layout>
-                    <Routes>
-                        <Route path="/" exact element={<Main countries={countries} />}/>
-                    </Routes>
-                </Layout>
-            </div>
+            <CountriesContext.Provider value={state.countries}>
+                <TitlesContext.Provider value={state.titles}>
+                    <BrowserRouter>
+                        <Layout>
+                            <Routes>
+                                <Route
+                                    exact
+                                    path="/"
+                                    element={<Main/>}
+                                />
+                                <Route
+                                    path="/compare-countries"
+                                    element={<CompareCountries/>}
+                                />
+                            </Routes>
+                        </Layout>
+                    </BrowserRouter>
+                </TitlesContext.Provider>
+            </CountriesContext.Provider>
         </ThemeProvider>
-    );
+    )
 }
 
 export default App;

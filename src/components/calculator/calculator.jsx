@@ -206,10 +206,6 @@ const Calculator = ({country}) => {
 
     const currencySign = CURRENCIES.get(currency);
 
-    if (!country) {
-        return <></>
-    }
-
     return (
         <Box className={classes.calculator}>
             <Box className={classes.calculator_inner}
@@ -328,7 +324,6 @@ const Calculator = ({country}) => {
                 <Typography className={classes.tax_description}>
                     {LABELS.TAX_DESCRIPTION_PART_3}
                 </Typography>
-
                 <Typography className={classes.tax_description}>
                     <Linkify componentDecorator={
                         (href, text, key) => {
@@ -339,7 +334,7 @@ const Calculator = ({country}) => {
                             )
                         }
                     }>
-                        {country.tax_detailed_link}
+                        {country?.tax_detailed_link}
                     </Linkify>
                 </Typography>
 
