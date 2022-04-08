@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         textTransform: 'none',
         opacity: 1,
-        padding: '17px 24px',
+        padding: '17px 6px',
     },
     icon: {
         position: 'fixed',
@@ -194,7 +194,9 @@ const Header = () => {
                             <MenuItem>
                                 <a href={to} target="_blank" rel="noreferrer"
                                    className={classes.drawerLink}
-                                >Блог</a>
+                                >
+                                    {label}
+                                </a>
                             </MenuItem>
                         </Typography>
                         : <Link to={to} key={label} className={classes.drawerLink}>

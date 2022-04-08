@@ -34,8 +34,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Main = () => {
-    console.log('---------------')
-    console.log('Main');
     const classes = useStyles();
     const countries = useContext(CountriesContext);
     const [selectedCountryId, setSelectedCountryId] = useState('france');

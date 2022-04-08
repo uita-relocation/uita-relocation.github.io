@@ -6,6 +6,10 @@ import {getUnicodeFlag} from "../../../../utils/common";
 const useStyles = makeStyles(theme => ({
     container: {
         margin: '0 -16px',
+
+        [theme.breakpoints.down('sm')]: {
+            maxHeight: '300px !important',
+        },
     },
     country_checkbox_container: () => ({
         background: '#fff',
@@ -31,8 +35,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ComparisonList = ({countries, setSelectedCountries}) => {
-    console.log('ComparisonList');
+const ComparisonList = ({countries, setSelectedCountries, maxSelectedCountries}) => {
     const classes = useStyles();
     const [checkedState, setCheckedState] = useState([]);
     const [isAvailableCheck, setIsAvailableCheck] = useState(true);
@@ -46,9 +49,13 @@ const ComparisonList = ({countries, setSelectedCountries}) => {
     };
 
     useEffect(() => {
-        setIsAvailableCheck(checkedState?.length < 3);
+        if (checkedState?.length > maxSelectedCountries) {
+            setCheckedState(checkedState.slice(0, -1));
+        }
         setSelectedCountries(checkedState);
-    }, [checkedState]);
+
+        setIsAvailableCheck(checkedState?.length < maxSelectedCountries);
+    }, [checkedState, maxSelectedCountries]);
 
     return (
         <Box className={classes.container}
@@ -59,6 +66,7 @@ const ComparisonList = ({countries, setSelectedCountries}) => {
 
                 if (!country_id) return null
 
+                const checkedCountry = checkedState.includes(country_id);
                 const currentCountryFlag = getUnicodeFlag(country);
 
                 return (
@@ -74,10 +82,10 @@ const ComparisonList = ({countries, setSelectedCountries}) => {
                         control={
                             <Checkbox
                                 sx={{color: '#727779'}}
-                                className={classes.country_checkbox}
                                 disabled={isAvailable}
                                 onChange={() => handleChange(country_id)}
                                 defaultValue={country_name}
+                                checked={checkedCountry}
                             />
                         }
                     />

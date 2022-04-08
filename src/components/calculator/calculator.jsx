@@ -137,7 +137,6 @@ const CurrencyInput = styled(TextField)(({theme}) => ({
 }));
 
 const Calculator = ({country}) => {
-    console.log('Calculator');
     const listOfCurrencies = Array.from(CURRENCIES.keys());
     const initialIncome = 0;
 

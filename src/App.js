@@ -63,7 +63,6 @@ const themeOptions = createTheme({
             fontSize: '24px',
             lineHeight: '32px',
             fontWeight: 400,
-            color: '#cccccc',
 
             marginBottom: '24px',
 
@@ -107,7 +106,6 @@ const themeOptions = createTheme({
 });
 
 const App = () => {
-    console.log('App');
     const [state, setState] = useState({
         countries: null,
         titles: null
@@ -134,11 +132,11 @@ const App = () => {
                                 <Route
                                     exact
                                     path="/"
-                                    element={<Main />}
+                                    element={<Main/>}
                                 />
                                 <Route
                                     path="/compare-countries"
-                                    element={<CompareCountries />}
+                                    element={<CompareCountries/>}
                                 />
                             </Routes>
                         </Layout>

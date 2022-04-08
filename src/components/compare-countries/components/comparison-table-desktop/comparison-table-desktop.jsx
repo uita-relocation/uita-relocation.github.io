@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Paper, Table, TableContainer, TableBody, TableHead, TableRow, TableCell, Typography, Box} from "@mui/material";
+import {Table, TableContainer, TableBody, TableHead, TableRow, TableCell, Typography, Box} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
 import {getFilteredHeaders, getUnicodeFlag} from "../../../../utils/common";
 import {CountriesContext, TitlesContext} from "../../../../context";
@@ -10,8 +10,6 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: 128
     },
     table: () => ({
-        // tableLayout: 'fixed',
-
         [theme.breakpoints.down('xs')]: {
             fontSize: '32px',
         },
@@ -52,18 +50,30 @@ const useStyles = makeStyles(theme => ({
             width: '212px',
             boxShadow: 'inset 0 0 -1px #DADDE0',
             fontWeight: 600,
+            minWidth: 'none !important',
 
             [theme.breakpoints.down('sm')]: {
                 width: '150px',
             },
+
+            [theme.breakpoints.down('xs')]: {
+                width: '100px',
+            },
         },
     }),
     country_flag: {
-        marginRight: '8px',
+        margin: '0 8px 0 16px',
+        verticalAlign: 'middle',
+    },
+    country_name: {
+        verticalAlign: 'middle',
+    },
+    picture: {
+        maxWidth: '100%'
     }
 }));
 
-const ComparisonTable = ({selectedCountries}) => {
+const ComparisonTableDesktop = ({selectedCountries, maxSelectedCountries}) => {
     const classes = useStyles();
     const [tableHeaders, setTableHeaders] = useState([]);
     const [tableRows, setTableRows] = useState([]);
@@ -80,29 +90,30 @@ const ComparisonTable = ({selectedCountries}) => {
             rows.push([value, ...selectedCountries.map(country => countries.get(country)[key])]);
         });
         setTableRows(rows);
-    }, [countries, selectedCountries])
+    }, [countries, selectedCountries]);
 
     return (
         <Box className={classes.container} sx={{width: '100%', overflow: 'hidden', boxShadow: 0, textAlign: 'center'}}>
-            <Typography variant='h4'>Порівняльна таблиця за країнами</Typography>
-            <Typography paragraph sx={{textAlign: 'center', fontSize: '16px', mb: 3}}>Одночасно можна вибрати не більше 3х країн</Typography>
+            <Typography variant='h4'>
+                Порівняльна таблиця за країнами
+            </Typography>
+            <Typography paragraph sx={{textAlign: 'center', fontSize: '16px', mb: 3}}>
+                Одночасно можна вибрати не більше {maxSelectedCountries}х країн
+            </Typography>
 
             {Boolean(selectedCountries.length) ?
                 <TableContainer sx={{maxHeight: 640}}>
                     <Table className={classes.table}>
                         <TableHead>
                             <TableRow>
-                                {tableHeaders.map((cell) => {
-                                    console.log(cell[0], cell[1])
-                                    return(
-                                        <TableCell key={cell}>
-                                            {<>
-                                                <span className={classes.country_flag}>{cell[0]}</span>
-                                                <span className={classes.country_name}>{cell[1]}</span>
-                                            </>}
-                                        </TableCell>
-                                    )
-                                })}
+                                {tableHeaders.map((cell) => (
+                                    <TableCell key={cell}>
+                                        {<>
+                                            <span className={classes.country_flag}>{cell[0]}</span>
+                                            <span className={classes.country_name}>{cell[1]}</span>
+                                        </>}
+                                    </TableCell>
+                                ))}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -120,10 +131,10 @@ const ComparisonTable = ({selectedCountries}) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                : <Picture/>
+                : <Picture className={classes.picture}/>
             }
         </Box>
     );
 }
 
-export default ComparisonTable;
+export default ComparisonTableDesktop;

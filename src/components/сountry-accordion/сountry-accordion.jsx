@@ -38,14 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
     accordion_container: {
         width: '100%',
-        margin: '128px 0',
-
-        [theme.breakpoints.down(1280)]: {
-            margin: '50px 0',
-        },
-        [theme.breakpoints.down(768)]: {
-            margin: '20px 0',
-        },
+        margin: '15px 0',
     },
     accordion_name: {
         margin: '1px 0 !important',
@@ -69,7 +62,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CountryAccordion = ({country}) => {
-    console.log('CountryAccordion');
     const classes = useStyles();
     const titles = useContext(TitlesContext);
 
