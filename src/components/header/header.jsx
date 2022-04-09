@@ -69,6 +69,11 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'Open Sans, sans-serif',
         fontWeight: 400,
         color: '#0197E3',
+        '&.MuiListItem-gutters': {
+            fontSize: '16px',
+            lineHeight: '24px',
+            letterSpacing: '0.15px'
+        }
     },
     linkLabel: {
         margin: 'auto 12px',
@@ -89,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         width: '100vw',
-        height: '258px'
+        height: 'fit-content'
     },
     drawerTop: {
         display: 'flex',
@@ -108,6 +113,10 @@ const useStyles = makeStyles((theme) => ({
             fontWeight: 600,
         },
     },
+    drawerOptions: {
+        marginTop: '88px',
+        marginBottom: '61px'
+    }
 }))
 
 const headersData = [
@@ -214,7 +223,7 @@ const Header = () => {
 
     const getDrawerOptions = () => {
         return (
-            <Box marginTop='77px'>
+            <Box className={classes.drawerOptions}>
                 {headersData.map(({label, to, isAnchor}) => {
                         return (
                             isAnchor
