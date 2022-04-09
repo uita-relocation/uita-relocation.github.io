@@ -221,7 +221,7 @@ const Header = () => {
         )
     }
 
-    const getDrawerOptions = () => {
+    const getDrawerOptions = (drawerToggler) => {
         return (
             <Box className={classes.drawerOptions}>
                 {headersData.map(({label, to, isAnchor}) => {
@@ -238,7 +238,11 @@ const Header = () => {
                                 </Typography>
                                 :
                                 <Link to={to} key={label} className={classes.drawerLink}>
-                                    <MenuItem className={classes.drawerLink} classes={{root: classes.rootMenuItem}}>
+                                    <MenuItem
+                                        className={classes.drawerLink}
+                                        classes={{root: classes.rootMenuItem}}
+                                        onClick={drawerToggler && drawerToggler}
+                                    >
                                         {label}
                                     </MenuItem>
                                 </Link>
@@ -257,20 +261,18 @@ const Header = () => {
     )
 
     const displayMobile = () => {
-        const handleDrawerOpen = () =>
-            setState((prevState) => ({...prevState, drawerOpen: true}));
-        const handleDrawerClose = () =>
-            setState((prevState) => ({...prevState, drawerOpen: false}));
+        const drawerToggler = () =>
+            setState((prevState) => ({...prevState, drawerOpen: !prevState.drawerOpen}));
 
         return (
             <Toolbar>
                 {drawerOpen
                     ? <CloseIcon
                         className={classes.icon}
-                        onClick={handleDrawerClose}
+                        onClick={drawerToggler}
                     />
                     : <IconButton className={classes.icon}
-                                  onClick={handleDrawerOpen}
+                                  onClick={drawerToggler}
                                   edge="start"
                                   aria-label="menu"
                                   aria-haspopup
@@ -286,10 +288,10 @@ const Header = () => {
                 <Drawer
                     anchor='left'
                     open={drawerOpen}
-                    onClose={handleDrawerClose}
+                    onClose={drawerToggler}
                     classes={{paper: classes.paper}}
                 >
-                    {getDrawerOptions()}
+                    {getDrawerOptions(drawerToggler)}
                 </Drawer>
             </Toolbar>
         );
