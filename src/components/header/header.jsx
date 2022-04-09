@@ -220,7 +220,7 @@ const Header = () => {
                             isAnchor
                                 ?
                                 <Typography key={label}>
-                                    <MenuItem className={classes.drawerLink}>
+                                    <MenuItem className={classes.drawerLink} classes={{root: classes.rootMenuItem}}>
                                         <a href={to} target="_blank" rel="noreferrer" className={classes.drawerLink}>
                                             {label}
                                             <BlogIcon className={classes.blogIcon}/>
@@ -229,7 +229,7 @@ const Header = () => {
                                 </Typography>
                                 :
                                 <Link to={to} key={label} className={classes.drawerLink}>
-                                    <MenuItem className={classes.drawerLink}>
+                                    <MenuItem className={classes.drawerLink} classes={{root: classes.rootMenuItem}}>
                                         {label}
                                     </MenuItem>
                                 </Link>
