@@ -103,6 +103,11 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '8px',
         verticalAlign: 'middle'
     },
+    rootMenuItem: {
+        '&:hover': {
+            fontWeight: 600,
+        },
+    },
 }))
 
 const headersData = [
