@@ -4,7 +4,9 @@ import {makeStyles} from '@material-ui/core/styles';
 import {AppBar, Box, Drawer, IconButton, MenuItem, Tab, Tabs, Toolbar, Typography} from '@material-ui/core';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import MenuIcon from '@material-ui/icons/Menu';
-import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg';
+import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg'
+import {ReactComponent as CloseIcon} from '../../assets/close-icon.svg'
+import {ReactComponent as BlogIcon} from '../../assets/blog-icon.svg'
 
 const useStyles = makeStyles((theme) => ({
     headerWrap: {
@@ -12,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         background: '#fff',
-        boxShadow: '0px 1px 0px #E2E8EA'
+        boxShadow: '0px 1px 0px #E2E8EA',
+        zIndex: 2000
     },
     headerContent: {
         width: '100%',
@@ -62,7 +65,15 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'none',
     },
     drawerLink: {
-        textDecoration: 'none'
+        textDecoration: 'none',
+        fontFamily: 'Open Sans, sans-serif',
+        fontWeight: 400,
+        color: '#0197E3',
+        '&.MuiListItem-gutters': {
+            fontSize: '16px',
+            lineHeight: '24px',
+            letterSpacing: '0.15px'
+        }
     },
     linkLabel: {
         margin: 'auto 12px',
@@ -73,13 +84,38 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     tabs: {
-        minHeight: "64px",
+        minHeight: '64px',
         '& .MuiTab-textColorInherit': {
             opacity: 1
         }
     },
     flexContainer: {
         height: '100%'
+    },
+    paper: {
+        width: '100vw',
+        height: 'fit-content'
+    },
+    drawerTop: {
+        display: 'flex',
+        margin: 'auto',
+        width: '100%',
+        height: '56px',
+        background: '#fff',
+        boxShadow: '0px 1px 0px #E2E8EA',
+    },
+    blogIcon: {
+        marginLeft: '8px',
+        verticalAlign: 'middle'
+    },
+    rootMenuItem: {
+        '&:hover': {
+            fontWeight: 600,
+        },
+    },
+    drawerOptions: {
+        marginTop: '88px',
+        marginBottom: '61px'
     }
 }))
 
@@ -187,23 +223,27 @@ const Header = () => {
 
     const getDrawerOptions = () => {
         return (
-            <Box>
-                {headersData.map(({label, to, isAnchor}) =>
-                    isAnchor
-                        ? <Typography key={label}>
-                            <MenuItem>
-                                <a href={to} target="_blank" rel="noreferrer"
-                                   className={classes.drawerLink}
-                                >
-                                    {label}
-                                </a>
-                            </MenuItem>
-                        </Typography>
-                        : <Link to={to} key={label} className={classes.drawerLink}>
-                            <MenuItem>
-                                {label}
-                            </MenuItem>
-                        </Link>
+            <Box className={classes.drawerOptions}>
+                {headersData.map(({label, to, isAnchor}) => {
+                        return (
+                            isAnchor
+                                ?
+                                <Typography key={label}>
+                                    <MenuItem className={classes.drawerLink} classes={{root: classes.rootMenuItem}}>
+                                        <a href={to} target="_blank" rel="noreferrer" className={classes.drawerLink}>
+                                            {label}
+                                            <BlogIcon className={classes.blogIcon}/>
+                                        </a>
+                                    </MenuItem>
+                                </Typography>
+                                :
+                                <Link to={to} key={label} className={classes.drawerLink}>
+                                    <MenuItem className={classes.drawerLink} classes={{root: classes.rootMenuItem}}>
+                                        {label}
+                                    </MenuItem>
+                                </Link>
+                        )
+                    }
                 )}
             </Box>
         )
@@ -224,14 +264,20 @@ const Header = () => {
 
         return (
             <Toolbar>
-                <IconButton className={classes.icon}
-                            onClick={handleDrawerOpen}
-                            edge='start'
-                            aria-label='menu'
-                            aria-haspopup
-                >
-                    <MenuIcon/>
-                </IconButton>
+                {drawerOpen
+                    ? <CloseIcon
+                        className={classes.icon}
+                        onClick={handleDrawerClose}
+                    />
+                    : <IconButton className={classes.icon}
+                                  onClick={handleDrawerOpen}
+                                  edge="start"
+                                  aria-label="menu"
+                                  aria-haspopup
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                }
 
                 <Box margin="auto">
                     {getLogo()}
@@ -241,6 +287,7 @@ const Header = () => {
                     anchor='left'
                     open={drawerOpen}
                     onClose={handleDrawerClose}
+                    classes={{paper: classes.paper}}
                 >
                     {getDrawerOptions()}
                 </Drawer>
