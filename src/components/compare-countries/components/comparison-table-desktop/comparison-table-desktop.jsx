@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Table, TableContainer, TableBody, TableHead, TableRow, TableCell, Typography, Box} from "@mui/material";
+import linkifyHtml from 'linkify-html';
 import {makeStyles} from "@material-ui/core/styles";
 import {getFilteredHeaders, getUnicodeFlag} from "../../../../utils/common";
 import {CountriesContext, TitlesContext} from "../../../../context";
@@ -121,9 +122,11 @@ const ComparisonTableDesktop = ({selectedCountries, maxSelectedCountries}) => {
                                 return (
                                     <TableRow key={row}>
                                         {row.map((cell, key) => (
-                                            <TableCell key={key}>
-                                                {cell}
-                                            </TableCell>
+                                            <TableCell
+                                                key={key}
+                                                className={classes.accordion_answer}
+                                                dangerouslySetInnerHTML={{ __html: linkifyHtml(cell, { target: '_blank' }) }}
+                                            ></TableCell>
                                         ))}
                                     </TableRow>
                                 )

@@ -1,5 +1,5 @@
 import React, {memo, useContext} from 'react';
-import Linkify from 'react-linkify';
+import linkifyHtml from 'linkify-html';
 import {Accordion, AccordionSummary, AccordionDetails, Typography} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {makeStyles} from '@material-ui/core/styles';
@@ -88,14 +88,10 @@ const CountryAccordion = ({country}) => {
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography className={classes.accordion_answer}>
-                            <Linkify componentDecorator={
-                                (href, text, key) =>
-                                    <a target="blank" href={href} key={key}>
-                                        {text}
-                                    </a>
-                            }
-                            >{value}</Linkify>
+                        <Typography
+                            className={classes.accordion_answer}
+                            dangerouslySetInnerHTML={{ __html: linkifyHtml(value, { target: '_blank' }) }}
+                        >
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
