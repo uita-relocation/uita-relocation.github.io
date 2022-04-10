@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Typography, Box} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
+import linkifyHtml from 'linkify-html';
 import {getFilteredHeaders, getUnicodeFlag} from "../../../../utils/common";
 import {CountriesContext, TitlesContext} from "../../../../context";
 import {ReactComponent as Picture} from '../../../../assets/picture-for-table.svg';
@@ -119,8 +120,9 @@ const ComparisonTableMobile = ({selectedCountries, maxSelectedCountries}) => {
                         className={selectedCountries.length === 1 ? classes.container_grid_full_width : classes.container_grid}>
                         {tableRows.map((row) => (
                             <Typography
-                                className={`${selectedCountries.length === 1 ? classes.grid_item_full_width : classes.grid_item} ${classes.text}`}>
-                                {row}
+                                className={`${selectedCountries.length === 1 ? classes.grid_item_full_width : classes.grid_item} ${classes.text}`}
+                                dangerouslySetInnerHTML={{ __html: linkifyHtml(row, { target: '_blank' }) }}
+                            >
                             </Typography>
                         ))}
                     </div>
