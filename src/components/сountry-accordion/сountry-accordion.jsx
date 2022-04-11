@@ -70,7 +70,7 @@ const CountryAccordion = ({country}) => {
     const currentCountryFlag = getUnicodeFlag(country);
 
     return (
-        <div className={classes.accordion_container}>
+        <div className={classes.accordion_container} id="country_details">
             <Typography variant="h2" classes={{root: classes.country_name}}>
                 <span className={classes.country_flag}>{currentCountryFlag}</span>
                 {country.country_name}
