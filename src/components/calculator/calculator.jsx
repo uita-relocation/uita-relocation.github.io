@@ -3,7 +3,8 @@ import NumberFormat from 'react-number-format'
 import Linkify from "react-linkify";
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
-import {TextField, MenuItem, FormControl, Box, Divider, Typography} from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails, TextField, MenuItem, FormControl, Box, Divider, Typography } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {LABELS} from "../../constants/textSheet";
 import {CURRENCIES} from "../../constants/currencies";
 
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     },
     currency_sign: {
         margin: '0 5px',
-        fontSize: '28px',
+        fontSize: '18px',
         fontWeight: '600 !important',
 
         [theme.breakpoints.down(768)]: {
@@ -72,7 +73,7 @@ const useStyles = makeStyles(theme => ({
     net_income_label: {
         minWidth: '190px',
         position: 'relative',
-        fontSize: '24px !important',
+        fontSize: '18px !important',
 
         [theme.breakpoints.down(768)]: {
             fontSize: '18px !important',
@@ -81,7 +82,7 @@ const useStyles = makeStyles(theme => ({
     net_income_value: {
         overflow: 'scroll',
         fontWeight: '600 !important',
-        fontSize: '26px !important',
+        fontSize: '18px !important',
 
         [theme.breakpoints.down(768)]: {
             fontSize: '18px !important',
@@ -97,6 +98,9 @@ const useStyles = makeStyles(theme => ({
     tax_description: {
         width: '100%',
         fontSize: '14px !important'
+    },
+    btn_detail: {
+        fontSize: '16px !important',
     },
     label: {
         fontSize: '14px !important',
@@ -315,34 +319,44 @@ const Calculator = ({country}) => {
 
                 <Divider className={classes.divider_line}/>
 
-                <Typography className={classes.tax_description}>
-                    {LABELS.TAX_DESCRIPTION_PART_1}
-                </Typography>
-                <Typography className={classes.tax_description}>
-                    {LABELS.TAX_DESCRIPTION_PART_2 + taxPercentage + '%'}
-                </Typography>
-                <Typography className={classes.tax_description}>
-                    {LABELS.TAX_DESCRIPTION_PART_3}
-                </Typography>
-                <Typography className={classes.tax_description}>
-                    <Linkify componentDecorator={
-                        (href, text, key) => {
-                            return (
-                                <a target="blank" href={href} key={key} className={classes.tax_detailed_link}>
-                                    {text}
-                                </a>
-                            )
-                        }
-                    }>
-                        {country?.tax_detailed_link}
-                    </Linkify>
-                </Typography>
-
-                <Divider className={classes.divider_line}/>
-
                 <Typography variant='body2' className={classes.helper_text}>
                     {LABELS.TAX_DESCRIPTION_PART_4}
                 </Typography>
+
+                <Accordion className={classes.divider_line}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                    >
+                        <Typography className={classes.btn_detail}>
+                            {LABELS.TAX_DESCRIPTION_PART_0}
+                        </Typography>
+                    </AccordionSummary>
+                    <Divider className={classes.divider_line} />
+                    <AccordionDetails>
+                        <Typography className={classes.tax_description}>
+                            {LABELS.TAX_DESCRIPTION_PART_1}
+                        </Typography>
+                        <Typography className={classes.tax_description}>
+                            {LABELS.TAX_DESCRIPTION_PART_2 + taxPercentage + '%'}
+                        </Typography>
+                        <Typography className={classes.tax_description}>
+                            {LABELS.TAX_DESCRIPTION_PART_3}
+                        </Typography>
+                        <Typography className={classes.tax_description}>
+                            <Linkify componentDecorator={
+                                (href, text, key) => {
+                                    return (
+                                        <a target="blank" href={href} key={key} className={classes.tax_detailed_link}>
+                                            {text}
+                                        </a>
+                                    )
+                                }
+                            }>
+                                {country?.tax_detailed_link}
+                            </Linkify>
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
             </Box>
         </Box>
     );
