@@ -75,6 +75,9 @@ const useStyles = makeStyles((theme) => ({
             letterSpacing: '0.15px'
         }
     },
+    drawerLinkActive: {
+        fontWeight: 'bold',
+    },
     linkLabel: {
         margin: 'auto 12px',
         '& a': {
@@ -143,6 +146,7 @@ const Header = () => {
     const navigate = useNavigate();
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
     const [value, setValue] = useState(headersData.indexOf(headersData.find(path => path.to === pathname)));
+    const location = useLocation();
 
     const [{mobileView, drawerOpen}, setState] = useState({
         mobileView: false,
@@ -243,7 +247,7 @@ const Header = () => {
                                 :
                                 <Link to={to} key={label} className={classes.drawerLink}>
                                     <MenuItem
-                                        className={classes.drawerLink}
+                                        className={to === location.pathname && classes.drawerLinkActive}
                                         classes={{root: classes.rootMenuItem}}
                                         onClick={drawerToggler && drawerToggler}
                                     >
