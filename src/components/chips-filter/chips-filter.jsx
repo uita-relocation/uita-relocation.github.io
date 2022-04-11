@@ -35,6 +35,15 @@ const useStyles = makeStyles(theme => ({
         maxWidth: 'max-content',
         textTransform: 'none !important',
     },
+    subtitle: {
+        fontFamily: 'Open Sans',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '24px',
+        lineHeight: '32px',
+        color: '#000000',
+        opacity: '0.2',
+    }
 }));
 
 function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
@@ -47,7 +56,7 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
 
     return (
         <div className={classes.filter}>
-            <Typography variant="h3">
+            <Typography variant="h3" classes={{root: classes.subtitle}}>
                 {LABELS.SUBTITLE}
             </Typography>
 
