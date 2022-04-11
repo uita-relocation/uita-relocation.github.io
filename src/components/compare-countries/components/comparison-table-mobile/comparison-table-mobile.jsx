@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
         },
     }),
     grid_item: () => ({
+        justifySelf: 'center',
         "&:nth-child(3n+1)": {
             fontWeight: 600,
             wordBreak: 'break-word',
@@ -62,6 +63,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: 600,
     },
     text: {
+        textAlign: 'left',
         fontSize: '14px !important',
         wordBreak: 'break-word',
     },
