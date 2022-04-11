@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {Typography, Button} from '@mui/material';
+import { Link, animateScroll as scroll } from "react-scroll";
 import ChipItem from '../chip-item';
 import {LABELS} from "../../constants/textSheet";
 import {getUnicodeFlag} from "../../utils/common";
@@ -67,10 +68,17 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
                 })}
             </div>
             <Button
-                href="#country_details"
                 variant="outlined"
                 className={classes.country_details_link}>
+                <Link
+                    to="country_details"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                >
                     {LABELS.COUNTRY_DETAILS_LINK_TEXT}
+                </Link>
             </Button>
         </div>
     );
