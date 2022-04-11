@@ -5,7 +5,6 @@ import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     label: {
         fontSize: '16px',
-        fontFamily: 'Open Sans !important',
         fontWeight: 500,
         [theme.breakpoints.down(768)]: {
             fontSize: '14px !important'
@@ -22,11 +21,14 @@ const useStyles = makeStyles((theme) => ({
         background: '#fafafa !important',
         [theme.breakpoints.down(768)]: {
             height: '32px !important'
+        },
+        '&:hover': {
+            borderColor: '#0197E3',
         }
     },
     clickable: {
         backgroundColor: '#fafafa !important',
-        color: 'black !important',
+        color: '#0197E3 !important',
         border: '2px solid #3482E5 !important',
         borderRadius: '5px !important',
     },

@@ -3,7 +3,17 @@ import NumberFormat from 'react-number-format'
 import Linkify from "react-linkify";
 import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
-import { Accordion, AccordionSummary, AccordionDetails, TextField, MenuItem, FormControl, Box, Divider, Typography } from "@mui/material";
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    TextField,
+    MenuItem,
+    FormControl,
+    Box,
+    Divider,
+    Typography
+} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {LABELS} from "../../constants/textSheet";
 import {CURRENCIES} from "../../constants/currencies";
@@ -90,7 +100,6 @@ const useStyles = makeStyles(theme => ({
     },
     tax_detailed_link: {
         display: 'block',
-        color: theme.palette.primary.main,
         overflowWrap: 'break-word',
         wordWrap: 'break-word',
         hyphens: 'auto'
@@ -127,6 +136,9 @@ const CurrencyInput = styled(TextField)(({theme}) => ({
     },
     '& fieldset': {
         borderColor: '#DADDE0',
+        '&:hover': {
+            borderColor: '#0197E3',
+        }
     },
     '#select-currency': {
         padding: '8px 16px',
@@ -325,13 +337,13 @@ const Calculator = ({country}) => {
 
                 <Accordion className={classes.divider_line}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
+                        expandIcon={<ExpandMoreIcon/>}
                     >
                         <Typography className={classes.btn_detail}>
                             {LABELS.TAX_DESCRIPTION_PART_0}
                         </Typography>
                     </AccordionSummary>
-                    <Divider className={classes.divider_line} />
+                    <Divider className={classes.divider_line}/>
                     <AccordionDetails>
                         <Typography className={classes.tax_description}>
                             {LABELS.TAX_DESCRIPTION_PART_1}
