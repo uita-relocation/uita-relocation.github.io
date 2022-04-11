@@ -113,7 +113,7 @@ const ComparisonTableMobile = ({selectedCountries, maxSelectedCountries}) => {
                 <div className={classes.container_inner}>
                     <div className={classes.header}>
                         {tableHeaders.map((cell) => (
-                            <Typography className={classes.header_text}>
+                            <Typography className={classes.header_text} key={cell[1]}>
                                 <span className={classes.country_flag}>{cell[0]}</span>
                                 <span className={classes.country_name}>{cell[1]}</span>
                             </Typography>
@@ -122,13 +122,15 @@ const ComparisonTableMobile = ({selectedCountries, maxSelectedCountries}) => {
 
                     <div
                         className={selectedCountries.length === 1 ? classes.container_grid_full_width : classes.container_grid}>
-                        {tableRows.map((row) => (
+                        {tableRows.map((row, i) => {
+                            return (
                             <Typography
+                                key={`${i}${row.substring(0,3)}`}
                                 className={`${selectedCountries.length === 1 ? classes.grid_item_full_width : classes.grid_item} ${classes.text}`}
                                 dangerouslySetInnerHTML={{ __html: linkifyHtml(row, { target: '_blank' }) }}
                             >
                             </Typography>
-                        ))}
+                        )})}
                     </div>
                 </div>
                 : <Picture className={classes.picture}/>

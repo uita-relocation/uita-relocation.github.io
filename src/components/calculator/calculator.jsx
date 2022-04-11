@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
     gross_month_income_input: {
         outline: 'none',
         width: '100%',
-        fontSize: '28px',
+        fontSize: '18px',
         marginTop: 0,
         border: 0,
         fontWeight: '600 !important',
@@ -66,11 +66,11 @@ const useStyles = makeStyles(theme => ({
     },
     currency_sign: {
         margin: '0 5px',
-        fontSize: '18px',
+        fontSize: '14px',
         fontWeight: '600 !important',
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '18px',
+            fontSize: '14px',
         },
     },
     net_income_field: {
@@ -141,13 +141,13 @@ const CurrencyInput = styled(TextField)(({theme}) => ({
         }
     },
     '#select-currency': {
-        padding: '8px 16px',
-        fontSize: '28px',
+        padding: '4px 16px',
+        fontSize: '16px',
         fontWeight: 600,
 
         [theme.breakpoints.down(768)]: {
-            fontSize: '18px',
-            padding: '0 8px 8px 8px',
+            fontSize: '16px',
+            padding: '0 6px 8px 6px',
         },
     },
 }));
