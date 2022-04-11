@@ -1,119 +1,157 @@
-import React from "react";
-import {Box, Container, Grid, Link, Typography} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import {ReactComponent as LeftLogo} from "../../assets/bottom-left-logo.svg";
-import {ReactComponent as RightLogo} from "../../assets/bottom-right-logo.svg"
-import {ReactComponent as FacebookLogo} from "../../assets/facebook-logo.svg";
-import {ReactComponent as LinkedInLogo} from "../../assets/linkedin-logo.svg"
+import React from 'react';
+import {Box, Container, Link, Typography} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+import {ReactComponent as LeftLogo} from '../../assets/bottom-left-logo.svg';
+import {ReactComponent as RightLogo} from '../../assets/bottom-right-logo.svg'
+import {ReactComponent as FacebookLogo} from '../../assets/facebook-logo.svg';
+import {ReactComponent as LinkedInLogo} from '../../assets/linkedin-logo.svg'
 
 const useStyles = makeStyles((theme) => ({
     footer: {
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#303339",
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#303339',
+    },
+    main: {
+        paddingBottom: '52px',
+        [theme.breakpoints.down(992)]: {
+            padding: '32px 16px 40px'
+        }
+    },
+    container: {
+        [theme.breakpoints.down(1280)]: {
+            padding: 0
+        }
     },
     logos: {
-        display: "flex",
-        width: "100%",
-        position: "relative",
-        minHeight: "1px",
+        display: 'flex',
+        width: '100%',
+        position: 'relative',
+        minHeight: '1px',
         zIndex: 10,
-        marginTop: "25px",
+        [theme.breakpoints.down(768)]: {
+            marginTop: 0,
+            height: '47px'
+        }
     },
     leftLogo: {
-        paddingRight: "25px",
-        borderRight: "1.5px solid white",
-        width: "180px",
-        paddingTop: "12px",
-        height: "auto",
-        paddingBottom: "12px",
+        paddingRight: '24px',
+        borderRight: '1.5px solid white',
+        width: '220px',
+        [theme.breakpoints.down(768)]: {
+            paddingTop: 0,
+            paddingBottom: 0,
+        }
     },
     rightLogo: {
-        width: "135px",
-        paddingLeft: "25px",
+        width: '98px',
+        paddingLeft: '24px',
+
+        [theme.breakpoints.down(768)]: {
+            width: '92px',
+            paddingTop: 0,
+            paddingBottom: 0,
+        }
     },
-    footerTopLeft: {
-        display: "flex",
-        flexDirection: "column",
+    logosWrap: {
+        display: 'flex',
+        flexDirection: 'column',
+        marginRight: '86px',
+        marginTop: '52px',
+        [theme.breakpoints.down(992)]: {
+            margin: 0,
+        },
     },
     text: {
-        color: "#fff",
-        zIndex: 10,
-        position: "relative",
-        lineHeight: 1.43,
-        margin: " 0 0.625rem",
-        fontSize: ".875em",
+        fontFamily: 'Open Sans',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '12px',
+        lineHeight: '16px',
+        letterSpacing: '0.15px',
+        color: '#FFFFFF',
+        [theme.breakpoints.down(768)]: {
+            marginBottom: '16px',
+            marginTop: '16px'
+        }
     },
     addressText: {
-        fontStyle: "normal",
-        fontSize: "16px",
-        color: "#768190",
-        maxWidth: '400px',
+        fontFamily: 'Open Sans',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '16px',
+        lineHeight: '24px',
+        letterSpacing: '0.15px',
+        color: '#777A81',
     },
     ulSocial: {
-        listStyleType: "none",
+        listStyleType: 'none',
         margin: 0,
         padding: 0,
-        display: "flex",
-        flexDirection: "column",
-        flexWrap: "wrap",
+        display: 'flex',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
     },
     list: () => ({
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        marginBottom: "24px",
-        "&:last-child": {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '24px',
+        '&:last-child': {
             marginBottom: 0,
         },
     }),
     link: {
-        textDecoration: "none",
-        fontStyle: "normal",
-        transition: "all .2s ease",
-        display: "flex",
-        alignItems: "center",
-        color: "#fff",
+        textDecoration: 'none',
+        fontStyle: 'normal',
+        transition: 'all .2s ease',
+        display: 'flex',
+        alignItems: 'center',
+        color: '#fff',
     },
     bottomSmLogo: {
-        marginRight: "0.75rem"
+        marginRight: '4px'
     },
     contacts: {
-        width: "100%",
+        maxWidth: '1684px',
+        width: '100%',
     },
     contactsLabel: {
-        fontSize: '24px',
+        fontFamily: 'Open Sans',
+        fontStyle: 'normal',
         fontWeight: 600,
-        fontStyle: "normal",
+        fontSize: '24px',
+        lineHeight: '32px',
+        color: '#777A81',
         marginBottom: '8px',
-
+    },
+    addressVertical: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
         [theme.breakpoints.down(768)]: {
-            marginBottom: "10px"
+            marginBottom: '16px'
         }
     },
-    contactsInner: {
-        [theme.breakpoints.down("md")]: {
-            gridTemplateColumns: '1fr',
-            justifyItems: 'start',
-            gridRowGap: '15px'
+    addressVerticalWrap: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+        [theme.breakpoints.down(768)]: {
+            flexDirection: 'column'
+        }
+    },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        paddingTop: '56px',
+
+        [theme.breakpoints.down(992)]: {
+            flexDirection: 'column',
+            paddingTop: 0,
         },
-    },
-    addressWrap: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-
-        [theme.breakpoints.down(768)]: {
-            flexDirection: "column"
-        }
-    },
-    addressCol: {
-        maxWidth: "27%",
-        width: "100%",
-
-        [theme.breakpoints.down(768)]: {
-            maxWidth: "100%"
-        }
     }
 }))
 
@@ -122,45 +160,37 @@ export function Footer() {
 
     return (
         <footer className={classes.footer}>
-            <Box
-                px={{xs: 3, m: 15}}
-                py={{xs: 5, m: 8}}
-                color="white"
-            >
-                <Container maxWidth="lg">
-                    <Grid container spacing={5}>
-                        <Grid item xs={12} sm={5}>
-                            <Box className={classes.footerTopLeft}>
-                                <Box className={classes.logos}>
-                                    <LeftLogo className={classes.leftLogo}/>
-                                    <RightLogo className={classes.rightLogo}/>
-                                </Box>
-                                <Box marginTop="15px">
-                                    <Typography className={classes.text}>
-                                        We support the Sustainable Development Goals
-                                    </Typography>
-                                </Box>
+            <Box classes={{root: classes.main}}>
+                <Container maxWidth="lg" classes={{root: classes.container}}>
+                    <Box className={classes.wrapper}>
+                        <Box className={classes.logosWrap}>
+                            <Box className={classes.logos}>
+                                <LeftLogo className={classes.leftLogo}/>
+                                <RightLogo className={classes.rightLogo}/>
                             </Box>
-                        </Grid>
-                        <Grid item xs={12} sm={7}>
-                            <address className={classes.contacts}>
-
-                                <Box display="grid"
-                                     gridColumnGap={10}
-                                     gridTemplateColumns="fit-content(230px) fit-content(100px) 1fr"
-                                     justifyItems='center'
-                                     alignItems='end'
-                                     className={classes.contactsInner}
+                            <Box marginTop="15px">
+                                <Typography classes={{root: classes.text}}>
+                                    We support the Sustainable Development Goals
+                                </Typography>
+                            </Box>
+                        </Box>
+                        <address className={classes.contacts}>
+                            <Box display="flex" flexDirection="column">
+                                <Typography classes={{root: classes.contactsLabel}}>Contacts</Typography>
+                                <Box className={classes.addressVerticalWrap}
                                 >
-                                    <Box>
-                                        <Typography className={classes.contactsLabel}>Contacts</Typography>
-
-                                        <Typography className={classes.addressText}>
-                                            Address: 04071, Kyiv, str. Yaroslavska, 58 (Astarta Organic Business Centre)
+                                    <Box className={classes.addressVertical}>
+                                        <Typography classes={{root: classes.addressText}}>
+                                            Address:
+                                            <br/>
+                                            04071, Kyiv,
+                                            <br/>
+                                            str. Yaroslavska, 58
+                                            <br/>
+                                            (Astarta Organic Business Centre)
                                         </Typography>
                                     </Box>
-
-                                    <Box>
+                                    <Box className={classes.addressVertical}>
                                         <Typography className={classes.addressText}>
                                             Phone:
                                             <Link
@@ -180,8 +210,7 @@ export function Footer() {
                                             </Link>
                                         </Typography>
                                     </Box>
-
-                                    <Box>
+                                    <Box className={classes.addressVertical}>
                                         <ul className={classes.ulSocial}>
                                             <li className={classes.list}>
                                                 <Typography className={classes.addressText}>
@@ -208,9 +237,9 @@ export function Footer() {
                                         </ul>
                                     </Box>
                                 </Box>
-                            </address>
-                        </Grid>
-                    </Grid>
+                            </Box>
+                        </address>
+                    </Box>
                 </Container>
             </Box>
         </footer>

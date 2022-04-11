@@ -7,23 +7,22 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '16px',
         fontFamily: 'Open Sans !important',
         fontWeight: 500,
-
         [theme.breakpoints.down(768)]: {
             fontSize: '14px !important'
         },
     },
     chip: {
         padding: '5px',
-        fontSize: '20px !important',
-
     },
     root: {
-        padding: '5px !important',
-        fontSize: '20px !important',
-        color: 'black !important',
-        border: '1px solid rgba(169, 169, 169, 0.4) !important',
+        height: '40px !important',
+        color: '#000000',
+        border: '1px solid rgba(169, 169, 169, 0.4)',
         borderRadius: '5px !important',
         background: '#fafafa !important',
+        [theme.breakpoints.down(768)]: {
+            height: '32px !important'
+        }
     },
     clickable: {
         backgroundColor: '#fafafa !important',
@@ -39,6 +38,14 @@ const ChipItem = ({label, onClick, icon, clicked}) => {
     return (
         <div className={classes.chip}>
             <Chip label={label}
+                  sx={{
+                      "& .MuiChip-label": {
+                          paddingLeft: '2px',
+                      },
+                      "& .MuiChip-icon": {
+                          paddingLeft: '8px',
+                      }
+                  }}
                   variant="outlined"
                   className={clicked ? classes.clickable : classes.root}
                   classes={{label: classes.label, root: classes.root}}
