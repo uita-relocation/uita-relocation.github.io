@@ -38,11 +38,12 @@ const useStyles = makeStyles(theme => ({
     },
     gross_month_income_input_wrapper: {
         outline: 'none',
-        padding: '8px 16px',
+        padding: '0 16px',
         border: '1px solid #DADDE0',
         borderRadius: '4px',
         display: 'flex',
         alignItems: 'center',
+        height: '41px',
         transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
 
         '&:hover': {
@@ -51,7 +52,7 @@ const useStyles = makeStyles(theme => ({
 
         [theme.breakpoints.down(768)]: {
             fontSize: '16px',
-            padding: '9px 8px',
+            padding: '0 8px',
         },
     },
     gross_month_income_input: {
@@ -74,6 +75,7 @@ const useStyles = makeStyles(theme => ({
         fontWeight: '600 !important',
         border: '1px solid #DADDE0',
         borderRadius: '4px',
+        height: '43px',
         transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         '& .MuiInput-input': {
             padding: '10px 16px !important',

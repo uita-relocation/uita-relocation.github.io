@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: '40px !important',
         color: '#000000',
-        border: '1px solid rgba(169, 169, 169, 0.4)',
+        border: '1px solid #d3d6d9 !important',
         borderRadius: '5px !important',
         background: '#fafafa !important',
         [theme.breakpoints.down(768)]: {
@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     clickable: {
-        backgroundColor: '#fafafa !important',
+        backgroundColor: '#fff !important',
         color: '#0197E3 !important',
-        border: '2px solid #3482E5 !important',
+        border: '2px solid #0197E3 !important',
         borderRadius: '5px !important',
     },
 }))
