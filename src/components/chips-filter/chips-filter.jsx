@@ -69,7 +69,8 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
             <Button
                 href="#country_details"
                 variant="outlined"
-                className={classes.country_details_link}>{LABELS.COUNTRY_DETAILS_LINK_TEXT}
+                className={classes.country_details_link}>
+                    {LABELS.COUNTRY_DETAILS_LINK_TEXT}
             </Button>
         </div>
     );

@@ -99,6 +99,9 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         fontSize: '14px !important'
     },
+    btn_detail: {
+        fontSize: '16px !important',
+    },
     label: {
         fontSize: '14px !important',
         marginBottom: '4px !important'
@@ -320,14 +323,13 @@ const Calculator = ({country}) => {
                     {LABELS.TAX_DESCRIPTION_PART_4}
                 </Typography>
 
-                <Divider className={classes.divider_line} />
-
                 <Accordion className={classes.divider_line}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
-                        className={classes.tax_description}
                     >
-                        {LABELS.TAX_DESCRIPTION_PART_0}
+                        <Typography className={classes.btn_detail}>
+                            {LABELS.TAX_DESCRIPTION_PART_0}
+                        </Typography>
                     </AccordionSummary>
                     <Divider className={classes.divider_line} />
                     <AccordionDetails>
@@ -355,7 +357,6 @@ const Calculator = ({country}) => {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-
             </Box>
         </Box>
     );
