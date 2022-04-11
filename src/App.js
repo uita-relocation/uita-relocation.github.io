@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes, HashRouter} from 'react-router-dom';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import Layout from './pages/layout';
 import Main from './components/main';
@@ -126,7 +126,7 @@ const App = () => {
         <ThemeProvider theme={themeOptions}>
             <CountriesContext.Provider value={state.countries}>
                 <TitlesContext.Provider value={state.titles}>
-                    <BrowserRouter>
+                    <HashRouter>
                         <Layout>
                             <Routes>
                                 <Route
@@ -140,7 +140,7 @@ const App = () => {
                                 />
                             </Routes>
                         </Layout>
-                    </BrowserRouter>
+                    </HashRouter>
                 </TitlesContext.Provider>
             </CountriesContext.Provider>
         </ThemeProvider>

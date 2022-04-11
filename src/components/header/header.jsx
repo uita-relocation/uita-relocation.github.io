@@ -247,7 +247,7 @@ const Header = () => {
                                 :
                                 <Link to={to} key={label} className={classes.drawerLink}>
                                     <MenuItem
-                                        className={to === location.pathname && classes.drawerLinkActive}
+                                        className={to === location.pathname ? classes.drawerLinkActive : ''}
                                         classes={{root: classes.rootMenuItem}}
                                         onClick={drawerToggler && drawerToggler}
                                     >
