@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
         position: 'sticky',
         top: 0,
         background: '#fff',
+        marginBottom: '10px',
     },
     grid_item_full_width: () => ({
         "&:nth-child(3n+1)": {
@@ -57,6 +58,7 @@ const useStyles = makeStyles(theme => ({
             paddingBottom: '8px',
             boxShadow: '0px 1px 0px #E2E8EA',
             gridColumn: '1/span 2',
+            width: '100%',
         },
     }),
     header_text: {
