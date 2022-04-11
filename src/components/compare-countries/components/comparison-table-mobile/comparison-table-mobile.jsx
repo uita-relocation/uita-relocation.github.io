@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     container_inner: {
-        height: '100vh',
+        height: '75vh',
         overflow: 'auto',
     },
     container_grid_full_width: {
@@ -41,13 +41,15 @@ const useStyles = makeStyles(theme => ({
         top: 0,
         background: '#fff',
         marginBottom: '10px',
+        boxShadow: '#DADDE0 0px -1px 0px inset !important',
     },
     grid_item_full_width: () => ({
-        "&:nth-child(3n+1)": {
+        "&:nth-child(2n-1)": {
             fontWeight: 600,
             wordBreak: 'break-word',
             paddingBottom: '8px',
             boxShadow: '0px 1px 0px #E2E8EA',
+            marginTop: '10px'
         },
     }),
     grid_item: () => ({
@@ -59,6 +61,7 @@ const useStyles = makeStyles(theme => ({
             boxShadow: '0px 1px 0px #E2E8EA',
             gridColumn: '1/span 2',
             width: '100%',
+            marginTop: '10px'
         },
     }),
     header_text: {

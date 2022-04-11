@@ -1,13 +1,12 @@
 import React, {useEffect, useState, useRef, memo} from "react";
 import NumberFormat from 'react-number-format'
 import Linkify from "react-linkify";
-import {styled} from '@mui/material/styles';
 import {makeStyles} from "@material-ui/core/styles";
 import {
     Accordion,
     AccordionSummary,
     AccordionDetails,
-    TextField,
+    Select,
     MenuItem,
     FormControl,
     Box,
@@ -46,6 +45,10 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
 
+        '&:hover': {
+            borderColor: '#0197E3',
+        },
+
         [theme.breakpoints.down(768)]: {
             fontSize: '16px',
             padding: '9px 8px',
@@ -62,6 +65,34 @@ const useStyles = makeStyles(theme => ({
 
         [theme.breakpoints.down(768)]: {
             fontSize: '18px',
+        },
+    },
+    select_currency: {
+        background: '#fff',
+        margin: '0 !important',
+        fontSize: '16px !important',
+        fontWeight: '600 !important',
+        border: '1px solid #DADDE0',
+        borderRadius: '4px',
+        transition: 'all 100ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        '& .MuiInput-input': {
+            padding: '10px 16px !important',
+            '&:focus': {
+                background: 'none',
+            }
+        },
+        '&:before': {
+            display: 'none'
+        },
+        '&:after': {
+            display: 'none'
+        },
+        '&:hover': {
+            borderColor: '#0197E3',
+        },
+
+        [theme.breakpoints.down(768)]: {
+            fontSize: '16px',
         },
     },
     currency_sign: {
@@ -126,28 +157,6 @@ const useStyles = makeStyles(theme => ({
 
         [theme.breakpoints.down(768)]: {
             margin: '10px 0 !important',
-        },
-    },
-}));
-
-const CurrencyInput = styled(TextField)(({theme}) => ({
-    '& legend': {
-        display: 'none'
-    },
-    '& fieldset': {
-        borderColor: '#DADDE0',
-        '&:hover': {
-            borderColor: '#0197E3',
-        }
-    },
-    '#select-currency': {
-        padding: '4px 16px',
-        fontSize: '16px',
-        fontWeight: 600,
-
-        [theme.breakpoints.down(768)]: {
-            fontSize: '16px',
-            padding: '0 6px 8px 6px',
         },
     },
 }));
@@ -269,22 +278,23 @@ const Calculator = ({country}) => {
                     <Typography
                         className={classes.label}
                         component='label'
-                        htmlFor="select-currency"
                     >
                         {LABELS.CURRENCY}
                     </Typography>
-                    <CurrencyInput
-                        id="select-currency"
+                    <Select
+                        className={classes.select_currency}
                         select
                         value={currency}
                         onChange={handleChangeCurrency}
+                        displayEmpty
+                        inputProps={{'aria-label': 'Without label'}}
                     >
                         {listOfCurrencies.map((option) => (
                             <MenuItem key={option} value={option}>
                                 {option}
                             </MenuItem>
                         ))}
-                    </CurrencyInput>
+                    </Select>
                 </FormControl>
 
                 <Typography variant='body2' className={classes.helper_text}>
