@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Table, TableContainer, TableBody, TableHead, TableRow, TableCell, Typography, Box} from "@mui/material";
 import linkifyHtml from 'linkify-html';
 import {makeStyles} from "@material-ui/core/styles";
-import {getFilteredHeaders, getUnicodeFlag} from "../../../../utils/common";
+import ReactCountryFlag from "react-country-flag";
+import {getFilteredHeaders, getCountryFlag} from "../../../../utils/common";
 import {CountriesContext, TitlesContext} from "../../../../context";
 import {ReactComponent as Picture} from '../../../../assets/picture-for-table.svg';
 
@@ -63,8 +64,7 @@ const useStyles = makeStyles(theme => ({
         },
     }),
     country_flag: {
-        margin: '0 8px 0 16px',
-        verticalAlign: 'middle',
+        marginRight: '8px',
     },
     country_name: {
         verticalAlign: 'middle',
@@ -83,7 +83,7 @@ const ComparisonTableDesktop = ({selectedCountries, maxSelectedCountries}) => {
     const filteredHeaders = getFilteredHeaders(titles);
 
     useEffect(() => {
-        const headers = ['', ...selectedCountries.map(country => [getUnicodeFlag(countries.get(country)), countries.get(country).country_name])];
+        const headers = ['', ...selectedCountries.map(country => [<ReactCountryFlag svg className={classes.country_flag} countryCode={getCountryFlag(countries.get(country))} />, countries.get(country).country_name])];
         setTableHeaders(headers);
 
         let rows = [];
@@ -110,7 +110,7 @@ const ComparisonTableDesktop = ({selectedCountries, maxSelectedCountries}) => {
                                 {tableHeaders.map((cell) => (
                                     <TableCell key={cell}>
                                         {<>
-                                            <span className={classes.country_flag}>{cell[0]}</span>
+                                            {cell[0]}
                                             <span className={classes.country_name}>{cell[1]}</span>
                                         </>}
                                     </TableCell>

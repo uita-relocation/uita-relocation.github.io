@@ -1,6 +1,4 @@
 import {hiddenFields} from "../constants/hiddenFields";
-import getUnicodeFlagIcon from "country-flag-icons/unicode";
-
 
 export const getCountriesMap = (countries) => {
     return countries ? new Map(countries.slice(1).map(obj => {
@@ -20,7 +18,7 @@ export const getFilteredFields = (country) => {
 export const getFilteredHeaders = (titles) => {
     const copyTitles = new Map(titles);
     hiddenFields.forEach(el => {
-        if(copyTitles.has(el)) {
+        if (copyTitles.has(el)) {
             copyTitles.delete(el)
         }
     })
@@ -28,4 +26,4 @@ export const getFilteredHeaders = (titles) => {
     return copyTitles;
 }
 
-export const getUnicodeFlag = (country) => country.country_abbreviation ? getUnicodeFlagIcon(country.country_abbreviation) : '';
+export const getCountryFlag = (country) => country?.country_abbreviation ? country.country_abbreviation : '';

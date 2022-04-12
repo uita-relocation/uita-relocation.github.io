@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Typography, Box} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
 import linkifyHtml from 'linkify-html';
-import {getFilteredHeaders, getUnicodeFlag} from "../../../../utils/common";
+import ReactCountryFlag from "react-country-flag";
+import {getFilteredHeaders, getCountryFlag} from "../../../../utils/common";
 import {CountriesContext, TitlesContext} from "../../../../context";
 import {ReactComponent as Picture} from '../../../../assets/picture-for-table.svg';
 
@@ -73,8 +74,7 @@ const useStyles = makeStyles(theme => ({
         wordBreak: 'break-word',
     },
     country_flag: {
-        margin: '0 8px 0 16px',
-        verticalAlign: 'middle',
+        marginRight: '6px',
     },
     country_name: {
         verticalAlign: 'middle',
@@ -93,7 +93,7 @@ const ComparisonTableMobile = ({selectedCountries, maxSelectedCountries}) => {
     const filteredHeaders = getFilteredHeaders(titles);
 
     useEffect(() => {
-        const headers = [...selectedCountries.map(country => [getUnicodeFlag(countries.get(country)), countries.get(country).country_name])];
+        const headers = [...selectedCountries.map(country => [<ReactCountryFlag svg className={classes.country_flag} countryCode={getCountryFlag(countries.get(country))} />, countries.get(country).country_name])];
         setTableHeaders(headers);
 
         let rows = [];
@@ -117,7 +117,7 @@ const ComparisonTableMobile = ({selectedCountries, maxSelectedCountries}) => {
                     <div className={classes.header}>
                         {tableHeaders.map((cell) => (
                             <Typography className={classes.header_text} key={cell[1]}>
-                                <span className={classes.country_flag}>{cell[0]}</span>
+                                {cell[0]}
                                 <span className={classes.country_name}>{cell[1]}</span>
                             </Typography>
                         ))}

@@ -1,7 +1,8 @@
 import React, {memo, useEffect, useState} from "react";
 import {Box, Checkbox, FormControlLabel} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
-import {getUnicodeFlag} from "../../../../utils/common";
+import ReactCountryFlag from "react-country-flag";
+import {getCountryFlag} from "../../../../utils/common";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -28,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     }),
     country_flag: {
         marginRight: '8px !important',
-        fontSize: '25px',
     },
     country_name: {
         fontSize: '18px'
@@ -67,14 +67,13 @@ const ComparisonList = ({countries, setSelectedCountries, maxSelectedCountries})
                 if (!country_id) return null
 
                 const checkedCountry = checkedState.includes(country_id);
-                const currentCountryFlag = getUnicodeFlag(country);
 
                 return (
                     <FormControlLabel
                         key={key}
                         label={
                             <>
-                                <span className={classes.country_flag}>{currentCountryFlag}</span>
+                                <ReactCountryFlag svg className={classes.country_flag} countryCode={getCountryFlag(country)} />
                                 <span className={classes.country_name}>{country_name}</span>
                             </>
                         }

@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {Typography, Button} from '@mui/material';
-import { Link, animateScroll as scroll } from "react-scroll";
+import {Link} from "react-scroll";
+import ReactCountryFlag from "react-country-flag";
 import ChipItem from '../chip-item';
 import {LABELS} from "../../constants/textSheet";
-import {getUnicodeFlag} from "../../utils/common";
+import {getCountryFlag} from "../../utils/common";
 import {CountriesContext} from "../../context";
 
 const useStyles = makeStyles(theme => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
     country_flag: {
         marginRight: '8px !important',
-        fontSize: '25px'
+        width: '22px !important'
     },
     country_details_link: {
         marginTop: '15px !important',
@@ -64,11 +65,10 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
                 {countries && Array.from(countries.entries()).map(([key, country]) => {
                     const {country_id, country_name} = country;
 
-                    const currentCountryFlag = getUnicodeFlag(country);
-
                     return (
                         <ChipItem key={key}
-                                  icon={<span className={classes.country_flag}>{currentCountryFlag}</span>}
+                                  icon={<ReactCountryFlag svg className={classes.country_flag}
+                                                          countryCode={getCountryFlag(country)}/>}
                                   label={country_name}
                                   onClick={() => handleClick(country)}
                                   clicked={country_id === selectedCountryId}

@@ -3,7 +3,8 @@ import linkifyHtml from 'linkify-html';
 import {Accordion, AccordionSummary, AccordionDetails, Typography} from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {makeStyles} from '@material-ui/core/styles';
-import {getFilteredFields, getUnicodeFlag} from "../../utils/common";
+import ReactCountryFlag from "react-country-flag";
+import {getFilteredFields, getCountryFlag} from "../../utils/common";
 import {TitlesContext} from "../../context";
 
 const useStyles = makeStyles(theme => ({
@@ -26,14 +27,9 @@ const useStyles = makeStyles(theme => ({
     },
     country_flag: {
         marginRight: '16px',
-        fontSize: '72px',
 
         [theme.breakpoints.down(768)]: {
             marginRight: "8px",
-            fontSize: '42px',
-        },
-        [theme.breakpoints.down('xs')]: {
-            fontSize: '32px',
         },
     },
     accordion_container: {
@@ -67,12 +63,11 @@ const CountryAccordion = ({country}) => {
 
     const filteredFields = getFilteredFields(country);
     if (!country) return <></>;
-    const currentCountryFlag = getUnicodeFlag(country);
 
     return (
         <div className={classes.accordion_container} id="country_details">
             <Typography variant="h2" classes={{root: classes.country_name}}>
-                <span className={classes.country_flag}>{currentCountryFlag}</span>
+                <ReactCountryFlag svg className={classes.country_flag} countryCode={getCountryFlag(country)}/>
                 {country.country_name}
             </Typography>
 
@@ -90,7 +85,7 @@ const CountryAccordion = ({country}) => {
                     <AccordionDetails>
                         <Typography
                             className={classes.accordion_answer}
-                            dangerouslySetInnerHTML={{ __html: linkifyHtml(value, { target: '_blank' }) }}
+                            dangerouslySetInnerHTML={{__html: linkifyHtml(value, {target: '_blank'})}}
                         >
                         </Typography>
                     </AccordionDetails>
