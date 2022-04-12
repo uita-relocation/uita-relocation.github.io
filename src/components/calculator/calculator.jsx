@@ -123,7 +123,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     net_income_value: {
-        overflow: 'scroll',
+        overflow: 'auto',
         fontWeight: '600 !important',
         fontSize: '18px !important',
 
@@ -285,7 +285,6 @@ const Calculator = ({country}) => {
                     </Typography>
                     <Select
                         className={classes.select_currency}
-                        select
                         value={currency}
                         onChange={handleChangeCurrency}
                         displayEmpty
