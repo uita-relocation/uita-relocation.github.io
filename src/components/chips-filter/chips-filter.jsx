@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import {Typography, Button} from '@mui/material';
+import {Typography} from '@mui/material';
 import {Link} from "react-scroll";
 import ReactCountryFlag from "react-country-flag";
 import ChipItem from '../chip-item';
@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: '15px !important',
         maxWidth: 'max-content',
         textTransform: 'none !important',
+        fontFamily: 'Open Sans !important',
+        borderBottom: '1px #0197E3 dashed',
+        cursor: 'pointer'
     },
     subtitle: {
         fontFamily: 'Open Sans',
@@ -76,19 +79,16 @@ function ChipsFilter({selectedCountryId, setSelectedCountryId}) {
                     )
                 })}
             </div>
-            <Button
-                variant="outlined"
-                className={classes.country_details_link}>
-                <Link
-                    to="country_details"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                >
-                    {LABELS.COUNTRY_DETAILS_LINK_TEXT}
-                </Link>
-            </Button>
+            <Link
+                to="country_details"
+                className={classes.country_details_link}
+                spy={true}
+                smooth={true}
+                offset={-70}
+                duration={500}
+            >
+                {LABELS.COUNTRY_DETAILS_LINK_TEXT}
+            </Link>
         </div>
     );
 }
