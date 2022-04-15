@@ -5,7 +5,7 @@ export const LABELS = {
     WITHOUT_TAXES: 'Без вирахування податків',
     NET_YEAR_INCOME: 'Чистий дохід на рік:',
     NET_MONTH_INCOME: 'Чистий дохід на місяць:',
-    TAX_DESCRIPTION_PART_0: 'Деталі',
+    TAX_DESCRIPTION_PART_0: 'Переглянути деталі розрахунку',
     TAX_DESCRIPTION_PART_1: 'ФОП:',
     TAX_DESCRIPTION_PART_2: 'Податок на прибуток: ',
     TAX_DESCRIPTION_PART_3: '(ставка може корегуватись, в залежності від виду діяльності)',

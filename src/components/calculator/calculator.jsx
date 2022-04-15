@@ -142,6 +142,7 @@ const useStyles = makeStyles(theme => ({
         fontSize: '14px !important'
     },
     btn_detail: {
+        color: '#0197E3 !important',
         fontSize: '16px !important',
     },
     label: {
@@ -155,12 +156,26 @@ const useStyles = makeStyles(theme => ({
     },
     divider_line: {
         width: '100%',
-        margin: '12px 0 !important',
+        margin: '9px 0 !important',
 
         [theme.breakpoints.down(768)]: {
             margin: '10px 0 !important',
         },
     },
+    tax_accordion: {
+        boxShadow: 'none !important',
+        '&::before':{
+            display: 'none',
+        },
+    },
+    tax_summary: {
+        maxWidth: 'max-content',
+        '&:hover': {
+            background: 'rgba(1, 151, 227, 0.08)',
+            borderRadius: '4px',
+        },
+    },
+
 }));
 
 const Calculator = ({country}) => {
@@ -342,19 +357,16 @@ const Calculator = ({country}) => {
 
                 <Divider className={classes.divider_line}/>
 
-                <Typography variant='body2' className={classes.helper_text}>
-                    {LABELS.TAX_DESCRIPTION_PART_4}
-                </Typography>
 
-                <Accordion className={classes.divider_line}>
+                <Accordion className={classes.tax_accordion}>
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
+                        className={classes.tax_summary}
+                        expandIcon={<ExpandMoreIcon />}
                     >
                         <Typography className={classes.btn_detail}>
                             {LABELS.TAX_DESCRIPTION_PART_0}
                         </Typography>
                     </AccordionSummary>
-                    <Divider className={classes.divider_line}/>
                     <AccordionDetails>
                         <Typography className={classes.tax_description}>
                             {LABELS.TAX_DESCRIPTION_PART_1}
@@ -380,6 +392,10 @@ const Calculator = ({country}) => {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
+                <Divider className={classes.divider_line}/>
+                <Typography variant='body2' className={classes.helper_text}>
+                    {LABELS.TAX_DESCRIPTION_PART_4}
+                </Typography>
             </Box>
         </Box>
     );
