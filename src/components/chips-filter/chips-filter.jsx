@@ -40,13 +40,12 @@ const useStyles = makeStyles(theme => ({
         cursor: 'pointer'
     },
     subtitle: {
-        fontFamily: 'Open Sans',
+        fontFamily: 'Open Sans !important',
         fontStyle: 'normal',
         fontWeight: 400,
-        fontSize: '24px',
-        lineHeight: '32px',
-        color: '#000000',
-        opacity: '0.2',
+        fontSize: '20px !important',
+        lineHeight: '28px !important',
+        color: '#727779',
     }
 }));
 

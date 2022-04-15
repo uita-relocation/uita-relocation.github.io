@@ -19,17 +19,25 @@ import {CURRENCIES} from "../../constants/currencies";
 
 const useStyles = makeStyles(theme => ({
     calculator: {
-        background: '#fff',
-        border: '1px solid #DADDE0',
-        borderRadius: '6px',
         width: '49%',
 
         [theme.breakpoints.down(992)]: {
+            marginTop: '15px',
             width: '100%',
-            marginTop: '30px',
         },
     },
+    calculator_title: {
+        fontFamily: 'Open Sans !important',
+        fontStyle: 'normal',
+        fontWeight: 400,
+        fontSize: '20px !important',
+        lineHeight: '28px !important',
+        color: '#727779',
+    },
     calculator_inner: {
+        background: '#fff',
+        border: '1px solid #DADDE0',
+        borderRadius: '6px',
         padding: '40px',
 
         [theme.breakpoints.down(992)]: {
@@ -170,7 +178,7 @@ const useStyles = makeStyles(theme => ({
     },
     tax_summary: {
         maxWidth: 'max-content',
-        '&:hover': {
+        '&:hover, &:focus': {
             background: 'rgba(1, 151, 227, 0.08)',
             borderRadius: '4px',
         },
@@ -250,6 +258,9 @@ const Calculator = ({country}) => {
 
     return (
         <Box className={classes.calculator}>
+            <Typography variant="h3" className={classes.calculator_title}>
+                {LABELS.CALCULATOR_TITLE}
+            </Typography>
             <Box className={classes.calculator_inner}
                  sx={{display: 'flex', alignContent: 'stretch', flexWrap: 'wrap', alignItems: 'flex-end'}}
             >

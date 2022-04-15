@@ -13,4 +13,5 @@ export const LABELS = {
     TITLE: 'Рекомендації щодо тимчасового переміщення IT фахівців',
     SUBTITLE: 'Оберіть країну:',
     COUNTRY_DETAILS_LINK_TEXT: 'Детальна інформація по країні',
+    CALCULATOR_TITLE: 'Розрахуйте свій приблизний прибуток:',
 }
