@@ -187,12 +187,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Calculator = ({country}) => {
-    const listOfCurrencies = Array.from(CURRENCIES.keys());
+    const currenciesList = Array.from(CURRENCIES.keys());
     const initialIncome = 0;
 
     const classes = useStyles();
     const [grossMonthIncome, setGrossMonthIncome] = useState(0);
-    const [currency, setCurrency] = useState(listOfCurrencies[0]);
+    const [currency, setCurrency] = useState(currenciesList[0]);
     const [netYearIncome, setNetYearIncome] = useState(0);
     const [netMonthIncome, setNetMonthIncome] = useState(0);
     const [taxPercentage, setTaxPercentage] = useState(0);
@@ -316,7 +316,7 @@ const Calculator = ({country}) => {
                         displayEmpty
                         inputProps={{'aria-label': 'Without label'}}
                     >
-                        {listOfCurrencies.map((option) => (
+                        {currenciesList.map((option) => (
                             <MenuItem key={option} value={option}>
                                 {option}
                             </MenuItem>

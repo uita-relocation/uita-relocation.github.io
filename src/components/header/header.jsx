@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {ReactComponent as MainLogo} from '../../assets/top-main-logo.svg'
 import {ReactComponent as CloseIcon} from '../../assets/close-icon.svg'
 import {ReactComponent as BlogIcon} from '../../assets/blog-icon.svg'
+import {useMobileView} from "../../utils/hooks";
 
 const useStyles = makeStyles((theme) => ({
     headerWrap: {
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     },
     logoContainer: {
         width: '35%',
+        [theme.breakpoints.down(900)]: {
+            width: '23%',
+        }
     },
     logo: {
         cursor: 'pointer',
@@ -147,27 +151,8 @@ const Header = () => {
     const [active, setActive] = useState(headersData.find(path => path.to === pathname).label);
     const [value, setValue] = useState(headersData.indexOf(headersData.find(path => path.to === pathname)));
     const location = useLocation();
-
-    const [{mobileView, drawerOpen}, setState] = useState({
-        mobileView: false,
-        drawerOpen: false,
-    });
-
-    useEffect(() => {
-        const setResponsiveness = () => {
-            return window.innerWidth < 900
-                ? setState((prevState) => ({...prevState, mobileView: true}))
-                : setState((prevState) => ({...prevState, mobileView: false}));
-        };
-
-        setResponsiveness();
-
-        window.addEventListener('resize', () => setResponsiveness());
-
-        return () => {
-            window.removeEventListener('resize', () => setResponsiveness());
-        };
-    }, []);
+    const mobileView = useMobileView();
+    const [drawer, openDrawer] = useState(false);
 
     const resetActive = () => {
         navigate('/')
@@ -270,11 +255,11 @@ const Header = () => {
 
     const displayMobile = () => {
         const drawerToggler = () =>
-            setState((prevState) => ({...prevState, drawerOpen: !prevState.drawerOpen}));
+            openDrawer((prevState) => !prevState);
 
         return (
             <Toolbar>
-                {drawerOpen
+                {drawer
                     ? <CloseIcon
                         className={classes.icon}
                         onClick={drawerToggler}
@@ -295,7 +280,7 @@ const Header = () => {
 
                 <Drawer
                     anchor='left'
-                    open={drawerOpen}
+                    open={drawer}
                     onClose={drawerToggler}
                     classes={{paper: classes.paper}}
                 >

@@ -11,14 +11,14 @@ import {CountriesContext} from "../../context";
 const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: '104px',
-        minHeight: 'calc(100vh - 210.66px)',
+        minHeight: 'calc(100vh - 64px - 244px)',
 
-        [theme.breakpoints.down(1280)]: {
-            minHeight: 'calc(100vh - 365px)',
-            paddingTop: '70px',
+        [theme.breakpoints.down(992)]: {
+            minHeight: 'calc(100vh - 64px - 286px)',
+            padding: '80px 0',
         },
-        [theme.breakpoints.down('xs')]: {
-            minHeight: 'calc(100vh - 537.66px)',
+        [theme.breakpoints.down(767)]: {
+            minHeight: 'auto',
         },
     },
     content: {
