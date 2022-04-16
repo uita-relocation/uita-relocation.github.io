@@ -15,8 +15,25 @@ const useStyles = makeStyles(theme => ({
         paddingTop: '10px',
         background: '#fafafa',
 
-        [theme.breakpoints.down(500)]: {
+        [theme.breakpoints.down(600)]: {
             gridGap: '16px',
+            top: '56px',
+        },
+    },
+    select_country: {
+        fontSize: '16px !important',
+        height: '56px',
+        '& .MuiOutlinedInput-input': {
+            padding: '14px 8px !important',
+            '&:focus': {
+                background: 'none',
+            }
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#D9D9D9',
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#0197E3 !important',
         }
     },
     country_name: {
@@ -30,7 +47,12 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
     const [selectorValues, setSelectorValues] = useState(new Map());
 
     useEffect(() => {
-        if (countries) {
+        if (countries && mobileView) {
+            setSelectorValues(new Map(
+                selectorValues.set('selector_1', countries.get('poland')),
+                selectorValues.set('selector_2', countries.get('germany')),
+            ));
+        } else if(countries && !mobileView) {
             setSelectorValues(new Map(
                 selectorValues.set('selector_1', countries.get('poland')),
                 selectorValues.set('selector_2', countries.get('germany')),
@@ -86,7 +108,7 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
 
     return (
         <div className={classes.header}>
-            {Boolean(selectorValues.size)
+            {Boolean(!selectorValues.size)
                 ? (
                     <>
                         <Select
@@ -94,6 +116,7 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
                             value={getCountryId(selectorValues.get('selector_1'))}
                             onChange={handleChangeSelector1}
                             inputProps={{'aria-label': 'Without label'}}
+                            className={classes.select_country}
                         >
                             {countries && Array.from(countries.entries())
                                 .filter(([countryId]) => {
@@ -119,6 +142,7 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
                             value={getCountryId(selectorValues.get('selector_2'))}
                             onChange={handleChangeSelector2}
                             inputProps={{'aria-label': 'Without label'}}
+                            className={classes.select_country}
                         >
                             {countries && Array.from(countries.entries())
                                 .filter(([countryId]) => {
@@ -146,6 +170,7 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
                                 value={getCountryId(selectorValues.get('selector_3'))}
                                 onChange={handleChangeSelector3}
                                 inputProps={{'aria-label': 'Without label'}}
+                                className={classes.select_country}
                             >
                                 {countries && Array.from(countries.entries())
                                     .filter(([countryId]) => {

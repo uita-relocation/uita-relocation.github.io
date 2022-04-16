@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const ComparisonTable = ({countries, selectedCountries}) => {
+const ComparisonTable = ({countries, selectedCountries, mobileView}) => {
     const classes = useStyles();
     const [tableRows, setTableRows] = useState([]);
     const titles = useContext(TitlesContext);
@@ -67,10 +67,10 @@ const ComparisonTable = ({countries, selectedCountries}) => {
             });
             setTableRows(rows);
         }
-    }, [countries, selectedCountries]);
+    }, [countries, selectedCountries, mobileView]);
 
     return (
-        <div className={classes.container}>
+        <>
             {Boolean(selectedCountries.length)
                 ? (
                     <div
@@ -92,7 +92,7 @@ const ComparisonTable = ({countries, selectedCountries}) => {
                 )
                 : <Picture className={classes.picture}/>
             }
-        </div>
+        </>
     );
 }
 
