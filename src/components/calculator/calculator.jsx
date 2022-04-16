@@ -178,7 +178,7 @@ const useStyles = makeStyles(theme => ({
     },
     tax_summary: {
         maxWidth: 'max-content',
-        '&:hover, &:focus': {
+        '&:hover': {
             background: 'rgba(1, 151, 227, 0.08)',
             borderRadius: '4px',
         },
