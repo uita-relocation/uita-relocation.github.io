@@ -178,7 +178,7 @@ const useStyles = makeStyles(theme => ({
     },
     tax_summary: {
         maxWidth: 'max-content',
-        '&:hover, &:focus': {
+        '&:hover': {
             background: 'rgba(1, 151, 227, 0.08)',
             borderRadius: '4px',
         },
@@ -405,7 +405,9 @@ const Calculator = ({country}) => {
                 </Accordion>
                 <Divider className={classes.divider_line}/>
                 <Typography variant='body2' className={classes.helper_text}>
-                    {LABELS.TAX_DESCRIPTION_PART_4}
+                    {LABELS.TAX_DESCRIPTION_PART_4_1}
+                    <br/>
+                    {LABELS.TAX_DESCRIPTION_PART_4_2}
                 </Typography>
             </Box>
         </Box>
