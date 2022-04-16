@@ -108,7 +108,7 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
 
     return (
         <div className={classes.header}>
-            {Boolean(!selectorValues.size)
+            {Boolean(selectorValues.size)
                 ? (
                     <>
                         <Select
