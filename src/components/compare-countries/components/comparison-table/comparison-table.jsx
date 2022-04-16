@@ -10,28 +10,26 @@ const useStyles = makeStyles(theme => ({
     container_grid_full_width: {
         display: 'grid',
         gridGap: '16px',
-        gridTemplateColumns: 'repeat(3, minmax(210px, 1fr))',
-
-        [theme.breakpoints.down(500)]: {
-            gridTemplateColumns: 'repeat(3, minmax(150px, 1fr))',
-        },
+        gridTemplateColumns: 'repeat(3, minmax(150px, 1fr))',
     },
     container_grid: {
         display: 'grid',
         gridGap: '16px',
-        gridTemplateColumns: 'repeat(2, minmax(210px, 1fr))',
-
-        [theme.breakpoints.down(500)]: {
-            gridTemplateColumns: 'repeat(2, minmax(150px, 1fr))',
-        },
+        gridTemplateColumns: 'repeat(2, minmax(150px, 1fr))',
+    },
+    text: {
+        textAlign: 'left',
+        fontSize: '14px !important',
+        wordBreak: 'break-word',
     },
     grid_item_full_width: () => ({
         "&:nth-child(4n+1)": {
             fontWeight: 600,
+            fontSize: '24px !important',
             wordBreak: 'break-word',
-            paddingBottom: '8px',
+            padding: '12px 0',
             boxShadow: '0px 1px 0px #E2E8EA',
-            marginTop: '10px',
+            margin: '16px 0',
             gridColumn: '1/span 3',
         },
     }),
@@ -39,19 +37,15 @@ const useStyles = makeStyles(theme => ({
         justifySelf: 'center',
         "&:nth-child(3n+1)": {
             fontWeight: 600,
+            fontSize: '16px !important',
             wordBreak: 'break-word',
-            paddingBottom: '8px',
+            padding: '8px 0',
             boxShadow: '0px 1px 0px #E2E8EA',
             width: '100%',
-            marginTop: '10px',
+            margin: '16px 0 8px',
             gridColumn: '1/span 2',
         },
     }),
-    text: {
-        textAlign: 'left',
-        fontSize: '14px !important',
-        wordBreak: 'break-word',
-    },
     picture: {
         maxWidth: '100%'
     }

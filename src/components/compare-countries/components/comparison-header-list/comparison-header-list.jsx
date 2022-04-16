@@ -1,7 +1,8 @@
 import React, {memo, useEffect, useState} from "react";
 import {MenuItem, Select} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
-import {getCountryId} from "../../../../utils/common";
+import ReactCountryFlag from "react-country-flag";
+import {getCountryFlag, getCountryId} from "../../../../utils/common";
 
 const useStyles = makeStyles(theme => ({
     header: {
@@ -17,6 +18,10 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down(500)]: {
             gridGap: '16px',
         }
+    },
+    country_name: {
+        verticalAlign: 'middle',
+        marginLeft: '8px'
     },
 }));
 
@@ -100,12 +105,13 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
 
                                     return (countryId !== c2.country_id) && (countryId !== c3.country_id);
                                 })
-                                .map(([countryId, country]) => {
-                                    return (
-                                        <MenuItem value={countryId}
-                                                  key={countryId}>{country.country_name}</MenuItem>
-                                    )
-                                })
+                                .map(([countryId, country]) => (
+                                    <MenuItem value={countryId} key={countryId}>
+                                        <ReactCountryFlag svg className={classes.country_flag}
+                                                          countryCode={getCountryFlag(country)}/>
+                                        <span className={classes.country_name}>{country.country_name}</span>
+                                    </MenuItem>
+                                ))
                             }
                         </Select>
                         <Select
@@ -124,12 +130,13 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
 
                                     return (countryId !== c1.country_id) && (countryId !== c3.country_id);
                                 })
-                                .map(([countryId, country]) => {
-                                    return (
-                                        <MenuItem value={countryId}
-                                                  key={countryId}>{country.country_name}</MenuItem>
-                                    )
-                                })
+                                .map(([countryId, country]) => (
+                                    <MenuItem value={countryId} key={countryId}>
+                                        <ReactCountryFlag svg className={classes.country_flag}
+                                                          countryCode={getCountryFlag(country)}/>
+                                        <span className={classes.country_name}>{country.country_name}</span>
+                                    </MenuItem>
+                                ))
                             }
                         </Select>
 
@@ -146,12 +153,13 @@ const ComparisonHeaderList = ({countries, setSelectedCountries, mobileView}) => 
                                         const c2 = selectorValues.get('selector_2');
                                         return (countryId !== c1.country_id) && (countryId !== c2.country_id);
                                     })
-                                    .map(([countryId, country]) => {
-                                        return (
-                                            <MenuItem value={countryId}
-                                                      key={countryId}>{country.country_name}</MenuItem>
-                                        )
-                                    })
+                                    .map(([countryId, country]) => (
+                                        <MenuItem value={countryId} key={countryId}>
+                                            <ReactCountryFlag svg className={classes.country_flag}
+                                                              countryCode={getCountryFlag(country)}/>
+                                            <span className={classes.country_name}>{country.country_name}</span>
+                                        </MenuItem>
+                                    ))
                                 }
                             </Select>
                         )}

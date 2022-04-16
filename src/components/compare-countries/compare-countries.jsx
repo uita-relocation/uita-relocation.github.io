@@ -10,7 +10,6 @@ const useStyles = makeStyles(theme => ({
     container: {
         padding: '104px 0',
         minHeight: 'calc(100vh - 64px - 244px)',
-        maxWidth: 'none !important',
 
         [theme.breakpoints.down(992)]: {
             minHeight: 'calc(100vh - 64px - 286px)',
@@ -42,7 +41,7 @@ const CompareCountries = () => {
     }, [mobileView]);
 
     return (
-        <Container className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
             <Typography variant='h1' sx={{textAlign: 'center', mb: 1}}>
                 Порівняльна таблиця за країнами
             </Typography>
