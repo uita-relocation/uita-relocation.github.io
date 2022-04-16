@@ -11,6 +11,8 @@ export const getTitlesMap = (countries) => {
 
 export const getCountry = (countries, selectedCountryId) => countries?.get(selectedCountryId) || null;
 
+export const getCountryId = (country) => country?.country_id ? country.country_id : '';
+
 export const getFilteredFields = (country) => {
     return country && Object.entries(country).filter(([key]) => !hiddenFields.includes(key))
 }
